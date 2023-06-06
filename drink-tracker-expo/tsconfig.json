@@ -1,4 +1,9 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "jsx": "react",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  },
   "extends": "expo/tsconfig.base"
 }

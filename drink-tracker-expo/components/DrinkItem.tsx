@@ -1,12 +1,53 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import styled from 'styled-components/native';
 
-const DrinkItem = () => {
+const Card = styled.TouchableOpacity({
+    paddingVertical: 6,
+    marginVertical: 8,
+    display: 'flex',
+    flexDirection: 'row',
+    maxHWidth: '100%',
+});
+
+const CardRight = styled.View({
+    flexGrow: 1,
+    flexShrink: 1,
+});
+
+const Thumbnail = styled.Image({
+    height: 68,
+    width: 68,
+    borderRadius: 4,
+});
+
+const CardTitle = styled.Text({
+    fontWeight: 'bold',
+    fontSize: 16,
+});
+
+const TopRow = styled.Text({
+    display: 'flex',
+    alignItems: 'flex-start',
+    alignContent: 'center',
+    marginBottom: 4,
+});
+
+const HorizontalSpace = styled.View({
+    width: 16,
+});
+
+export const DrinkItem = (props: Drink) => {
     return (
-        <View>
-            drink item
-        </View>
-    )
-}
-
-export {DrinkItem};
+        <Card onPress={() => { }}>
+            <Thumbnail source={{ uri: '' }} />
+            <HorizontalSpace />
+            <CardRight>
+                <TopRow>
+                    <CardTitle>{props.drinkName}&nbsp;</CardTitle>
+                </TopRow>
+                <Text>{props.drinkType}</Text>
+            </CardRight>
+        </Card>
+    );
+};
