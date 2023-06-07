@@ -2,16 +2,22 @@ import React from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { Drink } from '../commonTypes';
 
-const DrinkInput = () => {
+type DrinkInputProps = {
+    drinkNumber: number;
+}
+
+const DrinkInput = (props: DrinkInputProps) => {
     const [drinkName, setDrinkName] = React.useState('');
     const [drinkWeight, setDrinkWeight] = React.useState(1);
     const [timeDrank, setTimeDrank] = React.useState('');
 
     const onSubmit = () => {
+        if (drinkWeight >= 0) {
+            console.log('drink weight must be at least 0');
+        }
         const newDrink: Drink = {
             timeDrank: new Date(timeDrank),
             drinkName: drinkName,
-            drinkType: 'liquor',
             weight: drinkWeight,
         }
         console.log(newDrink);

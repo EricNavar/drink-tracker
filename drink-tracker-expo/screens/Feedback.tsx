@@ -19,6 +19,9 @@ const Feedback = () => {
     };
 
     const onPressSubmit = () => {
+        if (feedback.trim() === '') {
+            console.log('must type something to submit 😤');
+        }
         console.log('submitting feedback');
     };
 

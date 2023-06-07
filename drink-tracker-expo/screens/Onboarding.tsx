@@ -4,17 +4,16 @@ import styled from 'styled-components/native';
 import { NavigationProps } from '../commonTypes';
 
 const Container = styled.View({
-  flex: 1,
-  backgroundColor: '#fff',
-  alignItems: 'center',
-  justifyContent: 'center',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
 });
 
 export const Onboarding = (props: NavigationProps) => {
-
-  return (
-    <Container>
-        <Text>Drink Tracker</Text>
-    </Container>
-  );
+    return (
+        <Container>
+            <Text>Drink Tracker</Text>
+        </Container>
+    );
 }

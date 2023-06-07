@@ -10,7 +10,7 @@ export type DrinkingSession = {
 export type Drink = {
     timeDrank: Date;
     drinkName: string;
-    drinkType: string;
+    drinkType?: string;
     weight: number;
 };
 

@@ -1,16 +1,10 @@
 import React from 'react';
-import { Button, Text, TextInput } from 'react-native';
-import styled from 'styled-components/native';
+import { Alert, Button, Modal, Text, TextInput } from 'react-native';
 import { NavigationProps } from '../commonTypes';
 
-const Container = styled.View({
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-});
-
 export const NewSessionScreen = (props: NavigationProps) => {
+    const [modalVisible, setModalVisible] = React.useState(false);
+    
     const [name, setName] = React.useState('');
     const [startTime, setStartTime] = React.useState('');
     const [timeInterval, setTimeInterval] = React.useState(30);
@@ -25,7 +19,15 @@ export const NewSessionScreen = (props: NavigationProps) => {
     };
 
     return (
-        <Container>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+            }}
+        >
             <Text>New Session</Text>
             <TextInput 
                 value={name}
@@ -48,6 +50,6 @@ export const NewSessionScreen = (props: NavigationProps) => {
                 placeholder="10"
             />
             <Button title='Start' />
-        </Container>
+        </Modal>
     );
 }

@@ -4,7 +4,8 @@ import styled from 'styled-components/native';
 import { NavigationProps } from '../commonTypes';
 
 const HorizonalLine = styled.View`
-    
+    height: 1px;
+    background-color: black;
 `;
 
 const Sidebar = (props: NavigationProps) => {

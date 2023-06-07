@@ -14,6 +14,12 @@ const DrinkingLimits = () => {
     };
 
     const onPressSave = () => {
+        if (Number(timeInterval) < 1) {
+            console.log('Time interval must be at least 1');
+        }
+        if (Number(totalDrinksLimit) < 0) {
+            console.log('Time interval must be at least 0');
+        }
         console.log('save button');
     }
 
