@@ -1,14 +1,5 @@
 import React from 'react';
-import { SessionScreen } from './screens/SessionScreen';
-import { Feedback } from './screens/Feedback';
-import { PrivacyPolicy } from './screens/PrivacyPolicy';
-import { Summary } from './screens/Summary';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { DrinkingLimits } from './screens/DrinkingLimits';
-import { HomeScreen } from './screens/HomeScreen';
-import { Onboarding } from './screens/Onboarding';
-import { RecentSessions } from './screens/RecentSessions';
+import { SessionScreen, Feedback, HomeScreen, Onboarding, DrinkingLimits, PrivacyPolicy, RecentSessions, Summary } from './screens';
 
 const Stack = createNativeStackNavigator();
 

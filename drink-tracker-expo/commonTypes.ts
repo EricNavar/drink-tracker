@@ -3,6 +3,8 @@ export type DrinkingSession = {
     timeEnd: Date;
     drinks: Drink[];
     title: string;
+    timeInterval: number;
+    drinkLimit: number;
 }
 
 export type Drink = {

@@ -40,7 +40,7 @@ const DrinkInput = () => {
                 value={timeDrank}
                 onChangeText={setTimeDrank}
             />
-            <Button title='submit' onPress={onSubmit}/>
+            <Button title='Submit' onPress={onSubmit}/>
         </View>
     );
 };

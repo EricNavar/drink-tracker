@@ -7,13 +7,13 @@ This is an app that helps you keep track of how many drinks you've had
 - Input drinks throughout your drinking session
 - The app will tell you if you're ahead of schedule on drinking
 - This will be downloadable using the Expo Go app on iPhone or Android 
+- Should be easy to use for someone who is very drunk
 
 # Future Features
 
-- Should be easy to use for someone who is very drunk
 - Have a button for emergency contacts
 - Specify the volume of the drink and the percentage or the type of drink
-- Be able to log on
+- Account and social features
     - Keep track of your drinking history
     - Add friends
     - Be able to keep track of how much your friends have been drinking. View and if allowed, be able to edit their drinking history for the night
@@ -22,6 +22,7 @@ This is an app that helps you keep track of how many drinks you've had
     - Profile pics
     - Usernames
 - Make apple watch app
+- Allow app to scan a barcode on a can for example and it will know how much alcohol is in it
 
 # Privacy Policy
 
