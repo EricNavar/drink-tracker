@@ -5,7 +5,7 @@ export type DrinkingSession = {
     title: string;
     timeInterval: number;
     drinkLimit: number;
-}
+};
 
 export type Drink = {
     timeDrank: Date;
@@ -19,16 +19,15 @@ export type NavigationProps = {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         navigate: any;
     };
-}
+};
 
 export enum Screens {
-    DrinkingLimits = "Drinking Limits",
-    Feedback = "Feedback",
-    Home = "Home",
-    Onboarding = "Onboarding",
-    PrivacyPolicy = "Privacy Policy",
-    RecentSessions = "Recent Sessions",
-    Session = "Session",
-    Summary = "Summary",
-
+    DrinkingLimits = 'Drinking Limits',
+    Feedback = 'Feedback',
+    Home = 'Home',
+    Onboarding = 'Onboarding',
+    PrivacyPolicy = 'Privacy Policy',
+    RecentSessions = 'Recent Sessions',
+    Session = 'Session',
+    Summary = 'Summary',
 }

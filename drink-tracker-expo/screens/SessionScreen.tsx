@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
     const onPressAddDrink = () => {
         console.log('add drink');
-    }
+    };
 
     const onPressFinish = () => {
         console.log('finishing session');
@@ -41,14 +41,16 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
             <Container>
                 <Banner drinkDifference={actualDrinks - expectedDrinks} />
                 <Text style={styles.title}>{props.title}</Text>
-                {session.drinks.map((drink: Drink, index: number) =>
+                {session.drinks.map((drink: Drink, index: number) => (
                     <DrinkItem {...drink} />
-                )}
+                ))}
                 <Button onPress={onPressAddDrink} title="Add drink" />
                 <StatusBar style="auto" />
-                <Text style={{ color: 'white' }}>Try not to drink and drive</Text>
-                <Button title='finish the session' onPress={onPressFinish} />
+                <Text style={{ color: 'white' }}>
+                    Try not to drink and drive
+                </Text>
+                <Button title="finish the session" onPress={onPressFinish} />
             </Container>
         </ScrollView>
     );
-}
+};

@@ -8,11 +8,11 @@ const RecentSessions = (props: NavigationProps) => {
     return (
         <View>
             <Text>Recent Drinking Sessions</Text>
-            {sessions.map((session, index) => 
+            {sessions.map((session, index) => (
                 <SessionCard {...session} navigation={props.navigation} />
-            )}
+            ))}
         </View>
     );
 };
 
-export {RecentSessions};
+export { RecentSessions };

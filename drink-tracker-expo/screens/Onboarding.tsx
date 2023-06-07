@@ -16,4 +16,4 @@ export const Onboarding = (props: NavigationProps) => {
             <Text>Drink Tracker</Text>
         </Container>
     );
-}
+};

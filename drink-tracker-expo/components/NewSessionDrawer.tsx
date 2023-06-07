@@ -1,25 +1,31 @@
 import React from 'react';
-import { Alert, Modal, StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import {
+    Alert,
+    Modal,
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    Button,
+} from 'react-native';
 import { NavigationProps, Screens } from '../commonTypes';
 
-const NewSessionDrawer = (props: { open: boolean, setOpen: any } & NavigationProps) => {
+const NewSessionDrawer = (
+    props: { open: boolean; setOpen: any } & NavigationProps
+) => {
     const [name, setName] = React.useState('');
     const [startTime, setStartTime] = React.useState('');
     const [timeInterval, setTimeInterval] = React.useState('');
     const [drinkLimit, setDrinkLimit] = React.useState('');
 
-    const onChangeTimeInterval = (event: any) => {
-        
-    };
+    const onChangeTimeInterval = (event: any) => {};
 
-    const onChangeDrinkLimit = (event: any) => {
-        
-    };
+    const onChangeDrinkLimit = (event: any) => {};
 
     const onPressStart = () => {
         props.navigation.navigate(Screens.Session);
         props.setOpen(false);
-    }
+    };
 
     return (
         <View style={styles.centeredView}>
@@ -34,7 +40,7 @@ const NewSessionDrawer = (props: { open: boolean, setOpen: any } & NavigationPro
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={{color: 'white'}}>New Session</Text>
+                        <Text style={{ color: 'white' }}>New Session</Text>
                         <TextInput
                             value={name}
                             onChangeText={setName}
@@ -55,7 +61,7 @@ const NewSessionDrawer = (props: { open: boolean, setOpen: any } & NavigationPro
                             onChangeText={onChangeDrinkLimit}
                             placeholder="10"
                         />
-                        <Button title='Start' onPress={onPressStart}/>
+                        <Button title="Start" onPress={onPressStart} />
                     </View>
                 </View>
             </Modal>

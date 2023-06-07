@@ -22,14 +22,18 @@ export const HomeScreen = (props: NavigationProps) => {
 
     const onPressSidebar = () => {
         setSidebarVisible(true);
-    }
+    };
 
     return (
         <Container>
-            <Text style={{color: 'white'}}>Drink Tracker</Text>
-            <Button onPress={onPressNewSession} title='New Session' />
-            <Button onPress={onPressSidebar} title='Sidebar' />
-            <NewSessionDrawer open={modalVisible} navigation={props.navigation} setOpen={setModalVisible} />
+            <Text style={{ color: 'white' }}>Drink Tracker</Text>
+            <Button onPress={onPressNewSession} title="New Session" />
+            <Button onPress={onPressSidebar} title="Sidebar" />
+            <NewSessionDrawer
+                open={modalVisible}
+                navigation={props.navigation}
+                setOpen={setModalVisible}
+            />
         </Container>
     );
-}
+};

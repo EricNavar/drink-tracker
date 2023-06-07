@@ -28,14 +28,15 @@ const Feedback = () => {
     return (
         <View>
             <Text>I appreciate your feedback! ☺</Text>
-            <Text>This is an open source project that is under active development. Please provide feedback, the more detailed the better, so I can improve.</Text>
+            <Text>
+                This is an open source project that is under active development.
+                Please provide feedback, the more detailed the better, so I can
+                improve.
+            </Text>
             <Text>Feel free to open a PR on the GitHub repo: </Text>
-            <Button title='GitHub' onPress={onPressGitHub} />
-            <TextInput
-                value={feedback}
-                onChangeText={setFeedback}
-            />
-            <Button title='Submit' onPress={onPressSubmit} />
+            <Button title="GitHub" onPress={onPressGitHub} />
+            <TextInput value={feedback} onChangeText={setFeedback} />
+            <Button title="Submit" onPress={onPressSubmit} />
         </View>
     );
 };

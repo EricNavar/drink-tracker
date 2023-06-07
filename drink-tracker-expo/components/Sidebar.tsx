@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Button } from 'react-native';
+import {
+    Alert,
+    Modal,
+    StyleSheet,
+    Text,
+    Pressable,
+    View,
+    Button,
+} from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationProps } from '../commonTypes';
 
@@ -13,7 +21,7 @@ const Sidebar = (props: NavigationProps) => {
 
     const redirect = (page: string) => {
         props.navigation.navigate(page);
-    }
+    };
 
     return (
         <View style={styles.centeredView}>
@@ -24,20 +32,34 @@ const Sidebar = (props: NavigationProps) => {
                 onRequestClose={() => {
                     Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
-                }}>
+                }}
+            >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Button title='Recent Sessions' onPress={() => redirect('recent')} />
-                        <Button title='Set drinking limits' onPress={() => redirect('set limits')} />
+                        <Button
+                            title="Recent Sessions"
+                            onPress={() => redirect('recent')}
+                        />
+                        <Button
+                            title="Set drinking limits"
+                            onPress={() => redirect('set limits')}
+                        />
                         <HorizonalLine />
-                        <Button title='Privacy Policy' onPress={() => redirect('privacy policy')} />
-                        <Button title='Feedback' onPress={() => redirect('feedback')} />
+                        <Button
+                            title="Privacy Policy"
+                            onPress={() => redirect('privacy policy')}
+                        />
+                        <Button
+                            title="Feedback"
+                            onPress={() => redirect('feedback')}
+                        />
                     </View>
                 </View>
             </Modal>
             <Pressable
                 style={[styles.button, styles.buttonOpen]}
-                onPress={() => setModalVisible(true)}>
+                onPress={() => setModalVisible(true)}
+            >
                 <Text style={styles.textStyle}>Show Modal</Text>
             </Pressable>
         </View>

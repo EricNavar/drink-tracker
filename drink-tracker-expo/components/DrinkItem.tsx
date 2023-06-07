@@ -40,19 +40,21 @@ const HorizontalSpace = styled.View({
 });
 
 export const DrinkItem = (props: Drink) => {
-    const onPressCard = () => {
-
-    };
+    const onPressCard = () => {};
 
     return (
         <Card onPress={onPressCard}>
-            <Thumbnail source={{ uri: 'https://media.tenor.com/QjkhncKynLAAAAAC/spongebob-spongebob-dancing.gif' }} />
+            <Thumbnail
+                source={{
+                    uri: 'https://media.tenor.com/QjkhncKynLAAAAAC/spongebob-spongebob-dancing.gif',
+                }}
+            />
             <HorizontalSpace />
             <CardRight>
                 <TopRow>
                     <CardTitle>{props.drinkName}&nbsp;</CardTitle>
                 </TopRow>
-                <Text style={{color: 'white'}}>{props.drinkType}</Text>
+                <Text style={{ color: 'white' }}>{props.drinkType}</Text>
             </CardRight>
         </Card>
     );

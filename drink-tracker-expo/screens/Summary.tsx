@@ -17,7 +17,7 @@ const Summary = (props: DrinkingSession) => {
     const getMessage = () => {
         const expectedDrinksCount = getExpectedDrinksCount();
         if (expectedDrinksCount === props.drinks.length) {
-            return "You were on schedule";
+            return 'You were on schedule';
         }
         const difference = props.drinks.length - expectedDrinksCount;
         if (difference > 0) {
@@ -29,14 +29,17 @@ const Summary = (props: DrinkingSession) => {
     return (
         <View>
             <CardTitle>{props.title}</CardTitle>
-            <Text>{props.timeStart.toDateString()} - {props.timeEnd.toDateString()}</Text>
+            <Text>
+                {props.timeStart.toDateString()} -{' '}
+                {props.timeEnd.toDateString()}
+            </Text>
             <Text>{props.drinks.length}</Text>
-            {props.drinks.map((drink: Drink, index: number) => 
+            {props.drinks.map((drink: Drink, index: number) => (
                 <DrinkItem {...drink} />
-            )}
+            ))}
             <Text>{getMessage()}</Text>
         </View>
     );
 };
 
-export {Summary};
+export { Summary };

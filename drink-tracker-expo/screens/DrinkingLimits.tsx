@@ -31,28 +31,30 @@ const DrinkingLimits = () => {
             console.log('Time interval must be at least 0');
         }
         console.log('save button');
-    }
+    };
 
     return (
         <ScreenContainer>
-            <Text style={{color:theme.background.color, fontSize: 20}}>Set your drinking limits (and goals!)</Text>
-            <TextInput 
+            <Text style={{ color: theme.background.color, fontSize: 20 }}>
+                Set your drinking limits (and goals!)
+            </Text>
+            <TextInput
                 value={String(timeInterval)}
                 onChange={onChangeTimeInterval}
-                keyboardType='numeric'
-                placeholder='Time between drinks (minutes)'
-                style={{color:theme.background.color, fontSize: 20}}
+                keyboardType="numeric"
+                placeholder="Time between drinks (minutes)"
+                style={{ color: theme.background.color, fontSize: 20 }}
             />
-            <TextInput 
+            <TextInput
                 value={String(totalDrinksLimit)}
                 onChange={onChangeTotalDrinksLimit}
-                keyboardType='numeric'
-                placeholder='Total drinks limit per session'
-                style={{color:theme.background.color, fontSize: 20}}
+                keyboardType="numeric"
+                placeholder="Total drinks limit per session"
+                style={{ color: theme.background.color, fontSize: 20 }}
             />
             <Button title="Save" onPress={onPressSave} />
         </ScreenContainer>
     );
 };
 
-export {DrinkingLimits};
+export { DrinkingLimits };

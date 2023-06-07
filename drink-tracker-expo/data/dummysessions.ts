@@ -1,9 +1,9 @@
-import { DrinkingSession } from "../commonTypes";
+import { DrinkingSession } from '../commonTypes';
 
 export const session: DrinkingSession = {
-    title: 'Blake\'s birthday party',
+    title: "Blake's birthday party",
     timeStart: new Date('June 25, 2023 08:24:00'),
-    timeEnd:   new Date('June 25, 2023 012:24:00'),
+    timeEnd: new Date('June 25, 2023 012:24:00'),
     drinks: [
         {
             timeDrank: new Date('June 25, 2023 08:00:00'),
@@ -46,10 +46,8 @@ export const session: DrinkingSession = {
             drinkName: 'Gummy Bear shot',
             drinkType: 'Liquor',
             weight: 1,
-        }
-    ]
+        },
+    ],
 };
 
-export const sessions: DrinkingSession[] = [
-    session
-];
+export const sessions: DrinkingSession[] = [session];

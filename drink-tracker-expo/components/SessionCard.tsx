@@ -29,9 +29,12 @@ export const SessionCard = (props: DrinkingSession & NavigationProps) => {
     return (
         <Card onPress={onPressCard}>
             <CardTitle>{props.title}</CardTitle>
-            <Text>{props.timeStart.toDateString()} - {props.timeEnd.toDateString()}</Text>
+            <Text>
+                {props.timeStart.toDateString()} -{' '}
+                {props.timeEnd.toDateString()}
+            </Text>
             <Text>{props.drinks.length}</Text>
-            <Button title='delete' onPress={onPressDelete} />
+            <Button title="delete" onPress={onPressDelete} />
         </Card>
     );
 };

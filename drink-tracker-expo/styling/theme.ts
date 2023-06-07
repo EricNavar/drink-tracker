@@ -24,7 +24,7 @@ export const theme = {
         backgroundColor: '#202020',
         headerColor: '#111',
         headerButtonColor: '#383838',
-        color: 'white'
+        color: 'white',
     },
     paper: {},
     gradientPaper: {

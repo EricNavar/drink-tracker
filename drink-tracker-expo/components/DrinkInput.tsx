@@ -4,7 +4,7 @@ import { Drink } from '../commonTypes';
 
 type DrinkInputProps = {
     drinkNumber: number;
-}
+};
 
 const DrinkInput = (props: DrinkInputProps) => {
     const [drinkName, setDrinkName] = React.useState('');
@@ -19,7 +19,7 @@ const DrinkInput = (props: DrinkInputProps) => {
             timeDrank: new Date(timeDrank),
             drinkName: drinkName,
             weight: drinkWeight,
-        }
+        };
         console.log(newDrink);
     };
 
@@ -31,24 +31,24 @@ const DrinkInput = (props: DrinkInputProps) => {
         <View>
             <Text>New drink</Text>
             <TextInput
-                placeholder='name of drink'
+                placeholder="name of drink"
                 value={drinkName}
                 onChangeText={setDrinkName}
             />
             <TextInput
-                placeholder='how many drinks is this worth'
+                placeholder="how many drinks is this worth"
                 value={drinkName}
                 onChange={onChangeDrinkWeight}
-                keyboardType='numeric'
+                keyboardType="numeric"
             />
             <TextInput
-                placeholder='time drank'
+                placeholder="time drank"
                 value={timeDrank}
                 onChangeText={setTimeDrank}
             />
-            <Button title='Submit' onPress={onSubmit}/>
+            <Button title="Submit" onPress={onSubmit} />
         </View>
     );
 };
 
-export {DrinkInput};
+export { DrinkInput };

@@ -1,34 +1,34 @@
 {
-  "name": "drink-tracker-expo",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "prettier": "npx prettier --write ."
-  },
-  "dependencies": {
-    "@react-navigation/native": "^6.1.6",
-    "@react-navigation/native-stack": "^6.9.12",
-    "@types/react": "~18.0.27",
-    "axios": "^1.4.0",
-    "expo": "~48.0.18",
-    "expo-status-bar": "~1.4.4",
-    "react": "18.2.0",
-    "react-native": "0.71.8",
-    "styled-components": "^5.3.9",
-    "typescript": "^4.9.4"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@types/styled-components-react-native": "^5.2.1",
-    "eslint": "^8.42.0",
-    "prettier": "^2.8.8"
-  },
-  "private": true
+    "name": "drink-tracker-expo",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
+    },
+    "scripts": {
+        "start": "expo start",
+        "android": "expo start --android",
+        "ios": "expo start --ios",
+        "web": "expo start --web",
+        "prettier": "npx prettier --write ."
+    },
+    "dependencies": {
+        "@react-navigation/native": "^6.1.6",
+        "@react-navigation/native-stack": "^6.9.12",
+        "@types/react": "~18.0.27",
+        "axios": "^1.4.0",
+        "expo": "~48.0.18",
+        "expo-status-bar": "~1.4.4",
+        "react": "18.2.0",
+        "react-native": "0.71.8",
+        "styled-components": "^5.3.9",
+        "typescript": "^4.9.4"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.20.0",
+        "@types/styled-components-react-native": "^5.2.1",
+        "eslint": "^8.42.0",
+        "prettier": "^2.8.8"
+    },
+    "private": true
 }
