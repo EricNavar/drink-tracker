@@ -25,6 +25,7 @@ const Thumbnail = styled.Image({
 const CardTitle = styled.Text({
     fontWeight: 'bold',
     fontSize: 16,
+    color: 'white',
 });
 
 const TopRow = styled.Text({
@@ -39,15 +40,19 @@ const HorizontalSpace = styled.View({
 });
 
 export const DrinkItem = (props: Drink) => {
+    const onPressCard = () => {
+
+    };
+
     return (
-        <Card onPress={() => { }}>
-            <Thumbnail source={{ uri: '' }} />
+        <Card onPress={onPressCard}>
+            <Thumbnail source={{ uri: 'https://media.tenor.com/QjkhncKynLAAAAAC/spongebob-spongebob-dancing.gif' }} />
             <HorizontalSpace />
             <CardRight>
                 <TopRow>
                     <CardTitle>{props.drinkName}&nbsp;</CardTitle>
                 </TopRow>
-                <Text>{props.drinkType}</Text>
+                <Text style={{color: 'white'}}>{props.drinkType}</Text>
             </CardRight>
         </Card>
     );

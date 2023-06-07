@@ -17,7 +17,7 @@ const CardTitle = styled.Text({
     fontSize: 16,
 });
 
-export const Session = (props: DrinkingSession & NavigationProps) => {
+export const SessionCard = (props: DrinkingSession & NavigationProps) => {
     const onPressCard = () => {
         console.log('on press');
     };
