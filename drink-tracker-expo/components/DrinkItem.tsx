@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { Drink } from '../commonTypes';
 
 const Card = styled.TouchableOpacity({
     paddingVertical: 6,

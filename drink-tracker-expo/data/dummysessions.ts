@@ -1,3 +1,5 @@
+import { DrinkingSession } from "../commonTypes";
+
 export const session: DrinkingSession = {
     title: 'Blake\'s birthday party',
     timeStart: new Date('June 25, 2023 08:24:00'),
@@ -47,3 +49,7 @@ export const session: DrinkingSession = {
         }
     ]
 };
+
+export const sessions: DrinkingSession[] = [
+    session
+];

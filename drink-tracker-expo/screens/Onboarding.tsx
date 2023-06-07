@@ -10,7 +10,7 @@ const Container = styled.View({
   justifyContent: 'center',
 });
 
-export const HomeScreen = (props: NavigationProps) => {
+export const Onboarding = (props: NavigationProps) => {
 
   return (
     <Container>
