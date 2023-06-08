@@ -6,8 +6,9 @@ import { session } from '../data/dummysessions';
 import { DrinkItem } from '../components/DrinkItem';
 import { Banner } from '../components/Banner';
 import { Drink, DrinkingSession, NavigationProps } from '../commonTypes';
+import { Layout } from '@ui-kitten/components';
 
-const Container = styled.View({
+const Container = styled(Layout)({
     flex: 1,
     backgroundColor: 'black',
     alignItems: 'center',
@@ -46,7 +47,7 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
                 ))}
                 <Button onPress={onPressAddDrink} title="Add drink" />
                 <StatusBar style="auto" />
-                <Text style={{ color: 'white' }} status='primary'>
+                <Text>
                     Try not to drink and drive
                 </Text>
                 <Button title="finish the session" onPress={onPressFinish} />

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Alert, Button, Linking, TextInput, View } from 'react-native';
-import { Text } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 
 const Feedback = () => {
     const [feedback, setFeedback] = React.useState('');
@@ -27,8 +27,8 @@ const Feedback = () => {
     };
 
     return (
-        <View>
-            <Text status='primary'>
+        <Layout>
+            <Text>
                 <Text>I appreciate your feedback! ☺</Text>
                 <Text>
                     This is an open source project that is under active development.
@@ -40,7 +40,7 @@ const Feedback = () => {
             <Button title="GitHub" onPress={onPressGitHub} />
             <TextInput value={feedback} onChangeText={setFeedback} />
             <Button title="Submit" onPress={onPressSubmit} />
-        </View>
+        </Layout>
     );
 };
 

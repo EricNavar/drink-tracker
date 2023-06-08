@@ -25,7 +25,6 @@ const Thumbnail = styled.Image({
 const CardTitle = styled.Text({
     fontWeight: 'bold',
     fontSize: 16,
-    color: 'white',
 });
 
 const TopRow = styled.Text({
@@ -54,7 +53,7 @@ export const DrinkItem = (props: Drink) => {
                 <TopRow>
                     <CardTitle>{props.drinkName}&nbsp;</CardTitle>
                 </TopRow>
-                <Text style={{ color: 'white' }}>{props.drinkType}</Text>
+                <Text>{props.drinkType}</Text>
             </CardRight>
         </Card>
     );

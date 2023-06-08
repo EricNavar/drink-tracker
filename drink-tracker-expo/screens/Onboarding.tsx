@@ -2,8 +2,9 @@ import React from 'react';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationProps } from '../commonTypes';
+import { Layout } from '@ui-kitten/components';
 
-const Container = styled.View({
+const Container = styled(Layout)({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
@@ -13,7 +14,7 @@ const Container = styled.View({
 export const Onboarding = (props: NavigationProps) => {
     return (
         <Container>
-            <Text status='primary'>Drink Tracker</Text>
+            <Text>Drink Tracker</Text>
         </Container>
     );
 };

@@ -2,11 +2,10 @@ import React from 'react';
 import { Button, Text, TextInput } from 'react-native';
 import styled from 'styled-components/native';
 import { theme } from '../styling/theme';
+import { Layout } from '@ui-kitten/components';
 
-const ScreenContainer = styled.View`
+const ScreenContainer = styled(Layout)`
     padding: 20px;
-    background-color: black;
-    color: white;
     min-height: 100%;
     font-size: 20px;
 `;
@@ -35,7 +34,7 @@ const DrinkingLimits = () => {
 
     return (
         <ScreenContainer>
-            <Text style={{ color: theme.background.color, fontSize: 20 }}>
+            <Text>
                 Set your drinking limits (and goals!)
             </Text>
             <TextInput
@@ -43,7 +42,7 @@ const DrinkingLimits = () => {
                 onChange={onChangeTimeInterval}
                 keyboardType="numeric"
                 placeholder="Time between drinks (minutes)"
-                style={{ color: theme.background.color, fontSize: 20 }}
+                style={{ fontSize: 20 }}
             />
             <TextInput
                 value={String(totalDrinksLimit)}

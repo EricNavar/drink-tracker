@@ -31,8 +31,8 @@ const Banner = (props: BannerProps) => {
     }
     return (
         <BannerCard>
-            <Text status='primary'>{messageTitle}</Text>
-            <Text status='primary'>{messageBody}</Text>
+            <Text>{messageTitle}</Text>
+            <Text>{messageBody}</Text>
         </BannerCard>
     );
 };

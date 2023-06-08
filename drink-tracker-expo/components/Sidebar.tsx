@@ -9,7 +9,7 @@ import {
     Button,
 } from 'react-native';
 import styled from 'styled-components/native';
-import { NavigationProps } from '../commonTypes';
+import { NavigationProps, Screens } from '../commonTypes';
 
 const HorizonalLine = styled.View`
     height: 1px;
@@ -19,6 +19,7 @@ const HorizonalLine = styled.View`
 const Sidebar = (props: NavigationProps & { open: boolean; setOpen: any }) => {
     const redirect = (page: string) => {
         props.navigation.navigate(page);
+        props.setOpen(false);
     };
 
     return (
@@ -36,20 +37,20 @@ const Sidebar = (props: NavigationProps & { open: boolean; setOpen: any }) => {
                     <View style={styles.modalView}>
                         <Button
                             title="Recent Sessions"
-                            onPress={() => redirect('recent')}
+                            onPress={() => redirect(Screens.RecentSessions)}
                         />
                         <Button
                             title="Set drinking limits"
-                            onPress={() => redirect('set limits')}
+                            onPress={() => redirect(Screens.DrinkingLimits)}
                         />
                         <HorizonalLine />
                         <Button
                             title="Privacy Policy"
-                            onPress={() => redirect('privacy policy')}
+                            onPress={() => redirect(Screens.PrivacyPolicy)}
                         />
                         <Button
                             title="Feedback"
-                            onPress={() => redirect('feedback')}
+                            onPress={() => redirect(Screens.Feedback)}
                         />
                     </View>
                 </View>

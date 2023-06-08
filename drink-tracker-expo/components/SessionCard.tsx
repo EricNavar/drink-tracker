@@ -1,19 +1,19 @@
 import React from 'react';
-import { Button, Text } from 'react-native';
+import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps } from '../commonTypes';
-import { Text } from '@ui-kitten/components';
+import { Text, Card } from '@ui-kitten/components';
 
-const Card = styled.TouchableOpacity({
-    paddingVertical: 6,
-    marginVertical: 8,
-    display: 'flex',
-    flexDirection: 'row',
-    maxWidth: '100%',
-    borderRadius: 4,
-});
+// const Card = styled.TouchableOpacity({
+//     paddingVertical: 6,
+//     marginVertical: 8,
+//     display: 'flex',
+//     flexDirection: 'row',
+//     maxWidth: '100%',
+//     borderRadius: 4,
+// });
 
-const CardTitle = styled.Text({
+const CardTitle = styled(Text)({
     fontWeight: 'bold',
     fontSize: 16,
 });
@@ -30,11 +30,11 @@ export const SessionCard = (props: DrinkingSession & NavigationProps) => {
     return (
         <Card onPress={onPressCard}>
             <CardTitle>{props.title}</CardTitle>
-            <Text status='primary'>
+            <Text>
                 {props.timeStart.toDateString()} -{' '}
                 {props.timeEnd.toDateString()}
             </Text>
-            <Text status='primary'>{props.drinks.length}</Text>
+            <Text>{props.drinks.length}</Text>
             <Button title="delete" onPress={onPressDelete} />
         </Card>
     );

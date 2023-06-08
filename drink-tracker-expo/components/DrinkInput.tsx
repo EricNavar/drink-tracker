@@ -30,7 +30,7 @@ const DrinkInput = (props: DrinkInputProps) => {
 
     return (
         <View>
-            <Text status='primary'>New drink</Text>
+            <Text>New drink</Text>
             <TextInput
                 placeholder="name of drink"
                 value={drinkName}
