@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text } from '@ui-kitten/components';
 import styled from 'styled-components/native';
 
 const BannerCard = styled.View`
@@ -31,8 +31,8 @@ const Banner = (props: BannerProps) => {
     }
     return (
         <BannerCard>
-            <Text>{messageTitle}</Text>
-            <Text>{messageBody}</Text>
+            <Text status='primary'>{messageTitle}</Text>
+            <Text status='primary'>{messageBody}</Text>
         </BannerCard>
     );
 };

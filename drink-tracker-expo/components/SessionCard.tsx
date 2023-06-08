@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps } from '../commonTypes';
+import { Text } from '@ui-kitten/components';
 
 const Card = styled.TouchableOpacity({
     paddingVertical: 6,
@@ -29,11 +30,11 @@ export const SessionCard = (props: DrinkingSession & NavigationProps) => {
     return (
         <Card onPress={onPressCard}>
             <CardTitle>{props.title}</CardTitle>
-            <Text>
+            <Text status='primary'>
                 {props.timeStart.toDateString()} -{' '}
                 {props.timeEnd.toDateString()}
             </Text>
-            <Text>{props.drinks.length}</Text>
+            <Text status='primary'>{props.drinks.length}</Text>
             <Button title="delete" onPress={onPressDelete} />
         </Card>
     );

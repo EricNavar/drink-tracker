@@ -16,9 +16,7 @@ const HorizonalLine = styled.View`
     background-color: black;
 `;
 
-const Sidebar = (props: NavigationProps) => {
-    const [modalVisible, setModalVisible] = useState(false);
-
+const Sidebar = (props: NavigationProps & { open: boolean; setOpen: any }) => {
     const redirect = (page: string) => {
         props.navigation.navigate(page);
     };
@@ -28,10 +26,10 @@ const Sidebar = (props: NavigationProps) => {
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalVisible}
+                visible={props.open}
                 onRequestClose={() => {
                     Alert.alert('Modal has been closed.');
-                    setModalVisible(!modalVisible);
+                    props.setOpen(!props.open);
                 }}
             >
                 <View style={styles.centeredView}>
@@ -58,7 +56,7 @@ const Sidebar = (props: NavigationProps) => {
             </Modal>
             <Pressable
                 style={[styles.button, styles.buttonOpen]}
-                onPress={() => setModalVisible(true)}
+                onPress={() => props.setOpen(true)}
             >
                 <Text style={styles.textStyle}>Show Modal</Text>
             </Pressable>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Drink, DrinkingSession } from '../commonTypes';
 import styled from 'styled-components/native';
 import { DrinkItem } from '../components/DrinkItem';
+import {Text} from '@ui-kitten/components';
 
 const CardTitle = styled.Text({
     fontWeight: 'bold',
@@ -29,15 +30,15 @@ const Summary = (props: DrinkingSession) => {
     return (
         <View>
             <CardTitle>{props.title}</CardTitle>
-            <Text>
+            <Text status='primary'>
                 {props.timeStart.toDateString()} -{' '}
                 {props.timeEnd.toDateString()}
             </Text>
-            <Text>{props.drinks.length}</Text>
+            <Text status='primary'>{props.drinks.length}</Text>
             {props.drinks.map((drink: Drink, index: number) => (
                 <DrinkItem {...drink} />
             ))}
-            <Text>{getMessage()}</Text>
+            <Text status='primary'>{getMessage()}</Text>
         </View>
     );
 };

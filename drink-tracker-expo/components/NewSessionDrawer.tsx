@@ -40,7 +40,7 @@ const NewSessionDrawer = (
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={{ color: 'white' }}>New Session</Text>
+                        <Text status='primary' style={{ color: 'white' }}>New Session</Text>
                         <TextInput
                             value={name}
                             onChangeText={setName}

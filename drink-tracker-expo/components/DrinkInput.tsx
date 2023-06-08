@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, TextInput, Button } from 'react-native';
 import { Drink } from '../commonTypes';
+import { Text } from '@ui-kitten/components';
 
 type DrinkInputProps = {
     drinkNumber: number;
@@ -29,7 +30,7 @@ const DrinkInput = (props: DrinkInputProps) => {
 
     return (
         <View>
-            <Text>New drink</Text>
+            <Text status='primary'>New drink</Text>
             <TextInput
                 placeholder="name of drink"
                 value={drinkName}

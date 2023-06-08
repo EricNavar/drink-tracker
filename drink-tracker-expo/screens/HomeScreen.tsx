@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button, Text } from 'react-native';
+import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationProps, Screens } from '../commonTypes';
 import { NewSessionDrawer } from '../components/NewSessionDrawer';
+import { Sidebar } from '../components/Sidebar';
+import { Text } from '@ui-kitten/components';
 
 const Container = styled.View({
     flex: 1,
@@ -26,7 +28,7 @@ export const HomeScreen = (props: NavigationProps) => {
 
     return (
         <Container>
-            <Text style={{ color: 'white' }}>Drink Tracker</Text>
+            <Text style={{ color: 'white' }} status='primary'>Drink Tracker</Text>
             <Button onPress={onPressNewSession} title="New Session" />
             <Button onPress={onPressSidebar} title="Sidebar" />
             <NewSessionDrawer
@@ -34,6 +36,7 @@ export const HomeScreen = (props: NavigationProps) => {
                 navigation={props.navigation}
                 setOpen={setModalVisible}
             />
+            <Sidebar navigation={props.navigation} open={sidebarVisible} setOpen={setModalVisible}/>
         </Container>
     );
 };

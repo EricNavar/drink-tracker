@@ -13,7 +13,7 @@ const Container = styled.View({
 export const Onboarding = (props: NavigationProps) => {
     return (
         <Container>
-            <Text>Drink Tracker</Text>
+            <Text status='primary'>Drink Tracker</Text>
         </Container>
     );
 };

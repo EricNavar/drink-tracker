@@ -46,7 +46,7 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
                 ))}
                 <Button onPress={onPressAddDrink} title="Add drink" />
                 <StatusBar style="auto" />
-                <Text style={{ color: 'white' }}>
+                <Text style={{ color: 'white' }} status='primary'>
                     Try not to drink and drive
                 </Text>
                 <Button title="finish the session" onPress={onPressFinish} />

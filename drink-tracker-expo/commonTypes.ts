@@ -1,4 +1,5 @@
 export type DrinkingSession = {
+    id: string;
     timeStart: Date;
     timeEnd: Date;
     drinks: Drink[];
