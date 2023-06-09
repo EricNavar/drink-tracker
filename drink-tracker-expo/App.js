@@ -23,6 +23,10 @@ export default function App() {
             <ApplicationProvider {...eva} theme={eva.dark}>
                 <NavigationContainer>
                     <Stack.Navigator>
+                    <Stack.Screen
+                            name={Screens.RecentSessions}
+                            component={RecentSessions}
+                        />
                         <Stack.Screen name={Screens.Home} component={HomeScreen} />
                         <Stack.Screen
                             name={Screens.DrinkingLimits}
@@ -40,10 +44,7 @@ export default function App() {
                             name={Screens.PrivacyPolicy}
                             component={PrivacyPolicy}
                         />
-                        <Stack.Screen
-                            name={Screens.RecentSessions}
-                            component={RecentSessions}
-                        />
+
                         <Stack.Screen
                             name={Screens.Session}
                             component={SessionScreen}
