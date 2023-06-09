@@ -13,7 +13,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Screens } from './commonTypes';
 import { ApplicationProvider } from '@ui-kitten/components';
-import { dark } from '@eva-design/eva';
 import * as eva from '@eva-design/eva';
 
 const Stack = createNativeStackNavigator();

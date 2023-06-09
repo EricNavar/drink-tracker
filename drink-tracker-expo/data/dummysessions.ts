@@ -1,6 +1,6 @@
 import { DrinkingSession } from '../commonTypes';
 
-export const session: DrinkingSession = {
+export const Session: DrinkingSession = {
     title: "Blake's birthday party",
     timeStart: new Date('June 25, 2023 08:24:00'),
     timeEnd: new Date('June 25, 2023 012:24:00'),
@@ -48,6 +48,9 @@ export const session: DrinkingSession = {
             weight: 1,
         },
     ],
+    id: '1234',
+    timeInterval: 30,
+    drinkLimit: 8
 };
 
 export const sessions: DrinkingSession[] = [session];

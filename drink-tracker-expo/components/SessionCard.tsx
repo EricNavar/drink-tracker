@@ -34,7 +34,7 @@ export const SessionCard = (props: DrinkingSession & NavigationProps) => {
                 {props.timeStart.toDateString()} -{' '}
                 {props.timeEnd.toDateString()}
             </Text>
-            <Text>{props.drinks.length}</Text>
+            <Text>{props.drinks.length}/{props.drinkLimit} drinks</Text>
             <Button title="delete" onPress={onPressDelete} />
         </Card>
     );
