@@ -1,45 +1,72 @@
 import React from 'react';
-import { View } from 'react-native';
 import { Drink, DrinkingSession } from '../commonTypes';
 import styled from 'styled-components/native';
 import { DrinkItem } from '../components/DrinkItem';
-import {Layout, Text} from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
+import { ScrollView } from 'react-native';
+import { DrinkList } from '../components/DrinkList';
 
-const CardTitle = styled.Text({
-    fontWeight: 'bold',
-    fontSize: 16,
-});
+const StyledLayout = styled(Layout)`
+    padding: 20px;
+    height: 100%;
+`;
 
-const Summary = (props: DrinkingSession) => {
+type SummaryProps = {
+    route: {
+        params: {
+            session: DrinkingSession;
+        };
+    };
+} & DrinkingSession;
+
+const Summary = (props: SummaryProps) => {
+    const [session, setSession] = React.useState(props.route.params.session);
+
     const getExpectedDrinksCount = () => {
         return 8;
     };
 
     const getMessage = () => {
-        const expectedDrinksCount = getExpectedDrinksCount();
-        if (expectedDrinksCount === props.drinks.length) {
+        const expectedDrinksCount = Math.max(
+            getExpectedDrinksCount(),
+            session.drinkLimit
+        );
+        if (expectedDrinksCount === session.drinks.length) {
             return 'You were on schedule';
         }
-        const difference = props.drinks.length - expectedDrinksCount;
+        const difference = session.drinks.length - expectedDrinksCount;
         if (difference > 0) {
-            return `You were ${difference} drinks ahead of schedule`;
+            return `You had ${difference} more drink${
+                difference > 1 ? 's' : ''
+            } than expected.`;
         }
-        return `You were ${-difference} drinks behind schedule`;
+        return `You had ${-difference} less drink${
+            difference < -1 ? 's' : ''
+        } than expected.`;
     };
 
+    const getDateString = () => {
+        if (!session.timeStart || !session.timeEnd) {
+            return '';
+        }
+        return `${session.timeStart.toTimeString()} - ${session.timeEnd.toTimeString()}`;
+    };
+
+    if (!session) {
+        return <></>;
+    }
+
     return (
-        <Layout>
-            <CardTitle>{props.title}</CardTitle>
-            <Text>
-                {props.timeStart.toDateString()} -{' '}
-                {props.timeEnd.toDateString()}
-            </Text>
-            <Text>{props.drinks.length}</Text>
-            {props.drinks.map((drink: Drink, index: number) => (
-                <DrinkItem {...drink} />
-            ))}
+        <StyledLayout>
+            <Text category="h3">{session.title}</Text>
+            <Text>{getDateString()}</Text>
+            <Text>You had {session.drinks.length} drinks.</Text>
             <Text>{getMessage()}</Text>
-        </Layout>
+            {session.drinks.map((drink: Drink, index: number) => (
+                <DrinkItem {...drink} key={index} />
+            ))}
+            {/* <DrinkList drinks={session.drinks}/> */}
+        </StyledLayout>
     );
 };
 

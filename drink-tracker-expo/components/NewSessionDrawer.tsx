@@ -1,65 +1,54 @@
 import React from 'react';
 import {
     Alert,
-    Modal,
     StyleSheet,
-    Text,
     View,
-    TextInput,
     Button,
 } from 'react-native';
 import { NavigationProps, Screens } from '../commonTypes';
+import { Input, Text, Modal } from '@ui-kitten/components';
 
 const NewSessionDrawer = (
     props: { open: boolean; setOpen: any } & NavigationProps
 ) => {
     const [name, setName] = React.useState('');
     const [startTime, setStartTime] = React.useState('');
-    const [timeInterval, setTimeInterval] = React.useState('');
-    const [drinkLimit, setDrinkLimit] = React.useState('');
+    // const [timeInterval, setTimeInterval] = React.useState('');
+    // const [drinkLimit, setDrinkLimit] = React.useState('');
 
-    const onChangeTimeInterval = (event: any) => {};
+    // const onChangeTimeInterval = (event: any) => {};
 
-    const onChangeDrinkLimit = (event: any) => {};
+    // const onChangeDrinkLimit = (event: any) => {};
 
     const onPressStart = () => {
         props.navigation.navigate(Screens.Session);
         props.setOpen(false);
     };
 
+    const closeModal = () => {
+        Alert.alert('Modal has been closed.');
+        props.setOpen(!props.open);
+    };
+
     return (
         <View style={styles.centeredView}>
             <Modal
                 animationType="slide"
-                transparent={true}
                 visible={props.open}
-                onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
-                    props.setOpen(!props.open);
-                }}
+                onRequestClose={closeModal}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text>New Session</Text>
-                        <TextInput
+                        <Input
                             value={name}
                             onChangeText={setName}
-                            placeholder="Blake's birthday party"
+                            placeholder="Name of party"
                         />
-                        <TextInput
+                        <Input
                             value={startTime}
                             onChangeText={setStartTime}
-                            placeholder="10:35"
-                        />
-                        <TextInput
-                            value={String(timeInterval)}
-                            onChangeText={onChangeTimeInterval}
-                            placeholder="30"
-                        />
-                        <TextInput
-                            value={String(drinkLimit)}
-                            onChangeText={onChangeDrinkLimit}
-                            placeholder="10"
+                            placeholder="Time start"
                         />
                         <Button title="Start" onPress={onPressStart} />
                     </View>
@@ -78,8 +67,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         margin: 20,
-        backgroundColor: 'gray',
-        color: 'white',
+        backgroundColor: '#333',
         borderRadius: 20,
         padding: 35,
         alignItems: 'center',

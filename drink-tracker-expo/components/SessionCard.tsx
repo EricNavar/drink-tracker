@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { Text, Card, Divider } from '@ui-kitten/components';
+import { session } from '../data/dummysessions';
 
 // const Card = styled.TouchableOpacity({
 //     paddingVertical: 6,
@@ -13,6 +14,13 @@ import { Text, Card, Divider } from '@ui-kitten/components';
 //     borderRadius: 4,
 // });
 
+const styles = StyleSheet.create({
+    icon: {
+        width: 32,
+        height: 32,
+    },
+});
+
 const StyledCard = styled(Card)`
     margin-bottom: 8px;
 `;
@@ -22,9 +30,13 @@ const CardTitle = styled(Text)({
     fontSize: 16,
 });
 
-export const SessionCard = (props: DrinkingSession & NavigationProps & {deleteMode?: boolean}) => {
+export const SessionCard = (
+    props: DrinkingSession & NavigationProps & { deleteMode?: boolean }
+) => {
     const onPressCard = () => {
-        props.navigation.navigate(Screens.Summary);
+        props.navigation.navigate(Screens.Summary, {
+            session: session,
+        });
     };
 
     const onPressDelete = () => {
@@ -37,11 +49,15 @@ export const SessionCard = (props: DrinkingSession & NavigationProps & {deleteMo
 
     return (
         <>
-            <StyledCard onPress={onPressCard}>
+            <StyledCard onPress={onPressCard} appearance="filled">
                 <CardTitle>{props.title}</CardTitle>
                 <Text>{getDateString()}</Text>
-                <Text>{props.drinks.length}/{props.drinkLimit} drinks</Text>
-                {props.deleteMode && <Button title="delete" onPress={onPressDelete} />}
+                <Text>
+                    {props.drinks.length}/{props.drinkLimit} drinks
+                </Text>
+                {props.deleteMode && (
+                    <Button title="delete" onPress={onPressDelete} />
+                )}
             </StyledCard>
             <Divider />
         </>

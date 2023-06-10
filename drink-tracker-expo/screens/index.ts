@@ -6,3 +6,5 @@ export { PrivacyPolicy } from './PrivacyPolicy';
 export { RecentSessions } from './RecentSessions';
 export { SessionScreen } from './SessionScreen';
 export { Summary } from './Summary';
+export { Settings } from './Settings';
+export { About } from './About';

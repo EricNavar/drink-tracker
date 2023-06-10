@@ -6,8 +6,9 @@ import {
     Onboarding,
     DrinkingLimits,
     PrivacyPolicy,
-    RecentSessions,
+    Settings,
     Summary,
+    About
 } from './screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,11 +24,14 @@ export default function App() {
             <ApplicationProvider {...eva} theme={eva.dark}>
                 <NavigationContainer>
                     <Stack.Navigator>
-                    <Stack.Screen
-                            name={Screens.RecentSessions}
-                            component={RecentSessions}
+                        <Stack.Screen
+                            name={Screens.Home}
+                            component={HomeScreen}
                         />
-                        <Stack.Screen name={Screens.Home} component={HomeScreen} />
+                        <Stack.Screen
+                            name={Screens.Settings}
+                            component={Settings}
+                        />
                         <Stack.Screen
                             name={Screens.DrinkingLimits}
                             component={DrinkingLimits}
@@ -44,12 +48,18 @@ export default function App() {
                             name={Screens.PrivacyPolicy}
                             component={PrivacyPolicy}
                         />
-
                         <Stack.Screen
                             name={Screens.Session}
                             component={SessionScreen}
                         />
-                        <Stack.Screen name={Screens.Summary} component={Summary} />
+                        <Stack.Screen
+                            name={Screens.Summary}
+                            component={Summary}
+                        />
+                        <Stack.Screen
+                            name={Screens.About}
+                            component={About}
+                        />
                     </Stack.Navigator>
                 </NavigationContainer>
             </ApplicationProvider>

@@ -16,7 +16,11 @@ const RecentSessions = (props: NavigationProps) => {
         <StyledLayout>
             <ScrollView>
                 {sessions.map((session, index) => (
-                    <SessionCard {...session} navigation={props.navigation} />
+                    <SessionCard
+                        {...session}
+                        navigation={props.navigation}
+                        key={index}
+                    />
                 ))}
             </ScrollView>
         </StyledLayout>

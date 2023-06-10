@@ -10,7 +10,6 @@ import { Layout } from '@ui-kitten/components';
 
 const Container = styled(Layout)({
     flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -20,8 +19,13 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         fontSize: 18,
-        color: 'white',
     },
+});
+
+const StyledLaylout = styled(Layout)({
+    flex: 1,
+    padding: 20,
+    height: '100%',
 });
 
 export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
@@ -38,20 +42,18 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
     const [actualDrinks, setActualDrinks] = React.useState(0);
 
     return (
-        <ScrollView>
-            <Container>
+        <StyledLaylout>
+            <ScrollView>
                 <Banner drinkDifference={actualDrinks - expectedDrinks} />
+                <Button onPress={onPressAddDrink} title="Add drink" />
                 <Text style={styles.title}>{props.title}</Text>
                 {session.drinks.map((drink: Drink, index: number) => (
                     <DrinkItem {...drink} />
                 ))}
-                <Button onPress={onPressAddDrink} title="Add drink" />
                 <StatusBar style="auto" />
-                <Text>
-                    Try not to drink and drive
-                </Text>
+                <Text>Try not to drink and drive</Text>
                 <Button title="finish the session" onPress={onPressFinish} />
-            </Container>
-        </ScrollView>
+            </ScrollView>
+        </StyledLaylout>
     );
 };

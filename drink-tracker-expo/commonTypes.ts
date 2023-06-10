@@ -23,12 +23,13 @@ export type NavigationProps = {
 };
 
 export enum Screens {
-    DrinkingLimits = 'Drinking Limits',
-    Feedback = 'Feedback',
-    Home = 'Home',
     Onboarding = 'Onboarding',
-    PrivacyPolicy = 'Privacy Policy',
-    RecentSessions = 'Recent Sessions',
+    Home = 'Home',
+    DrinkingLimits = 'Drinking Limits',
     Session = 'Session',
     Summary = 'Summary',
+    Settings = 'Settings',
+    PrivacyPolicy = 'Privacy Policy',
+    Feedback = 'Feedback',
+    About = 'About',
 }
