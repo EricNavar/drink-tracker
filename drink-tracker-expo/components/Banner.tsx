@@ -8,19 +8,27 @@ const BannerCard = styled.View`
 `;
 
 type BannerProps = {
-    drinkDifference: number;
+    actualDrinks: number;
+    expectedDrinks: number;
 };
 
 const Banner = (props: BannerProps) => {
     let messageTitle = '';
     let messageBody = '';
-    if (props.drinkDifference === 0) {
+    if (props.actualDrinks === 0) {
+        messageTitle = 'Have a good night!';
+        messageBody = 'It\'s recommended to start with shots and then move to lighter drinks like beers later';
+        return;
+    }
+    const drinkDifference = props.actualDrinks - props.expectedDrinks;
+
+    if (drinkDifference === 0) {
         messageTitle = 'You are on schedule.';
         messageBody = 'Take a break.';
-    } else if (props.drinkDifference < 0) {
+    } else if (drinkDifference < 0) {
         messageTitle = 'You are behind schedule.';
         messageBody = 'Feel free to have a drink, but no pressure';
-    } else if (props.drinkDifference > 2) {
+    } else if (drinkDifference > 2) {
         messageTitle = 'STOP DRINKING';
         messageBody =
             'Give your drink to someone else and tell them to cut you off.';

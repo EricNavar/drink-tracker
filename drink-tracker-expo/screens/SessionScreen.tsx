@@ -1,19 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, ScrollView, StyleSheet, Text } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import styled from 'styled-components/native';
 import { session } from '../data/dummysessions';
 import { DrinkItem } from '../components/DrinkItem';
 import { Banner } from '../components/Banner';
-import { Drink, DrinkingSession, NavigationProps } from '../commonTypes';
-import { Layout } from '@ui-kitten/components';
-
-const Container = styled(Layout)({
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-});
+import { Drink, DrinkingSession, NavigationProps, Screens } from '../commonTypes';
+import { FinishModal } from '../components/FinishModal';
+import { BigButton } from '../styling/commonStyles';
+import { StyledLayout } from '../styling/commonStyles';
 
 const styles = StyleSheet.create({
     title: {
@@ -22,11 +17,13 @@ const styles = StyleSheet.create({
     },
 });
 
-const StyledLaylout = styled(Layout)({
-    flex: 1,
-    padding: 20,
-    height: '100%',
-});
+const Row = styled.View`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: none;
+    justify-content: space-between;
+    width: 100%;
+`;
 
 export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
     const onPressAddDrink = () => {
@@ -40,20 +37,38 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
 
     const [expectedDrinks, setExpectedDrinks] = React.useState(0);
     const [actualDrinks, setActualDrinks] = React.useState(0);
+    const [modalOpen, setModalOpen] = React.useState(false);
+
+    const redirect = (page: string) => {
+        props.navigation.navigate(page);
+    };
 
     return (
-        <StyledLaylout>
+        <StyledLayout>
             <ScrollView>
-                <Banner drinkDifference={actualDrinks - expectedDrinks} />
-                <Button onPress={onPressAddDrink} title="Add drink" />
+                <Banner actualDrinks={actualDrinks} expectedDrinks={expectedDrinks} />
+                <Row>
+                    <Button
+                        onPress={onPressFinish}
+                        title="Finish"
+                    />
+                </Row>
+                <Row>
+                    <BigButton onPress={onPressAddDrink}>Add drink</BigButton>
+                    <View style={{ width: 10 }} />
+                    <BigButton onPress={() => redirect(Screens.DrinkingLimits)}>
+                        Set Limits
+                    </BigButton>
+                </Row>
+
                 <Text style={styles.title}>{props.title}</Text>
                 {session.drinks.map((drink: Drink, index: number) => (
                     <DrinkItem {...drink} />
                 ))}
                 <StatusBar style="auto" />
-                <Text>Try not to drink and drive</Text>
-                <Button title="finish the session" onPress={onPressFinish} />
+                <Text>Reminder: Try not to drink and drive  🥰</Text>
+                <FinishModal open={modalOpen} setOpen={setModalOpen} navigation={props.navigation} />
             </ScrollView>
-        </StyledLaylout>
+        </StyledLayout>
     );
 };

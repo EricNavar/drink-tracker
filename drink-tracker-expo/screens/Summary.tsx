@@ -1,32 +1,38 @@
 import React from 'react';
 import { Drink, DrinkingSession } from '../commonTypes';
-import styled from 'styled-components/native';
 import { DrinkItem } from '../components/DrinkItem';
-import { Layout, Text } from '@ui-kitten/components';
+import { Text } from '@ui-kitten/components';
 import { ScrollView } from 'react-native';
-import { DrinkList } from '../components/DrinkList';
-
-const StyledLayout = styled(Layout)`
-    padding: 20px;
-    height: 100%;
-`;
+import { getSession } from '../util/api';
+import { StyledLayout } from '../styling/commonStyles';
 
 type SummaryProps = {
     route: {
         params: {
-            session: DrinkingSession;
+            sessionId: string;
         };
     };
-} & DrinkingSession;
+};
 
 const Summary = (props: SummaryProps) => {
-    const [session, setSession] = React.useState(props.route.params.session);
+    const [session, setSession] = React.useState<DrinkingSession|null>(null);
+
+    React.useEffect(()=>{
+        const fetchSession = async () => {
+            const newSession = await getSession(props.route.params.sessionId);
+            setSession(newSession);
+        }
+        fetchSession();
+    });
 
     const getExpectedDrinksCount = () => {
         return 8;
     };
 
     const getMessage = () => {
+        if (!session) {
+            return '';
+        }
         const expectedDrinksCount = Math.max(
             getExpectedDrinksCount(),
             session.drinkLimit
@@ -46,7 +52,7 @@ const Summary = (props: SummaryProps) => {
     };
 
     const getDateString = () => {
-        if (!session.timeStart || !session.timeEnd) {
+        if (!session || !session.timeStart || !session.timeEnd) {
             return '';
         }
         return `${session.timeStart.toTimeString()} - ${session.timeEnd.toTimeString()}`;
@@ -58,14 +64,15 @@ const Summary = (props: SummaryProps) => {
 
     return (
         <StyledLayout>
-            <Text category="h3">{session.title}</Text>
-            <Text>{getDateString()}</Text>
-            <Text>You had {session.drinks.length} drinks.</Text>
-            <Text>{getMessage()}</Text>
-            {session.drinks.map((drink: Drink, index: number) => (
-                <DrinkItem {...drink} key={index} />
-            ))}
-            {/* <DrinkList drinks={session.drinks}/> */}
+            <ScrollView>
+                <Text category="h3">{session.title}</Text>
+                <Text>{getDateString()}</Text>
+                <Text>You had {session.drinks.length} drinks.</Text>
+                <Text>{getMessage()}</Text>
+                {session.drinks.map((drink: Drink, index: number) => (
+                    <DrinkItem {...drink} key={index} />
+                ))}
+            </ScrollView>
         </StyledLayout>
     );
 };

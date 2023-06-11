@@ -1,14 +1,8 @@
 import React from 'react';
 import { Button } from 'react-native';
-import styled from 'styled-components/native';
 import { theme } from '../styling/theme';
-import { Input, Layout, Text } from '@ui-kitten/components';
-
-const ScreenContainer = styled(Layout)`
-    padding: 20px;
-    min-height: 100%;
-    font-size: 20px;
-`;
+import { Input, Text } from '@ui-kitten/components';
+import { StyledLayout } from '../styling/commonStyles';
 
 const DrinkingLimits = () => {
     const [timeInterval, setTimeInterval] = React.useState(30); // time between drinks, in minutes
@@ -33,7 +27,7 @@ const DrinkingLimits = () => {
     };
 
     return (
-        <ScreenContainer>
+        <StyledLayout>
             <Text>Set your drinking limits (and goals!)</Text>
             <Input
                 value={String(timeInterval)}
@@ -50,7 +44,7 @@ const DrinkingLimits = () => {
                 style={{ color: theme.background.color, fontSize: 20 }}
             />
             <Button title="Save" onPress={onPressSave} />
-        </ScreenContainer>
+        </StyledLayout>
     );
 };
 

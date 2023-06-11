@@ -1,12 +1,7 @@
 import React from 'react';
 import { Alert, Button, Linking } from 'react-native';
-import { Layout, Text } from '@ui-kitten/components';
-import styled from 'styled-components/native';
-
-const StyledLayout = styled(Layout)`
-    padding: 20px;
-    height: 100%;
-`;
+import { Text } from '@ui-kitten/components';
+import { StyledLayout } from '../styling/commonStyles';
 
 const About = () => {
     const onPressGitHub = async () => {

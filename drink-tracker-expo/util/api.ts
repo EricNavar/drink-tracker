@@ -1,3 +1,5 @@
+import { DrinkingSession } from '../commonTypes';
+import { session } from '../data/dummysessions';
 import {
     editSession as editSessionGuest,
     addNewSession as addNewSessionGuest,
@@ -38,9 +40,10 @@ export const getAllSessions = async (page: number) => {
     }
 };
 
-export const getSession = async (id: string) => {
+export const getSession = async (id: string): Promise<DrinkingSession> => {
     if (isFullAccount()) {
-        getSessionGuest(id);
+        return getSessionGuest(id);
     } else {
+        return session;
     }
 };

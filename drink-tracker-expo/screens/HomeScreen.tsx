@@ -3,28 +3,16 @@ import { Button, View } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationProps, Screens } from '../commonTypes';
 import { NewSessionDrawer } from '../components/NewSessionDrawer';
-import { Layout, Button as KittenButton, Text } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import { sessions } from '../data/dummysessions';
 import { SessionCard } from '../components/SessionCard';
+import { BigButton, Row } from '../styling/commonStyles';
 
 const StyledLaylout = styled(Layout)({
     flex: 1,
     padding: 20,
     height: '100%',
 });
-
-const Row = styled.View`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: none;
-    justify-content: space-between;
-    width: 100%;
-`;
-
-const BigButton = styled(KittenButton)`
-    flex-basis: 1;
-    flex-grow: 1;
-`;
 
 export const HomeScreen = (props: NavigationProps) => {
     const [modalVisible, setModalVisible] = React.useState(false);

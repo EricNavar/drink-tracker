@@ -2,14 +2,8 @@ import React from 'react';
 import { sessions } from '../data/dummysessions';
 import { SessionCard } from '../components/SessionCard';
 import { NavigationProps } from '../commonTypes';
-import { Layout } from '@ui-kitten/components';
-import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
-
-const StyledLayout = styled(Layout)`
-    padding: 20px;
-    height: 100%;
-`;
+import { StyledLayout } from '../styling/commonStyles';
 
 const RecentSessions = (props: NavigationProps) => {
     return (

@@ -1,12 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { Input, Layout } from '@ui-kitten/components';
-import styled from 'styled-components/native';
-
-const StyledLayout = styled(Layout)`
-    padding: 20px;
-    height: 100%;
-`;
+import { Input } from '@ui-kitten/components';
+import { StyledLayout } from '../styling/commonStyles';
 
 const Feedback = () => {
     const [feedback, setFeedback] = React.useState('');

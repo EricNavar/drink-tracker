@@ -7,7 +7,7 @@ type DrinkInputProps = {
     drinkNumber: number;
 };
 
-const DrinkInput = (props: DrinkInputProps) => {
+const DrinkModal = (props: DrinkInputProps) => {
     const [drinkName, setDrinkName] = React.useState('');
     const [drinkWeight, setDrinkWeight] = React.useState(1);
     const [timeDrank, setTimeDrank] = React.useState('');
@@ -28,13 +28,22 @@ const DrinkInput = (props: DrinkInputProps) => {
         setDrinkWeight(event.target.value);
     };
 
+    const closeModal = () => {
+
+    };
+
     return (
         <View>
-            <Text>New drink</Text>
+            <Text>Edit Drink</Text>
             <TextInput
                 placeholder="name of drink"
                 value={drinkName}
                 onChangeText={setDrinkName}
+            />
+            <TextInput
+                placeholder="time drank"
+                value={timeDrank}
+                onChangeText={setTimeDrank}
             />
             <TextInput
                 placeholder="how many drinks is this worth"
@@ -42,14 +51,10 @@ const DrinkInput = (props: DrinkInputProps) => {
                 onChange={onChangeDrinkWeight}
                 keyboardType="numeric"
             />
-            <TextInput
-                placeholder="time drank"
-                value={timeDrank}
-                onChangeText={setTimeDrank}
-            />
             <Button title="Submit" onPress={onSubmit} />
+            <Button title="Cancel" onPress={closeModal} />
         </View>
     );
 };
 
-export { DrinkInput };
+export { DrinkModal };

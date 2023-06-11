@@ -33,3 +33,8 @@ export enum Screens {
     Feedback = 'Feedback',
     About = 'About',
 }
+
+export type ModalProps = {
+    open: boolean;
+    setOpen: any;
+}
