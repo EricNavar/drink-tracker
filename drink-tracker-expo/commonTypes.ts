@@ -1,5 +1,5 @@
 export type DrinkingSession = {
-    id: string;
+    _id: string;
     timeStart: Date;
     timeEnd: Date;
     drinks: Drink[];
@@ -9,6 +9,7 @@ export type DrinkingSession = {
 };
 
 export type Drink = {
+    _id: string;
     timeDrank: Date;
     drinkName: string;
     drinkType?: string;

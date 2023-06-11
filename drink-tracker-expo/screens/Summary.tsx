@@ -3,7 +3,7 @@ import { Drink, DrinkingSession } from '../commonTypes';
 import { DrinkItem } from '../components/DrinkItem';
 import { Text } from '@ui-kitten/components';
 import { ScrollView } from 'react-native';
-import { getSession } from '../util/api';
+import { getSession } from '../api/api';
 import { StyledLayout } from '../styling/commonStyles';
 
 type SummaryProps = {
@@ -49,13 +49,6 @@ const Summary = (props: SummaryProps) => {
         return `You had ${-difference} less drink${
             difference < -1 ? 's' : ''
         } than expected.`;
-    };
-
-    const getDateString = () => {
-        if (!session || !session.timeStart || !session.timeEnd) {
-            return '';
-        }
-        return `${session.timeStart.toTimeString()} - ${session.timeEnd.toTimeString()}`;
     };
 
     if (!session) {

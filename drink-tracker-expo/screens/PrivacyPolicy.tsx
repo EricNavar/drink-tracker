@@ -1,6 +1,7 @@
-import { Layout, Text } from '@ui-kitten/components';
+import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { Button } from 'react-native';
+import { StyledLayout } from '../styling/commonStyles';
 
 const PrivacyPolicy = () => {
     return (

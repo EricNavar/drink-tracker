@@ -9,6 +9,8 @@ import { Drink, DrinkingSession, NavigationProps, Screens } from '../commonTypes
 import { FinishModal } from '../components/FinishModal';
 import { BigButton } from '../styling/commonStyles';
 import { StyledLayout } from '../styling/commonStyles';
+import { NewDrinkModal } from '../components/NewDrinkModal';
+import { EditDrinkModal } from '../components/EditDrinkModal';
 
 const styles = StyleSheet.create({
     title: {
@@ -32,12 +34,16 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
 
     const onPressFinish = () => {
         console.log('finishing session');
-        props.navigation.navigate('Summary');
+        props.navigation.navigate(Screens.Summary);
     };
 
     const [expectedDrinks, setExpectedDrinks] = React.useState(0);
     const [actualDrinks, setActualDrinks] = React.useState(0);
-    const [modalOpen, setModalOpen] = React.useState(false);
+    
+    const [finishModalOpen, setFinishModalOpen] = React.useState(false);
+    const [newDrinkModalOpen, setNewDrinkModalOpen] = React.useState(false);
+    const [editDrinkModalOpen, setEditDrinkModalOpen] = React.useState(false);
+    const [selectedDrink, setSelectedDrink] = React.useState<Drink|null>(null);
 
     const redirect = (page: string) => {
         props.navigation.navigate(page);
@@ -67,7 +73,9 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
                 ))}
                 <StatusBar style="auto" />
                 <Text>Reminder: Try not to drink and drive  🥰</Text>
-                <FinishModal open={modalOpen} setOpen={setModalOpen} navigation={props.navigation} />
+                <FinishModal open={finishModalOpen} setOpen={setFinishModalOpen} navigation={props.navigation} />
+                <NewDrinkModal open={finishModalOpen} setOpen={setFinishModalOpen} navigation={props.navigation} />
+                <EditDrinkModal open={finishModalOpen} setOpen={setFinishModalOpen} drink={selectedDrink} sessionId={props._id}/>
             </ScrollView>
         </StyledLayout>
     );

@@ -47,3 +47,7 @@ export const getSession = async (id: string): Promise<DrinkingSession> => {
         return session;
     }
 };
+
+export const editDrink = async (sessionId: string, drinkId: string) => {
+    console.log('hello');
+}

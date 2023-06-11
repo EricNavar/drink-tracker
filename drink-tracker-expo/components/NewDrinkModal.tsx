@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, TextInput, Button } from 'react-native';
-import { Drink } from '../commonTypes';
+import { Drink, NavigationProps, Screens } from '../commonTypes';
 import { Text } from '@ui-kitten/components';
 
 type DrinkInputProps = {
     drinkNumber: number;
-};
+    open: boolean;
+    setOpen: any;
+} & NavigationProps;
 
-const DrinkModal = (props: DrinkInputProps) => {
+const NewDrinkModal = (props: DrinkInputProps) => {
     const [drinkName, setDrinkName] = React.useState('');
     const [drinkWeight, setDrinkWeight] = React.useState(1);
     const [timeDrank, setTimeDrank] = React.useState('');
@@ -17,11 +19,12 @@ const DrinkModal = (props: DrinkInputProps) => {
             console.log('drink weight must be at least 0');
         }
         const newDrink: Drink = {
+            _id: 'u432819',
             timeDrank: new Date(timeDrank),
             drinkName: drinkName,
             weight: drinkWeight,
         };
-        console.log(newDrink);
+        props.navigation.navigate(Screens.Session, {drink: newDrink});
     };
 
     const onChangeDrinkWeight = (event: any) => {
@@ -29,7 +32,7 @@ const DrinkModal = (props: DrinkInputProps) => {
     };
 
     const closeModal = () => {
-
+        props.setOpen(false);
     };
 
     return (
@@ -57,4 +60,4 @@ const DrinkModal = (props: DrinkInputProps) => {
     );
 };
 
-export { DrinkModal };
+export { NewDrinkModal };

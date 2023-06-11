@@ -2,25 +2,31 @@ import React from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { Drink } from '../commonTypes';
 import { Text } from '@ui-kitten/components';
+import { editDrink } from '../api/api';
 
-type DrinkInputProps = {
-    drinkNumber: number;
+type EditDrinkModalProps = {
+    sessionId: string;
+    drink: Drink | null;
+    open: boolean;
+    setOpen: any;
 };
 
-const DrinkModal = (props: DrinkInputProps) => {
-    const [drinkName, setDrinkName] = React.useState('');
-    const [drinkWeight, setDrinkWeight] = React.useState(1);
-    const [timeDrank, setTimeDrank] = React.useState('');
+const EditDrinkModal = (props: EditDrinkModalProps) => {
+    const [drinkName, setDrinkName] = React.useState(props.drink.drinkName);
+    const [drinkWeight, setDrinkWeight] = React.useState(props.drink.weight);
+    const [timeDrank, setTimeDrank] = React.useState(props.drink.timeDrank);
 
-    const onSubmit = () => {
+    const onPressSave = () => {
         if (drinkWeight >= 0) {
             console.log('drink weight must be at least 0');
         }
         const newDrink: Drink = {
+            ...props.drink,
             timeDrank: new Date(timeDrank),
             drinkName: drinkName,
             weight: drinkWeight,
         };
+        editDrink(props.sessionId, props.drink._id);
         console.log(newDrink);
     };
 
@@ -28,13 +34,17 @@ const DrinkModal = (props: DrinkInputProps) => {
         setDrinkWeight(event.target.value);
     };
 
-    const closeModal = () => {
+    const onChangeTimeDrank = (event: any) => {
+        setTimeDrank(event.target.value)
+    }
 
+    const closeModal = () => {
+        props.setOpen(false);
     };
 
     return (
         <View>
-            <Text>Edit Drink</Text>
+            <Text>Edit {props.drink.drinkName}</Text>
             <TextInput
                 placeholder="name of drink"
                 value={drinkName}
@@ -42,8 +52,8 @@ const DrinkModal = (props: DrinkInputProps) => {
             />
             <TextInput
                 placeholder="time drank"
-                value={timeDrank}
-                onChangeText={setTimeDrank}
+                value={String(timeDrank)}
+                onChangeText={onChangeTimeDrank}
             />
             <TextInput
                 placeholder="how many drinks is this worth"
@@ -51,10 +61,10 @@ const DrinkModal = (props: DrinkInputProps) => {
                 onChange={onChangeDrinkWeight}
                 keyboardType="numeric"
             />
-            <Button title="Submit" onPress={onSubmit} />
+            <Button title="Save" onPress={onPressSave} />
             <Button title="Cancel" onPress={closeModal} />
         </View>
     );
 };
 
-export { DrinkModal };
+export { EditDrinkModal };
