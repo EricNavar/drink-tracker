@@ -52,10 +52,15 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
     const [selectedDrink, setSelectedDrink] = React.useState<Drink | null>(
         null
     );
+    const [nextDrinkDeadline, setNextDrinkDeadline] = React.useState(0);
 
     const redirect = (page: string) => {
         props.navigation.navigate(page);
     };
+
+    const onCloseNewDrink = () => {
+        
+    }
 
     return (
         <StyledLayout>

@@ -43,34 +43,32 @@ const Summary = (props: SummaryProps & NavigationProps) => {
         }
         const difference = session.drinks.length - expectedDrinksCount;
         if (difference > 0) {
-            return `You had ${difference} more drink${
-                difference > 1 ? 's' : ''
-            } than expected.`;
+            return `You had ${difference} more drink${difference > 1 ? 's' : ''
+                } than expected.`;
         }
-        return `You had ${-difference} less drink${
-            difference < -1 ? 's' : ''
-        } than expected.`;
+        return `You had ${-difference} less drink${difference < -1 ? 's' : ''
+            } than expected.`;
     };
 
     const onPressBack = () => {
         props.navigation.navigate(Screens.Home);
     };
 
-    if (!session) {
-        return <></>;
-    }
-
     return (
         <StyledLayout>
             <ScrollView>
                 <Button title="Back" onPress={onPressBack} />
-                <Text category="h3">{session.title}</Text>
-                <Text>{getTimeRangeString(session.timeStart, session.timeEnd)}</Text>
-                <Text>You had {session.drinks.length} drinks.</Text>
-                <Text>{getMessage()}</Text>
-                {session.drinks.map((drink: Drink, index: number) => (
-                    <DrinkItem {...drink} key={index} />
-                ))}
+                {session ?
+                    <>
+                        <Text category="h3">{session.title}</Text>
+                        <Text>{getTimeRangeString(session.timeStart, session.timeEnd)}</Text>
+                        <Text>You had {session.drinks.length} drinks.</Text>
+                        <Text>{getMessage()}</Text>
+                        {session.drinks.map((drink: Drink, index: number) => (
+                            <DrinkItem {...drink} key={index} />
+                        ))}
+                    </> : <Text>Could not load session</Text>
+                }
             </ScrollView>
         </StyledLayout>
     );

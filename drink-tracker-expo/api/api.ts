@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { DrinkingSession } from '../commonTypes';
 import { session } from '../data/dummysessions';
 import {
@@ -50,4 +51,22 @@ export const getSession = async (id: string): Promise<DrinkingSession> => {
 
 export const editDrink = async (sessionId: string, drinkId: string) => {
     console.log('hello');
+};
+
+export const sendFeedback = async (feedback: string) => {
+    const data = {
+        feedback: feedback,
+        time: Date.now()
+    };
+    const url = ``;
+    return axios.post(url, data)
+        .then(function (response: any) {
+            return response;
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
 };
