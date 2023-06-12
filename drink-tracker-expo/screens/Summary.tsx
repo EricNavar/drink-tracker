@@ -1,11 +1,11 @@
 import React from 'react';
-import { Drink, DrinkingSession } from '../commonTypes';
+import { Drink, DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { DrinkItem } from '../components/DrinkItem';
-import { Text } from '@ui-kitten/components';
-import { ScrollView } from 'react-native';
+import { ScrollView, Button } from 'react-native';
 import { getSession } from '../api/api';
 import { StyledLayout } from '../styling/commonStyles';
 import { getTimeRangeString } from '../util';
+import { Text } from 'react-native-ui-lib';
 
 type SummaryProps = {
     route: {
@@ -15,7 +15,7 @@ type SummaryProps = {
     };
 };
 
-const Summary = (props: SummaryProps) => {
+const Summary = (props: SummaryProps & NavigationProps) => {
     const [session, setSession] = React.useState<DrinkingSession | null>(null);
 
     React.useEffect(() => {
@@ -52,6 +52,10 @@ const Summary = (props: SummaryProps) => {
         } than expected.`;
     };
 
+    const onPressBack = () => {
+        props.navigation.navigate(Screens.Home);
+    };
+
     if (!session) {
         return <></>;
     }
@@ -59,6 +63,7 @@ const Summary = (props: SummaryProps) => {
     return (
         <StyledLayout>
             <ScrollView>
+                <Button title="Back" onPress={onPressBack} />
                 <Text category="h3">{session.title}</Text>
                 <Text>{getTimeRangeString(session.timeStart, session.timeEnd)}</Text>
                 <Text>You had {session.drinks.length} drinks.</Text>

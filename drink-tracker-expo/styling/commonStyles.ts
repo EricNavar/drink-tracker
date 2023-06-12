@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import { Layout, Button } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
+import { Button } from 'react-native-ui-lib';
 
 export const StyledLayout = styled(Layout)`
     padding: 20px;

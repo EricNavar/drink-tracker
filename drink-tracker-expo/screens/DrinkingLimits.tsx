@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { theme } from '../styling/theme';
-import { Input, Text } from '@ui-kitten/components';
+import { Input } from '@ui-kitten/components';
+import { Text } from 'react-native-ui-lib';
 import { StyledLayout } from '../styling/commonStyles';
 
 const DrinkingLimits = () => {

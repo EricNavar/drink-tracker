@@ -40,7 +40,12 @@ const NewSessionDrawer = (
                 onChangeText={setName}
                 placeholder="Name of party"
             />
-            <DateTimePicker label={'Select time'} placeholder={'Time start'} mode={'time'} value={startTime} />
+            <DateTimePicker
+                label={'Select time'}
+                placeholder={'Time start'}
+                mode={'time'}
+                value={startTime}
+            />
             <Button title="Start" onPress={onPressStart} />
         </Dialog>
     );

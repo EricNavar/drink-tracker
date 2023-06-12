@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Drink } from '../commonTypes';
-import { Card, Divider, Text } from '@ui-kitten/components';
+import { Card, Divider } from '@ui-kitten/components';
+import { Badge, Text } from 'react-native-ui-lib';
 
 const StyledCard = styled(Card)({
     marginVertical: 8,
@@ -24,7 +25,7 @@ const TopRow = styled(Text)({
 export const DrinkItem = (props: Drink) => {
     return (
         <>
-            <StyledCard appearance="filled" disabled={true}>
+            <StyledCard appearance="filled" disabled={true} accent={<Badge label={'999'} size={16}/>}>
                 <TopRow>
                     <CardTitle>{props.drinkName}&nbsp;</CardTitle>
                 </TopRow>

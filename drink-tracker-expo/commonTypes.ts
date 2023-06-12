@@ -24,7 +24,6 @@ export type NavigationProps = {
 };
 
 export enum Screens {
-    Onboarding = 'Onboarding',
     Home = 'Home',
     DrinkingLimits = 'Drinking Limits',
     Session = 'Session',

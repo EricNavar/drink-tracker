@@ -16,7 +16,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Screens } from './commonTypes';
 import { ApplicationProvider } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
-import { Colors, ThemeManager } from 'react-native-ui-lib';
+import { Colors } from 'react-native-ui-lib';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,10 +62,6 @@ export default function App() {
                         <Stack.Screen
                             name={Screens.Feedback}
                             component={Feedback}
-                        />
-                        <Stack.Screen
-                            name={Screens.Onboarding}
-                            component={Onboarding}
                         />
                         <Stack.Screen
                             name={Screens.PrivacyPolicy}

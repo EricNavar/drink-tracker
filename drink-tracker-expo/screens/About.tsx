@@ -1,9 +1,10 @@
 import React from 'react';
 import { Alert, Button, Linking } from 'react-native';
-import { Text } from '@ui-kitten/components';
 import { StyledLayout } from '../styling/commonStyles';
+import { Text } from 'react-native-ui-lib';
+import { NavigationProps, Screens } from '../commonTypes';
 
-const About = () => {
+const About = (props: NavigationProps) => {
     const onPressGitHub = async () => {
         const url = 'https://github.com/ericnavar/drink-tracker';
         // Checking if the link is supported for links with custom URL scheme.
@@ -18,16 +19,19 @@ const About = () => {
         }
     };
 
+    const onPressBack = () => {
+        props.navigation.navigate(Screens.Settings);
+    };
+
     return (
         <StyledLayout>
+            <Button title='Back' onPress={onPressBack} />
             <Text>
-                <Text>
-                    I appreciate your feedback! ☺{'\n'}
-                    This is an open source project that is under active
-                    development. Please provide feedback, the more detailed the
-                    better, so I can improve.{'\n'}
-                    Feel free to open a PR on the GitHub repo:
-                </Text>
+                I appreciate your feedback! ☺{'\n'}
+                This is an open source project that is under active
+                development. Please provide feedback, the more detailed the
+                better, so I can improve.{'\n'}
+                Feel free to open a PR on the GitHub repo:
             </Text>
             <Button title="GitHub" onPress={onPressGitHub} />
         </StyledLayout>

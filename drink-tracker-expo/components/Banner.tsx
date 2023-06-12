@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text } from '@ui-kitten/components';
 import styled from 'styled-components/native';
+import { Text } from 'react-native-ui-lib';
 
 const BannerCard = styled.View`
     background-color: #ccc;

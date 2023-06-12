@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Card, Modal, Text } from '@ui-kitten/components';
 import { ModalProps, NavigationProps, Screens } from '../commonTypes';
+import {Text} from 'react-native-ui-lib';
+import { Button, Dialog } from 'react-native-ui-lib';
 
 export const FinishModal = (
     props: ModalProps & NavigationProps
@@ -19,15 +20,13 @@ export const FinishModal = (
     };
 
     return (
-        <Modal visible={visible}>
-            <Card disabled={true}>
-                <Text>
-                    Are you done with drinking for the night? This will complete
-                    the drinking session.
-                </Text>
-                <Button onPress={pressYes}>Yes</Button>
-                <Button onPress={pressNo}>No</Button>
-            </Card>
-        </Modal>
+        <Dialog visible={visible}>
+            <Text>
+                Are you done with drinking for the night? This will complete
+                the drinking session.
+            </Text>
+            <Button onPress={pressYes}>Yes</Button>
+            <Button onPress={pressNo}>No</Button>
+        </Dialog>
     );
 };

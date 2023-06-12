@@ -10,6 +10,7 @@ const Settings = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
+            <Button title='Back' onPress={() => redirect(Screens.Home)} />
             <Button title="About" onPress={() => redirect(Screens.About)} />
             {/* <Button
                 title="Feedback"

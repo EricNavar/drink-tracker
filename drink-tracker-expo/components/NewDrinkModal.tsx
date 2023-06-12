@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { TextInput, Button } from 'react-native';
 import { Drink, NavigationProps, Screens } from '../commonTypes';
 import { Dialog, Text } from 'react-native-ui-lib';
 

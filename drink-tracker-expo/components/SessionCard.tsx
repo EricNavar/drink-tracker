@@ -1,14 +1,10 @@
 import React from 'react';
-import { Button, StyleSheet } from 'react-native';
+import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
-import { Text, Card, Divider } from '@ui-kitten/components';
 import { session } from '../data/dummysessions';
 import { getTimeRangeString } from '../util';
-import { TouchableOpacity, View } from 'react-native-ui-lib';
-
-const StyledCard = styled(Card)`
-`;
+import { TouchableOpacity, Text } from 'react-native-ui-lib';
 
 const CardTitle = styled(Text)({
     fontWeight: 'bold',

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'react-native';
-import styled from 'styled-components/native';
 import { NavigationProps, Screens } from '../commonTypes';
 import { NewSessionDrawer } from '../components/NewSessionDrawer';
 import { sessions } from '../data/dummysessions';
@@ -55,7 +54,6 @@ export const HomeScreen = (props: NavigationProps) => {
                 navigation={props.navigation}
                 setOpen={setModalVisible}
             />
-            <Text>jkncfnunacufshunnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnioas</Text>
         </StyledLayout>
     );
 };
