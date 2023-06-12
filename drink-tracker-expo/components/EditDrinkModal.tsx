@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { Drink } from '../commonTypes';
-import { Text } from '@ui-kitten/components';
 import { editDrink } from '../api/api';
+import { Text } from 'react-native-ui-lib';
 
 type EditDrinkModalProps = {
     sessionId: string;
@@ -12,11 +12,18 @@ type EditDrinkModalProps = {
 };
 
 const EditDrinkModal = (props: EditDrinkModalProps) => {
-    const [drinkName, setDrinkName] = React.useState(props.drink.drinkName);
-    const [drinkWeight, setDrinkWeight] = React.useState(props.drink.weight);
-    const [timeDrank, setTimeDrank] = React.useState(props.drink.timeDrank);
+    const [drinkName, setDrinkName] = React.useState(
+        props.drink ? props.drink.drinkName : ''
+    );
+    const [drinkWeight, setDrinkWeight] = React.useState(
+        props.drink ? props.drink.weight : 1
+    );
+    const [timeDrank, setTimeDrank] = React.useState(
+        props.drink ? props.drink.timeDrank : ''
+    );
 
     const onPressSave = () => {
+        if (!props.drink) return;
         if (drinkWeight >= 0) {
             console.log('drink weight must be at least 0');
         }
@@ -35,12 +42,14 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
     };
 
     const onChangeTimeDrank = (event: any) => {
-        setTimeDrank(event.target.value)
-    }
+        setTimeDrank(event.target.value);
+    };
 
     const closeModal = () => {
         props.setOpen(false);
     };
+
+    if (!props.drink) return <></>;
 
     return (
         <View>

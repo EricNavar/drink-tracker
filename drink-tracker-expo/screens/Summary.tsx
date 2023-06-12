@@ -5,6 +5,7 @@ import { Text } from '@ui-kitten/components';
 import { ScrollView } from 'react-native';
 import { getSession } from '../api/api';
 import { StyledLayout } from '../styling/commonStyles';
+import { getTimeRangeString } from '../util';
 
 type SummaryProps = {
     route: {
@@ -15,13 +16,13 @@ type SummaryProps = {
 };
 
 const Summary = (props: SummaryProps) => {
-    const [session, setSession] = React.useState<DrinkingSession|null>(null);
+    const [session, setSession] = React.useState<DrinkingSession | null>(null);
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         const fetchSession = async () => {
             const newSession = await getSession(props.route.params.sessionId);
             setSession(newSession);
-        }
+        };
         fetchSession();
     });
 
@@ -59,7 +60,7 @@ const Summary = (props: SummaryProps) => {
         <StyledLayout>
             <ScrollView>
                 <Text category="h3">{session.title}</Text>
-                <Text>{getDateString()}</Text>
+                <Text>{getTimeRangeString(session.timeStart, session.timeEnd)}</Text>
                 <Text>You had {session.drinks.length} drinks.</Text>
                 <Text>{getMessage()}</Text>
                 {session.drinks.map((drink: Drink, index: number) => (

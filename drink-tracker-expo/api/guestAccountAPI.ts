@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrinkingSession } from '../commonTypes';
+import { session } from '../data/dummysessions';
 
 export const editSession = async (value: any) => {
     try {
@@ -8,7 +9,7 @@ export const editSession = async (value: any) => {
         sessions.push(value);
         await AsyncStorage.setItem('sessions', value);
     } catch (e) {
-        console.log('error')
+        console.log('error');
     }
 };
 
@@ -19,7 +20,7 @@ export const addNewSession = async (value: any) => {
         sessions.push(value);
         await AsyncStorage.setItem('sessions', value);
     } catch (e) {
-        console.log('error')
+        console.log('error');
     }
 };
 
@@ -42,17 +43,19 @@ export const getAllSessions = async (page: number) => {
 };
 
 export const getSession = async (id: string) => {
-    try {
-        const jsonValue = await AsyncStorage.getItem('sessions');
-        const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
-        const results = sessions.filter((session: DrinkingSession) => session._id === id);
-        if (results.length > 0) {
-            return results[0];
-        }
-        else {
-            console.log('session not found');
-        }
-    } catch (e) {
-        console.log('error');
-    }
+    // try {
+    //     const jsonValue = await AsyncStorage.getItem('sessions');
+    //     const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
+    //     const results = sessions.filter(
+    //         (session: DrinkingSession) => session._id === id
+    //     );
+    //     if (results.length > 0) {
+    //         return results[0];
+    //     } else {
+    //         console.log('session not found');
+    //     }
+    // } catch (e) {
+    //     console.log('error');
+    // }
+    return session;
 };

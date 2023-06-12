@@ -4,9 +4,10 @@ import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { Text, Card, Divider } from '@ui-kitten/components';
 import { session } from '../data/dummysessions';
+import { getTimeRangeString } from '../util';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
 
 const StyledCard = styled(Card)`
-    margin-bottom: 8px;
 `;
 
 const CardTitle = styled(Text)({
@@ -28,18 +29,17 @@ export const SessionCard = (
     };
 
     return (
-        <>
-            <StyledCard onPress={onPressCard} appearance="filled">
-                <CardTitle>{props.title}</CardTitle>
-                <Text>{getDateString()}</Text>
-                <Text>
-                    {props.drinks.length}/{props.drinkLimit} drinks
-                </Text>
-                {props.deleteMode && (
-                    <Button title="delete" onPress={onPressDelete} />
-                )}
-            </StyledCard>
-            <Divider />
-        </>
+        <TouchableOpacity centerV padding-s4 bg-white style={{height: 60, backgroundColor:'black'}} onPress={onPressCard}>
+            <CardTitle>{props.title}</CardTitle>
+            <Text>
+                {getTimeRangeString(props.timeStart, props.timeEnd)}
+            </Text>
+            <Text>
+                {props.drinks.length}/{props.drinkLimit} drinks
+            </Text>
+            {props.deleteMode && (
+                <Button title="delete" onPress={onPressDelete} />
+            )}
+        </TouchableOpacity>
     );
 };

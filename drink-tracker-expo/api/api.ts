@@ -50,4 +50,4 @@ export const getSession = async (id: string): Promise<DrinkingSession> => {
 
 export const editDrink = async (sessionId: string, drinkId: string) => {
     console.log('hello');
-}
+};

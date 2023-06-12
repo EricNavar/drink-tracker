@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 import { Layout, Button } from '@ui-kitten/components';
 
 export const StyledLayout = styled(Layout)`

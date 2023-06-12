@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { Drink, NavigationProps, Screens } from '../commonTypes';
-import { Text } from '@ui-kitten/components';
+import { Dialog, Text } from 'react-native-ui-lib';
 
 type DrinkInputProps = {
     drinkNumber: number;
@@ -24,7 +24,7 @@ const NewDrinkModal = (props: DrinkInputProps) => {
             drinkName: drinkName,
             weight: drinkWeight,
         };
-        props.navigation.navigate(Screens.Session, {drink: newDrink});
+        props.navigation.navigate(Screens.Session, { drink: newDrink });
     };
 
     const onChangeDrinkWeight = (event: any) => {
@@ -36,7 +36,7 @@ const NewDrinkModal = (props: DrinkInputProps) => {
     };
 
     return (
-        <View>
+        <Dialog open={props.open} onDismiss={closeModal}>
             <Text>New drink</Text>
             <TextInput
                 placeholder="name of drink"
@@ -56,7 +56,7 @@ const NewDrinkModal = (props: DrinkInputProps) => {
             />
             <Button title="Submit" onPress={onSubmit} />
             <Button title="Cancel" onPress={closeModal} />
-        </View>
+        </Dialog>
     );
 };
 

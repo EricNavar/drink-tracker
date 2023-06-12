@@ -38,4 +38,4 @@ export enum Screens {
 export type ModalProps = {
     open: boolean;
     setOpen: any;
-}
+};

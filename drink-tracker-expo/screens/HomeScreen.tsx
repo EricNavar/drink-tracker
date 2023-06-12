@@ -1,18 +1,12 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationProps, Screens } from '../commonTypes';
 import { NewSessionDrawer } from '../components/NewSessionDrawer';
-import { Layout, Text } from '@ui-kitten/components';
 import { sessions } from '../data/dummysessions';
 import { SessionCard } from '../components/SessionCard';
-import { BigButton, Row } from '../styling/commonStyles';
-
-const StyledLaylout = styled(Layout)({
-    flex: 1,
-    padding: 20,
-    height: '100%',
-});
+import { BigButton, Row, StyledLayout } from '../styling/commonStyles';
+import { Colors, Drawer, Text, View } from 'react-native-ui-lib';
 
 export const HomeScreen = (props: NavigationProps) => {
     const [modalVisible, setModalVisible] = React.useState(false);
@@ -26,9 +20,9 @@ export const HomeScreen = (props: NavigationProps) => {
     };
 
     return (
-        <StyledLaylout>
+        <StyledLayout>
             <Row>
-                <Button onPress={() => {}} title="Edit" />
+                <View/>
                 <Button
                     onPress={() => redirect(Screens.Settings)}
                     title="Settings"
@@ -41,19 +35,27 @@ export const HomeScreen = (props: NavigationProps) => {
                     Set Limits
                 </BigButton>
             </Row>
-            <Text category='h5' style={{marginTop: 20}}>Recent</Text>
+            <Text category="h5" style={{ marginTop: 20 }}>
+                Recent
+            </Text>
             {sessions.map((session, index) => (
-                <SessionCard
-                    {...session}
-                    navigation={props.navigation}
+                <Drawer
+                    rightItems={[{ text: 'Delete', background: Colors.red30, onPress: () => console.log('delete pressed') }]}
                     key={index}
-                />
+                >
+                    <SessionCard
+                        {...session}
+                        navigation={props.navigation}
+                        key={index}
+                    />
+                </Drawer>
             ))}
             <NewSessionDrawer
                 open={modalVisible}
                 navigation={props.navigation}
                 setOpen={setModalVisible}
             />
-        </StyledLaylout>
+            <Text>jkncfnunacufshunnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnioas</Text>
+        </StyledLayout>
     );
 };
