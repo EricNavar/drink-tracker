@@ -1,9 +1,14 @@
 import React from 'react';
-import { Drink, DrinkingSession, NavigationProps, Screens } from '../commonTypes';
+import {
+    Drink,
+    DrinkingSession,
+    NavigationProps,
+    Screens,
+} from '../commonTypes';
 import { DrinkItem } from '../components/DrinkItem';
 import { ScrollView, Button } from 'react-native';
 import { getSession } from '../api/api';
-import { StyledLayout } from '../styling/commonStyles';
+import { Row, StyledLayout } from '../styling/commonStyles';
 import { getTimeRangeString } from '../util';
 import { Text } from 'react-native-ui-lib';
 
@@ -39,15 +44,17 @@ const Summary = (props: SummaryProps & NavigationProps) => {
             session.drinkLimit
         );
         if (expectedDrinksCount === session.drinks.length) {
-            return 'You were on schedule';
+            return 'right on schedule';
         }
         const difference = session.drinks.length - expectedDrinksCount;
         if (difference > 0) {
-            return `You had ${difference} more drink${difference > 1 ? 's' : ''
-                } than expected.`;
-        }
-        return `You had ${-difference} less drink${difference < -1 ? 's' : ''
+            return `${difference} more drink${
+                difference > 1 ? 's' : ''
             } than expected.`;
+        }
+        return `${-difference} less drink${
+            difference < -1 ? 's' : ''
+        } than expected.`;
     };
 
     const onPressBack = () => {
@@ -57,18 +64,30 @@ const Summary = (props: SummaryProps & NavigationProps) => {
     return (
         <StyledLayout>
             <ScrollView>
-                <Button title="Back" onPress={onPressBack} />
-                {session ?
+                <Row>
+                    <Button title="Back" onPress={onPressBack} />
+                    <Button title="Back" onPress={onPressBack} />
+                </Row>
+                {session ? (
                     <>
-                        <Text category="h3">{session.title}</Text>
-                        <Text>{getTimeRangeString(session.timeStart, session.timeEnd)}</Text>
-                        <Text>You had {session.drinks.length} drinks.</Text>
-                        <Text>{getMessage()}</Text>
+                        <Text text40>{session.title}</Text>
+                        <Text>
+                            {getTimeRangeString(
+                                session.timeStart,
+                                session.timeEnd
+                            )}
+                        </Text>
+                        <Text>
+                            You had {session.drinks.length} drinks,{' '}
+                            {getMessage()}
+                        </Text>
                         {session.drinks.map((drink: Drink, index: number) => (
                             <DrinkItem {...drink} key={index} />
                         ))}
-                    </> : <Text>Could not load session</Text>
-                }
+                    </>
+                ) : (
+                    <Text>Could not load session</Text>
+                )}
             </ScrollView>
         </StyledLayout>
     );

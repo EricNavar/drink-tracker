@@ -11,11 +11,10 @@ const PrivacyPolicy = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
-            <Button title='Back' onPress={onPressBack} />
+            <Button title="Back" onPress={onPressBack} />
             <Text>
                 We don't share your data with any other person or company. 🤞
             </Text>
-            <Button title="Back" />
         </StyledLayout>
     );
 };

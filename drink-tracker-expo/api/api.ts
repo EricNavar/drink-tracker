@@ -56,10 +56,11 @@ export const editDrink = async (sessionId: string, drinkId: string) => {
 export const sendFeedback = async (feedback: string) => {
     const data = {
         feedback: feedback,
-        time: Date.now()
+        time: Date.now(),
     };
     const url = ``;
-    return axios.post(url, data)
+    return axios
+        .post(url, data)
         .then(function (response: any) {
             return response;
         })

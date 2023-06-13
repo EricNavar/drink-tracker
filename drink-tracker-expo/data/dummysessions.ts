@@ -60,4 +60,4 @@ export const session: DrinkingSession = {
     ],
 };
 
-export const sessions: DrinkingSession[] = [session];
+export const sessions: DrinkingSession[] = [session, session, session, session];

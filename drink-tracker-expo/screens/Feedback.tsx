@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { Input } from '@ui-kitten/components';
 import { StyledLayout } from '../styling/commonStyles';
-import {Incubator} from 'react-native-ui-lib';
+import { Incubator, Text, TextField } from 'react-native-ui-lib';
 
 const Feedback = () => {
     const [feedback, setFeedback] = React.useState('');
@@ -19,16 +18,16 @@ const Feedback = () => {
         setToastContent('Thank you for your feedback!');
         setToastVisible(true);
     };
-    
-    const {Toast} = Incubator;
-    
+
+    const { Toast } = Incubator;
+
     const sendFeedback = () => {
         console.log('submitting feedback');
     };
 
     return (
         <StyledLayout>
-            <Input
+            <TextField
                 value={feedback}
                 onChangeText={setFeedback}
                 placeholder="type your feedback"
@@ -39,9 +38,11 @@ const Feedback = () => {
                 visible={toastVisible}
                 position={'top'}
                 autoDismiss={5000}
-                onDismiss={()=>{setToastVisible(false)}}
+                onDismiss={() => {
+                    setToastVisible(false);
+                }}
             >
-                {toastContent}
+                <Text>{toastContent}</Text>
             </Toast>
         </StyledLayout>
     );

@@ -15,6 +15,7 @@ export const SessionCard = (
     props: DrinkingSession & NavigationProps & { deleteMode?: boolean }
 ) => {
     const onPressCard = () => {
+        console.log('card');
         props.navigation.navigate(Screens.Summary, {
             session: session,
         });
@@ -25,11 +26,13 @@ export const SessionCard = (
     };
 
     return (
-        <TouchableOpacity centerV padding-s4 bg-white style={{height: 60, backgroundColor:'black'}} onPress={onPressCard}>
+        <TouchableOpacity
+            centerV
+            style={{ height: 60, paddingVertical: 12 }}
+            onPress={onPressCard}
+        >
             <CardTitle>{props.title}</CardTitle>
-            <Text>
-                {getTimeRangeString(props.timeStart, props.timeEnd)}
-            </Text>
+            <Text>{getTimeRangeString(props.timeStart, props.timeEnd)}</Text>
             <Text>
                 {props.drinks.length}/{props.drinkLimit} drinks
             </Text>

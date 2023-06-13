@@ -1,21 +1,11 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { theme } from '../styling/theme';
-import { Input } from '@ui-kitten/components';
-import { Text } from 'react-native-ui-lib';
-import { StyledLayout } from '../styling/commonStyles';
+import { NumberInput, Text } from 'react-native-ui-lib';
+import { StyledLayout, inputStyles } from '../styling/commonStyles';
 
 const DrinkingLimits = () => {
-    const [timeInterval, setTimeInterval] = React.useState(30); // time between drinks, in minutes
     const [totalDrinksLimit, setTotalDrinksLimit] = React.useState(12);
-
-    const onChangeTimeInterval = (event: any) => {
-        setTimeInterval(event.target.value);
-    };
-
-    const onChangeTotalDrinksLimit = (event: any) => {
-        setTotalDrinksLimit(event.target.value);
-    };
+    const [timeInterval, setTimeInterval] = React.useState(30);
 
     const onPressSave = () => {
         if (Number(timeInterval) < 1) {
@@ -29,20 +19,36 @@ const DrinkingLimits = () => {
 
     return (
         <StyledLayout>
-            <Text>Set your drinking limits (and goals!)</Text>
-            <Input
-                value={String(timeInterval)}
-                onChange={onChangeTimeInterval}
-                keyboardType="numeric"
-                placeholder="Time between drinks (minutes)"
-                style={{ fontSize: 20 }}
+            <Text text40>Set your drinking limits</Text>
+            <NumberInput
+                key={'timeInterval'}
+                // initialNumber={1}
+                label={'Time between drinks'}
+                fractionDigits={2}
+                style={{}}
+                containerStyle={{}}
+                validate={() => {}}
+                validationMessage={'validationMessage'}
+                validationMessageStyle={{}}
+                validateOnChange
+                fieldStyle={inputStyles.field}
+                value={timeInterval}
+                onChangeNumber={setTimeInterval}
             />
-            <Input
-                value={String(totalDrinksLimit)}
-                onChange={onChangeTotalDrinksLimit}
-                keyboardType="numeric"
-                placeholder="Total drinks limit per session"
-                style={{ color: theme.background.color, fontSize: 20 }}
+            <NumberInput
+                key={'totalDrinksLimit'}
+                // initialNumber={totalDrinksLimit}
+                label={'How many drinks are you limiting yourself to?'}
+                fractionDigits={2}
+                style={{}}
+                containerStyle={{}}
+                validate={() => {}}
+                validationMessage={'validationMessage'}
+                validationMessageStyle={{}}
+                validateOnChange
+                fieldStyle={inputStyles.field}
+                value={totalDrinksLimit}
+                onChangeNumber={setTotalDrinksLimit}
             />
             <Button title="Save" onPress={onPressSave} />
         </StyledLayout>

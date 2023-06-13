@@ -25,12 +25,12 @@ const About = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
-            <Button title='Back' onPress={onPressBack} />
+            <Button title="Back" onPress={onPressBack} />
             <Text>
                 I appreciate your feedback! ☺{'\n'}
-                This is an open source project that is under active
-                development. Please provide feedback, the more detailed the
-                better, so I can improve.{'\n'}
+                This is an open source project that is under active development.
+                Please provide feedback, the more detailed the better, so I can
+                improve.{'\n'}
                 Feel free to open a PR on the GitHub repo:
             </Text>
             <Button title="GitHub" onPress={onPressGitHub} />

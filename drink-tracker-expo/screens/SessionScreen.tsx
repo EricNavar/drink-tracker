@@ -58,9 +58,7 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
         props.navigation.navigate(page);
     };
 
-    const onCloseNewDrink = () => {
-        
-    }
+    const onCloseNewDrink = () => {};
 
     return (
         <StyledLayout>
@@ -73,11 +71,12 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
                     expectedDrinks={expectedDrinksCount}
                 />
                 <Row>
-                    <BigButton onPress={onPressAddDrink}>Add drink</BigButton>
+                    <BigButton onPress={onPressAddDrink} label="Add drink" />
                     <View style={{ width: 10 }} />
-                    <BigButton onPress={() => redirect(Screens.DrinkingLimits)}>
-                        Set Limits
-                    </BigButton>
+                    <BigButton
+                        onPress={() => redirect(Screens.DrinkingLimits)}
+                        label="Set Limits"
+                    />
                 </Row>
 
                 <Text style={styles.title}>{props.title}</Text>

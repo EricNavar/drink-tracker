@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { NavigationProps, Screens } from '../commonTypes';
-import { StyledLayout } from '../styling/commonStyles';
+import { Row, StyledLayout } from '../styling/commonStyles';
+import { ListItem } from 'react-native-ui-lib';
 
 const Settings = (props: NavigationProps) => {
     const redirect = (page: string) => {
@@ -10,12 +11,15 @@ const Settings = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
-            <Button title='Back' onPress={() => redirect(Screens.Home)} />
+            <Row>
+                <Button title="Back" onPress={() => redirect(Screens.Home)} />
+            </Row>
+            <ListItem></ListItem>
             <Button title="About" onPress={() => redirect(Screens.About)} />
-            {/* <Button
+            <Button
                 title="Feedback"
                 onPress={() => redirect(Screens.Feedback)}
-            /> */}
+            />
             <Button
                 title="Privacy Policy"
                 onPress={() => redirect(Screens.PrivacyPolicy)}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ModalProps, NavigationProps, Screens } from '../commonTypes';
-import {Text} from 'react-native-ui-lib';
+import { Text } from 'react-native-ui-lib';
 import { Button, Dialog } from 'react-native-ui-lib';
 
 export const FinishModal = (
@@ -20,10 +20,10 @@ export const FinishModal = (
     };
 
     return (
-        <Dialog visible={visible}>
+        <Dialog visible={visible} overlayBackgroundColor="#000">
             <Text>
-                Are you done with drinking for the night? This will complete
-                the drinking session.
+                Are you done with drinking for the night? This will complete the
+                drinking session.
             </Text>
             <Button onPress={pressYes}>Yes</Button>
             <Button onPress={pressNo}>No</Button>
