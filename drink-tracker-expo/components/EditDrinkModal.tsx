@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { Drink } from '../commonTypes';
-import { editDrink } from '../api/api';
+import { editDrink } from '../api';
 import { Text } from 'react-native-ui-lib';
 
 type EditDrinkModalProps = {
@@ -29,7 +29,7 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
         }
         const newDrink: Drink = {
             ...props.drink,
-            timeDrank: new Date(timeDrank),
+            timeDrank: Number(timeDrank),
             drinkName: drinkName,
             weight: drinkWeight,
         };

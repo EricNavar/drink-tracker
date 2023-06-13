@@ -1,7 +1,7 @@
 export type DrinkingSession = {
     _id: string;
-    timeStart: Date;
-    timeEnd: Date;
+    timeStart: number;
+    timeEnd: number;
     drinks: Drink[];
     title: string;
     timeInterval: number;
@@ -10,7 +10,7 @@ export type DrinkingSession = {
 
 export type Drink = {
     _id: string;
-    timeDrank: Date;
+    timeDrank: number;
     drinkName: string;
     drinkType?: string;
     weight: number;
@@ -36,5 +36,5 @@ export enum Screens {
 
 export type ModalProps = {
     open: boolean;
-    setOpen: any;
+    setOpen: (open:boolean)=>void;
 };

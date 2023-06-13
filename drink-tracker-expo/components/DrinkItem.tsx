@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Drink } from '../commonTypes';
-import { Badge, Card, Text } from 'react-native-ui-lib';
+import { Badge, Text } from 'react-native-ui-lib';
 import { View } from 'react-native';
 
 const StyledCard = styled(View)({
@@ -27,15 +27,8 @@ const TopRow = styled(Text)({
 
 export const DrinkItem = (props: Drink) => {
     return (
-        <StyledCard
-            appearance="filled"
-            disabled={true}
-            accent={
-                props.weight != 1 ? (
-                    <Badge label={props.weight} size={16} />
-                ) : undefined
-            }
-        >
+        <StyledCard>
+            <Badge label={props.weight} size={16} />
             <TopRow>
                 <CardTitle>{props.drinkName}&nbsp;</CardTitle>
             </TopRow>

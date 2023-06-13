@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, Button } from 'react-native';
 import { Drink, NavigationProps, Screens } from '../commonTypes';
-import { Dialog, Text } from 'react-native-ui-lib';
+import { Dialog, NumberInput, Text } from 'react-native-ui-lib';
 
 type DrinkInputProps = {
     drinkNumber: number;
@@ -20,7 +20,7 @@ const NewDrinkModal = (props: DrinkInputProps) => {
         }
         const newDrink: Drink = {
             _id: 'u432819',
-            timeDrank: new Date(timeDrank),
+            timeDrank: Number(timeDrank),
             drinkName: drinkName,
             weight: drinkWeight,
         };
@@ -48,11 +48,10 @@ const NewDrinkModal = (props: DrinkInputProps) => {
                 value={timeDrank}
                 onChangeText={setTimeDrank}
             />
-            <TextInput
+            <NumberInput
                 placeholder="how many drinks is this worth"
                 value={drinkName}
                 onChange={onChangeDrinkWeight}
-                keyboardType="numeric"
             />
             <Button title="Submit" onPress={onSubmit} />
             <Button title="Cancel" onPress={closeModal} />

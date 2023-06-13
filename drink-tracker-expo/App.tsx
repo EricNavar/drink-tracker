@@ -14,7 +14,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Screens } from './commonTypes';
 import { Colors } from 'react-native-ui-lib';
-import { StatusBar } from './components/StatusBar';
 
 const Stack = createNativeStackNavigator();
 

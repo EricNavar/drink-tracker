@@ -7,7 +7,7 @@ import {
 } from '../commonTypes';
 import { DrinkItem } from '../components/DrinkItem';
 import { ScrollView, Button } from 'react-native';
-import { getSession } from '../api/api';
+import { getSession } from '../api';
 import { Row, StyledLayout } from '../styling/commonStyles';
 import { getTimeRangeString } from '../util';
 import { Text } from 'react-native-ui-lib';
@@ -65,7 +65,6 @@ const Summary = (props: SummaryProps & NavigationProps) => {
         <StyledLayout>
             <ScrollView>
                 <Row>
-                    <Button title="Back" onPress={onPressBack} />
                     <Button title="Back" onPress={onPressBack} />
                 </Row>
                 {session ? (

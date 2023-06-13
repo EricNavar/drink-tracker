@@ -1,6 +1,6 @@
 # Drink Tracker
 
-This is an app that helps you keep track of how many drinks you've had
+Drink Tracker is an app that helps you keep track of how many drinks you've had
 
 ![flynn-drinking](https://github.com/EricNavar/drink-tracker/assets/32403644/d6d8083a-7a2d-419a-95a4-e3be0fffd57f)
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { NavigationProps, Screens } from '../commonTypes';
+import { ModalProps, NavigationProps, Screens } from '../commonTypes';
 import { DateTimePicker, Dialog, Text, TextField } from 'react-native-ui-lib';
 import { inputStyles } from '../styling/commonStyles';
 
 const NewSessionDrawer = (
-    props: { open: boolean; setOpen: any } & NavigationProps
+    props: ModalProps & NavigationProps
 ) => {
     const [name, setName] = React.useState('');
     const [startTime, setStartTime] = React.useState('');

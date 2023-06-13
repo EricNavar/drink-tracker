@@ -15,7 +15,7 @@ const About = (props: NavigationProps) => {
             // by some browser in the mobile
             await Linking.openURL(url);
         } else {
-            Alert.alert(`Don't know how to open this URL: ${url}`);
+            Alert.alert(`Could not open URL: ${url}`);
         }
     };
 

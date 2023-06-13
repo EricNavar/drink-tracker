@@ -13,16 +13,16 @@ const isFullAccount = () => {
     return false;
 };
 
-export const editSession = async (value: any) => {
+export const editSession = async (session: DrinkingSession) => {
     if (isFullAccount()) {
-        editSessionGuest(value);
+        editSessionGuest(session);
     } else {
     }
 };
 
-export const addNewSession = async (value: any) => {
+export const addNewSession = async (newSession: DrinkingSession) => {
     if (isFullAccount()) {
-        addNewSessionGuest(value);
+        addNewSessionGuest(newSession);
     } else {
     }
 };

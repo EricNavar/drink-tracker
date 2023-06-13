@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { StyledLayout } from '../styling/commonStyles';
+import { StyledLayout, toastStyles } from '../styling/commonStyles';
 import { Incubator, Text, TextField } from 'react-native-ui-lib';
 
 const Feedback = () => {
@@ -36,8 +36,9 @@ const Feedback = () => {
             <Button title="Submit" onPress={onPressSubmit} />
             <Toast
                 visible={toastVisible}
-                position={'top'}
+                position={'bottom'}
                 autoDismiss={5000}
+                containerStyle={toastStyles.container}
                 onDismiss={() => {
                     setToastVisible(false);
                 }}

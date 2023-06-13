@@ -19,6 +19,7 @@ export const Row = styled.View`
 export const BigButton = styled(Button)`
     flex-basis: 1;
     flex-grow: 1;
+    border-radius: 6px;
 `;
 
 export const inputStyles = StyleSheet.create({
@@ -28,4 +29,11 @@ export const inputStyles = StyleSheet.create({
         borderRadius: 4,
         padding: 8,
     },
+});
+
+export const toastStyles = StyleSheet.create({
+    container: {
+        backgroundColor: 'pink',
+        borderRaiud: 4,
+    }
 });

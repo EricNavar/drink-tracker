@@ -1,5 +1,4 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import styled from 'styled-components/native';
 import { session } from '../data/dummysessions';
@@ -83,7 +82,6 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
                 {session.drinks.map((drink: Drink, index: number) => (
                     <DrinkItem {...drink} key={index} />
                 ))}
-                <StatusBar style="auto" />
                 <Text>Reminder: Try not to drink and drive 🥰</Text>
                 <FinishModal
                     open={finishModalOpen}

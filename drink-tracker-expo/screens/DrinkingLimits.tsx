@@ -20,6 +20,7 @@ const DrinkingLimits = () => {
     return (
         <StyledLayout>
             <Text text40>Set your drinking limits</Text>
+            {/* I need to put almost every property for TextInput or it doesn't work */}
             <NumberInput
                 key={'timeInterval'}
                 // initialNumber={1}

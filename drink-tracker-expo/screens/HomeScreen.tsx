@@ -6,7 +6,6 @@ import { sessions } from '../data/dummysessions';
 import { SessionCard } from '../components/SessionCard';
 import { BigButton, Row, StyledLayout } from '../styling/commonStyles';
 import { Colors, Drawer, ListItem, Text, View } from 'react-native-ui-lib';
-import { StatusBar } from '../components/StatusBar';
 
 export const HomeScreen = (props: NavigationProps) => {
     const [modalVisible, setModalVisible] = React.useState(false);

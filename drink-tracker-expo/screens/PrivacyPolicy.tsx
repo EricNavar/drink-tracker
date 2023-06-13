@@ -13,7 +13,7 @@ const PrivacyPolicy = (props: NavigationProps) => {
         <StyledLayout>
             <Button title="Back" onPress={onPressBack} />
             <Text>
-                We don't share your data with any other person or company. 🤞
+                We don't share your data with any other person or company. No pigs can touch your data 😤
             </Text>
         </StyledLayout>
     );
