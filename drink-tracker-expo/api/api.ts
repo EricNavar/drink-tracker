@@ -15,37 +15,46 @@ const isFullAccount = () => {
 
 export const editSession = async (session: DrinkingSession) => {
     if (isFullAccount()) {
+        //TODO
         editSessionGuest(session);
     } else {
+        editSessionGuest(session);
     }
 };
 
 export const addNewSession = async (newSession: DrinkingSession) => {
     if (isFullAccount()) {
+        //TODO
         addNewSessionGuest(newSession);
     } else {
+        addNewSessionGuest(newSession);
     }
 };
 
 export const getRecentSessions = async () => {
     if (isFullAccount()) {
-        getRecentSessionsGuest();
+        //TODO
+        return getRecentSessionsGuest();
     } else {
+        return getRecentSessionsGuest();
     }
 };
 
-export const getAllSessions = async (page: number) => {
+export const getAllSessions = async () => {
     if (isFullAccount()) {
-        getAllSessionsGuest(page);
+        //TODO
+        return getAllSessionsGuest();
     } else {
+        return getAllSessionsGuest();
     }
 };
 
-export const getSession = async (id: string): Promise<DrinkingSession> => {
+export const getSession = async (id: string) => {
     if (isFullAccount()) {
+        //TODO
         return getSessionGuest(id);
     } else {
-        return session;
+        return getSessionGuest(id);
     }
 };
 

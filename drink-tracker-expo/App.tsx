@@ -14,6 +14,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Screens } from './commonTypes';
 import { Colors } from 'react-native-ui-lib';
+import { Debug } from './screens/DebugScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ export default function App() {
                     headerShown: false,
                 }}
             >
+                <Stack.Screen name={Screens.Debug} component={Debug} />
                 <Stack.Screen name={Screens.Home} component={HomeScreen} />
                 <Stack.Screen name={Screens.Settings} component={Settings} />
                 <Stack.Screen

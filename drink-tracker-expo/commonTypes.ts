@@ -24,6 +24,7 @@ export type NavigationProps = {
 };
 
 export enum Screens {
+    Debug = 'Debug',
     Home = 'Home',
     DrinkingLimits = 'Drinking Limits',
     Session = 'Session',
@@ -36,5 +37,5 @@ export enum Screens {
 
 export type ModalProps = {
     open: boolean;
-    setOpen: (open:boolean)=>void;
+    setOpen: (open: boolean) => void;
 };

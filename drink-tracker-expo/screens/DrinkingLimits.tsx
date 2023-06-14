@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { NumberInput, Text } from 'react-native-ui-lib';
-import { StyledLayout, inputStyles } from '../styling/commonStyles';
+import { Row, StyledLayout, inputStyles } from '../styling/commonStyles';
+import { NavigationProps, Screens } from '../commonTypes';
 
-const DrinkingLimits = () => {
+const DrinkingLimits = (props: NavigationProps) => {
     const [totalDrinksLimit, setTotalDrinksLimit] = React.useState(12);
     const [timeInterval, setTimeInterval] = React.useState(30);
 
@@ -17,8 +18,15 @@ const DrinkingLimits = () => {
         console.log('save button');
     };
 
+    const onPressBack = () => {
+        props.navigation.navigate(Screens.Settings);
+    };
+
     return (
         <StyledLayout>
+            <Row>
+                <Button title="Back" onPress={onPressBack} />
+            </Row>
             <Text text40>Set your drinking limits</Text>
             {/* I need to put almost every property for TextInput or it doesn't work */}
             <NumberInput

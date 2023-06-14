@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { StyledLayout } from '../styling/commonStyles';
+import { Row, StyledLayout } from '../styling/commonStyles';
 import { Text } from 'react-native-ui-lib';
 import { NavigationProps, Screens } from '../commonTypes';
 
@@ -11,9 +11,12 @@ const PrivacyPolicy = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
-            <Button title="Back" onPress={onPressBack} />
+            <Row>
+                <Button title="Back" onPress={onPressBack} />
+            </Row>
             <Text>
-                We don't share your data with any other person or company. No pigs can touch your data 😤
+                We don't share your data with any other person or company. No
+                pigs can touch your data 😤
             </Text>
         </StyledLayout>
     );

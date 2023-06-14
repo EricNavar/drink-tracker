@@ -3,8 +3,11 @@ import styled from 'styled-components/native';
 import { Text } from 'react-native-ui-lib';
 
 const BannerCard = styled.View`
-    background-color: #ccc;
+    background-color: #444;
     padding: 8px;
+    border-radius: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 `;
 
 type BannerProps = {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { TextInput, Button } from 'react-native';
+import { Button } from 'react-native';
 import { Drink, NavigationProps, Screens } from '../commonTypes';
-import { Dialog, NumberInput, Text } from 'react-native-ui-lib';
+import { Dialog, NumberInput, Text, TextField } from 'react-native-ui-lib';
+import { inputStyles } from '../styling/commonStyles';
 
 type DrinkInputProps = {
     drinkNumber: number;
@@ -38,20 +39,23 @@ const NewDrinkModal = (props: DrinkInputProps) => {
     return (
         <Dialog open={props.open} onDismiss={closeModal}>
             <Text>New drink</Text>
-            <TextInput
+            <TextField
                 placeholder="name of drink"
                 value={drinkName}
                 onChangeText={setDrinkName}
+                fieldStyle={inputStyles.field}
             />
-            <TextInput
+            <TextField
                 placeholder="time drank"
                 value={timeDrank}
                 onChangeText={setTimeDrank}
+                fieldStyle={inputStyles.field}
             />
             <NumberInput
                 placeholder="how many drinks is this worth"
                 value={drinkName}
                 onChange={onChangeDrinkWeight}
+                fieldStyle={inputStyles.field}
             />
             <Button title="Submit" onPress={onSubmit} />
             <Button title="Cancel" onPress={closeModal} />

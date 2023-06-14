@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { Button } from 'react-native';
 import { Drink } from '../commonTypes';
 import { editDrink } from '../api';
-import { Text } from 'react-native-ui-lib';
+import { Dialog, Text, TextField } from 'react-native-ui-lib';
+import { inputStyles } from '../styling/commonStyles';
 
 type EditDrinkModalProps = {
     sessionId: string;
@@ -52,27 +53,30 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
     if (!props.drink) return <></>;
 
     return (
-        <View>
+        <Dialog visible={props.open} overlayBackgroundColor="#000">
             <Text>Edit {props.drink.drinkName}</Text>
-            <TextInput
+            <TextField
                 placeholder="name of drink"
                 value={drinkName}
                 onChangeText={setDrinkName}
+                fieldStyle={inputStyles.field}
             />
-            <TextInput
+            <TextField
                 placeholder="time drank"
                 value={String(timeDrank)}
                 onChangeText={onChangeTimeDrank}
+                fieldStyle={inputStyles.field}
             />
-            <TextInput
+            <TextField
                 placeholder="how many drinks is this worth"
                 value={drinkName}
                 onChange={onChangeDrinkWeight}
                 keyboardType="numeric"
+                fieldStyle={inputStyles.field}
             />
             <Button title="Save" onPress={onPressSave} />
             <Button title="Cancel" onPress={closeModal} />
-        </View>
+        </Dialog>
     );
 };
 

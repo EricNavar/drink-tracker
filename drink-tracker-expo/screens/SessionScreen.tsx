@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, View, FlatList } from 'react-native';
 import styled from 'styled-components/native';
-import { session } from '../data/dummysessions';
 import { DrinkItem } from '../components/DrinkItem';
 import { Banner } from '../components/Banner';
 import {
@@ -16,6 +15,7 @@ import { StyledLayout } from '../styling/commonStyles';
 import { NewDrinkModal } from '../components/NewDrinkModal';
 import { EditDrinkModal } from '../components/EditDrinkModal';
 import { Text } from 'react-native-ui-lib';
+import { getSession } from '../api';
 
 const styles = StyleSheet.create({
     title: {
@@ -32,7 +32,15 @@ const Row = styled.View`
     width: 100%;
 `;
 
-export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
+type SessionScreenProps = {
+    route: {
+        params: {
+            sessionId: string;
+        };
+    };
+} & NavigationProps;
+
+export const SessionScreen = (props: SessionScreenProps) => {
     const onPressAddDrink = () => {
         console.log('add drink');
     };
@@ -42,8 +50,8 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
         props.navigation.navigate(Screens.Summary);
     };
 
+    const [session, setSession] = React.useState<DrinkingSession|null>(null);
     const [expectedDrinksCount, setExpectedDrinksCount] = React.useState(0);
-    const [drinks, setDrinks] = React.useState<Drink[]>([]);
 
     const [finishModalOpen, setFinishModalOpen] = React.useState(false);
     const [newDrinkModalOpen, setNewDrinkModalOpen] = React.useState(false);
@@ -53,20 +61,40 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
     );
     const [nextDrinkDeadline, setNextDrinkDeadline] = React.useState(0);
 
+    React.useEffect(() => {
+        const fetchSessions = async () => {
+            const newSession = await getSession(props.route.params.sessionId);
+            setSession(newSession);
+        };
+        fetchSessions();
+    }, [props]);
+
     const redirect = (page: string) => {
         props.navigation.navigate(page);
     };
 
-    const onCloseNewDrink = () => {};
+    const onCloseNewDrink = () => { };
+
+    if (!session) {
+        return <></>;
+    }
+
+    const openEditModal = (index: number) => {
+        if (session) {
+            setSelectedDrink(session.drinks[index]);
+            setEditDrinkModalOpen(true);
+        }
+    }
 
     return (
         <StyledLayout>
             <ScrollView>
                 <Row>
+                    <Button onPress={()=>redirect(Screens.Home)} title="Back" />
                     <Button onPress={onPressFinish} title="Finish" />
                 </Row>
                 <Banner
-                    actualDrinks={drinks.length}
+                    actualDrinks={session.drinks.length}
                     expectedDrinks={expectedDrinksCount}
                 />
                 <Row>
@@ -78,10 +106,14 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
                     />
                 </Row>
 
-                <Text style={styles.title}>{props.title}</Text>
-                {session.drinks.map((drink: Drink, index: number) => (
-                    <DrinkItem {...drink} key={index} />
-                ))}
+                <Text style={styles.title}>{session.title}</Text>
+                <FlatList 
+                    data={session.drinks}
+                    renderItem={({item, index}) => 
+                        <DrinkItem {...item} openModal={openEditModal} index={index}/>
+                    }
+                    keyExtractor={item => item._id}
+                />
                 <Text>Reminder: Try not to drink and drive 🥰</Text>
                 <FinishModal
                     open={finishModalOpen}
@@ -92,13 +124,13 @@ export const SessionScreen = (props: DrinkingSession & NavigationProps) => {
                     open={newDrinkModalOpen}
                     setOpen={setNewDrinkModalOpen}
                     navigation={props.navigation}
-                    drinkNumber={drinks.length + 1}
+                    drinkNumber={session.drinks.length + 1}
                 />
                 <EditDrinkModal
                     open={editDrinkModalOpen}
                     setOpen={setEditDrinkModalOpen}
                     drink={selectedDrink}
-                    sessionId={props._id}
+                    sessionId={session._id}
                 />
             </ScrollView>
         </StyledLayout>

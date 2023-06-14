@@ -5,8 +5,8 @@ export const session: DrinkingSession = {
     timeInterval: 30,
     drinkLimit: 8,
     title: "Blake's birthday party",
-    timeStart: new Date('2023-06-25T22:35:00.000Z').getTime(),
-    timeEnd: new Date('2023-06-25T23:35:00.000Z').getTime(),
+    timeStart: new Date('2023-06-25T22:35:35.000Z').getTime(),
+    timeEnd: new Date('2023-06-25T23:35:50.000Z').getTime(),
     drinks: [
         {
             _id: 'd1',
@@ -60,4 +60,40 @@ export const session: DrinkingSession = {
     ],
 };
 
-export const sessions: DrinkingSession[] = [session, session, session, session];
+export const session2: DrinkingSession = {
+    _id: '1235',
+    timeInterval: 30,
+    drinkLimit: 8,
+    title: "Blake's birthday party",
+    timeStart: new Date('2023-06-25T22:35:35.000Z').getTime(),
+    timeEnd: new Date('2023-06-25T23:35:50.000Z').getTime(),
+    drinks: [
+        {
+            _id: 'd1',
+            timeDrank: new Date('2023-06-25T22:40:00.000Z').getTime(),
+            drinkName: 'Pink Whitney',
+            drinkType: 'Liquor',
+            weight: 1,
+        },
+    ],
+};
+
+export const session3: DrinkingSession = {
+    _id: '1236',
+    timeInterval: 30,
+    drinkLimit: 8,
+    title: "Blake's birthday party",
+    timeStart: new Date('2023-06-25T22:35:35.000Z').getTime(),
+    timeEnd: new Date('2023-06-25T23:35:50.000Z').getTime(),
+    drinks: [
+        {
+            _id: 'd1',
+            timeDrank: new Date('2023-06-25T22:40:00.000Z').getTime(),
+            drinkName: 'Pink Whitney',
+            drinkType: 'Liquor',
+            weight: 1,
+        },
+    ],
+};
+
+export const sessions: DrinkingSession[] = [session, session2, session3];

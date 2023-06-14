@@ -2,9 +2,8 @@ import React from 'react';
 import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
-import { session } from '../data/dummysessions';
 import { getTimeRangeString } from '../util';
-import { TouchableOpacity, Text } from 'react-native-ui-lib';
+import { TouchableOpacity, Text, ListItem, Drawer, Colors, View } from 'react-native-ui-lib';
 
 const CardTitle = styled(Text)({
     fontWeight: 'bold',
@@ -14,31 +13,38 @@ const CardTitle = styled(Text)({
 export const SessionCard = (
     props: DrinkingSession & NavigationProps & { deleteMode?: boolean }
 ) => {
-    const onPressCard = () => {
-        console.log('card');
+    const onPressDelete = () => {
+        console.log('delete session');
+    };
+
+    const onPressCard = (session: DrinkingSession) => {
         props.navigation.navigate(Screens.Summary, {
             session: session,
         });
     };
 
-    const onPressDelete = () => {
-        console.log('delete session');
-    };
-
     return (
-        <TouchableOpacity
-            centerV
-            style={{ height: 60, paddingVertical: 12 }}
-            onPress={onPressCard}
+        <Drawer
+            rightItems={[
+                {
+                    text: 'Delete',
+                    background: Colors.red30,
+                    onPress: () => console.log('delete pressed'),
+                },
+            ]}
         >
-            <CardTitle>{props.title}</CardTitle>
-            <Text>{getTimeRangeString(props.timeStart, props.timeEnd)}</Text>
-            <Text>
-                {props.drinks.length}/{props.drinkLimit} drinks
-            </Text>
-            {props.deleteMode && (
-                <Button title="delete" onPress={onPressDelete} />
-            )}
-        </TouchableOpacity>
+            <ListItem
+                onPress={onPressCard}
+                style={{paddingVertical: 10}}
+                centerV
+            >
+                <View>
+                    <CardTitle>{props.title}</CardTitle>
+                    <Text>
+                        {props.drinks.length}🍺 • {getTimeRangeString(props.timeStart, props.timeEnd)}
+                    </Text>
+                </View>
+            </ListItem>
+        </Drawer>
     );
 };

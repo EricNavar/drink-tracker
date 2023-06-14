@@ -4,14 +4,13 @@ import { ModalProps, NavigationProps, Screens } from '../commonTypes';
 import { DateTimePicker, Dialog, Text, TextField } from 'react-native-ui-lib';
 import { inputStyles } from '../styling/commonStyles';
 
-const NewSessionDrawer = (
-    props: ModalProps & NavigationProps
-) => {
+const NewSessionDrawer = (props: ModalProps & NavigationProps) => {
     const [name, setName] = React.useState('');
     const [startTime, setStartTime] = React.useState('');
 
     const onPressStart = () => {
-        props.navigation.navigate(Screens.Session);
+
+        props.navigation.navigate(Screens.Session, {});
         props.setOpen(false);
     };
 
@@ -24,9 +23,9 @@ const NewSessionDrawer = (
             animationType="slide"
             visible={props.open}
             onDismiss={closeModal}
-            height={260}
+            height={'100%'}
             containerStyle={{
-                backgroundColor: '#333',
+                backgroundColor: '#000',
                 padding: 20,
                 borderRadius: 8,
                 height: '100%',
@@ -35,15 +34,15 @@ const NewSessionDrawer = (
         >
             <Text text40>New Session</Text>
             <TextField
-                label={'Name of the party'}
+                label="Name of party"
                 value={name}
                 onChangeText={setName}
-                placeholder="Name of party"
+                placeholder={'Ryan\'s birthday party'}
                 fieldStyle={inputStyles.field}
             />
             <DateTimePicker
                 label={'Select time'}
-                placeholder={'Time start'}
+                placeholder={'10:35'}
                 mode={'time'}
                 value={startTime}
                 fieldStyle={inputStyles.field}

@@ -27,10 +27,10 @@ const About = (props: NavigationProps) => {
         <StyledLayout>
             <Button title="Back" onPress={onPressBack} />
             <Text>
-                I appreciate your feedback! ☺{'\n'}
+                I appreciate your feedback! ☺{'\n\n'}
                 This is an open source project that is under active development.
                 Please provide feedback, the more detailed the better, so I can
-                improve.{'\n'}
+                improve.{'\n\n'}
                 Feel free to open a PR on the GitHub repo:
             </Text>
             <Button title="GitHub" onPress={onPressGitHub} />

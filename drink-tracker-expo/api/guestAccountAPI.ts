@@ -16,10 +16,15 @@ export const editSession = async (session: DrinkingSession) => {
 export const addNewSession = async (session: DrinkingSession) => {
     try {
         const jsonValue = await AsyncStorage.getItem('sessions');
-        const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
-        sessions.push(session);
-        await AsyncStorage.setItem('sessions', sessions);
-    } catch (e) {
+        let sessions: DrinkingSession[];
+        if (!jsonValue) {
+            sessions = [session]
+        } else {
+            sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
+            sessions.push(session);
+        }
+        await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
+    } catch (e) {   
         console.log('error');
     }
 };
@@ -34,7 +39,7 @@ export const getRecentSessions = async () => {
 };
 
 // 25-session pages
-export const getAllSessions = async (page: number) => {
+export const getAllSessions = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem('sessions');
         return jsonValue != null ? JSON.parse(jsonValue) : null;
@@ -60,3 +65,8 @@ export const getSession = async (id: string) => {
     // }
     return session;
 };
+
+// overwrites all the sessions to store only the provided ones
+export const storeSessionsLocally = async (sessions: DrinkingSession[]) => {
+    await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
+}

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { Button } from 'react-native-ui-lib';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export const StyledLayout = styled(SafeAreaView)`
     padding: 20px;
@@ -22,6 +22,12 @@ export const BigButton = styled(Button)`
     border-radius: 6px;
 `;
 
+export const Divider = styled(View)`
+    height: 1;
+    backgroundColor: rgba(255,255,255,.5);
+    wight: 100%;
+`;
+
 export const inputStyles = StyleSheet.create({
     field: {
         backgroundColor: '#444',
@@ -35,5 +41,5 @@ export const toastStyles = StyleSheet.create({
     container: {
         backgroundColor: 'pink',
         borderRaiud: 4,
-    }
+    },
 });

@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Drink } from '../commonTypes';
 import { Badge, Text } from 'react-native-ui-lib';
-import { View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { getTimeString } from '../util';
 
-const StyledCard = styled(View)({
+const StyledCard = styled(TouchableOpacity)({
     marginVertical: 8,
     flexGrow: 1,
     flexShrink: 1,
@@ -25,16 +26,27 @@ const TopRow = styled(Text)({
     marginBottom: 4,
 });
 
-export const DrinkItem = (props: Drink) => {
+const StyledBadge = styled(Badge)`
+    position: absolute;
+    top: -8px;
+    right: -8px;
+`;
+
+type DrinkItemProps = {
+    openModal: (index: number)=>void,
+    index: number,
+} & Drink;
+
+export const DrinkItem = (props: DrinkItemProps) => {
     return (
-        <StyledCard>
-            <Badge label={props.weight} size={16} />
+        <StyledCard onPress={()=>props.openModal(props.index)}>
+            {props.weight > 1 && <StyledBadge label={String(props.weight)} size={16} />}
             <TopRow>
                 <CardTitle>{props.drinkName}&nbsp;</CardTitle>
             </TopRow>
-            <Text>{props.timeDrank.toTimeString()}</Text>
+            <Text>{getTimeString(props.timeDrank)}</Text>
             {props.weight != 1 && (
-                <Text status="warning">{props.weight} std drinks</Text>
+                <Text status="warning">{props.weight} stanard drinks</Text>
             )}
         </StyledCard>
     );

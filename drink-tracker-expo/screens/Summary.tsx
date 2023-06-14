@@ -32,7 +32,7 @@ const Summary = (props: SummaryProps & NavigationProps) => {
     });
 
     const getExpectedDrinksCount = () => {
-        return 8;
+        return 8; //TODO
     };
 
     const getMessage = () => {
