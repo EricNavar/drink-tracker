@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
-import { getTimeRangeString } from '../util';
+import { getRelativeTime, getTimeRangeString } from '../util';
 import { TouchableOpacity, Text, ListItem, Drawer, Colors, View } from 'react-native-ui-lib';
 
 const CardTitle = styled(Text)({
@@ -41,7 +41,7 @@ export const SessionCard = (
                 <View>
                     <CardTitle>{props.title}</CardTitle>
                     <Text>
-                        {props.drinks.length}🍺 • {getTimeRangeString(props.timeStart, props.timeEnd)}
+                        {props.drinks.length}🍺 • {getRelativeTime(props.timeStart, props.timeEnd)}
                     </Text>
                 </View>
             </ListItem>

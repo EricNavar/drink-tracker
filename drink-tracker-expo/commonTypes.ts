@@ -1,7 +1,7 @@
 export type DrinkingSession = {
     _id: string;
     timeStart: number;
-    timeEnd: number;
+    timeEnd?: number;
     drinks: Drink[];
     title: string;
     timeInterval: number;

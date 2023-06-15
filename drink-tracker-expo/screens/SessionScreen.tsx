@@ -14,7 +14,7 @@ import { BigButton } from '../styling/commonStyles';
 import { StyledLayout } from '../styling/commonStyles';
 import { NewDrinkModal } from '../components/NewDrinkModal';
 import { EditDrinkModal } from '../components/EditDrinkModal';
-import { Text } from 'react-native-ui-lib';
+import { Chip, Text } from 'react-native-ui-lib';
 import { getSession } from '../api';
 
 const styles = StyleSheet.create({
@@ -114,6 +114,7 @@ export const SessionScreen = (props: SessionScreenProps) => {
                     }
                     keyExtractor={item => item._id}
                 />
+
                 <Text>Reminder: Try not to drink and drive 🥰</Text>
                 <FinishModal
                     open={finishModalOpen}

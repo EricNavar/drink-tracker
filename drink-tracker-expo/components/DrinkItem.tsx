@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Drink } from '../commonTypes';
-import { Badge, Text } from 'react-native-ui-lib';
-import { TouchableOpacity } from 'react-native';
+import { Badge, Chip, Colors, Text, TouchableOpacity } from 'react-native-ui-lib';
 import { getTimeString } from '../util';
+import { View } from 'react-native';
 
 const StyledCard = styled(TouchableOpacity)({
     marginVertical: 8,
     flexGrow: 1,
     flexShrink: 1,
-    backgroundColor: 'darkblue',
     padding: 8,
     borderRadius: 6,
+    marginRight: 8,
 });
 
 const CardTitle = styled(Text)({
@@ -33,20 +33,24 @@ const StyledBadge = styled(Badge)`
 `;
 
 type DrinkItemProps = {
-    openModal: (index: number)=>void,
+    openModal: (index: number) => void,
     index: number,
 } & Drink;
 
 export const DrinkItem = (props: DrinkItemProps) => {
     return (
-        <StyledCard onPress={()=>props.openModal(props.index)}>
-            {props.weight > 1 && <StyledBadge label={String(props.weight)} size={16} />}
+        <StyledCard
+            onPress={() => props.openModal(props.index)}
+            backgroundColor={props.weight <= 1 ? Colors.grey10 : Colors.blue1}
+        >
             <TopRow>
                 <CardTitle>{props.drinkName}&nbsp;</CardTitle>
             </TopRow>
             <Text>{getTimeString(props.timeDrank)}</Text>
             {props.weight != 1 && (
-                <Text status="warning">{props.weight} stanard drinks</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <Chip label={`${props.weight} standard drinks`} disabled />
+                </View>
             )}
         </StyledCard>
     );

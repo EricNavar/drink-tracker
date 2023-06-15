@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-native';
 import { NavigationProps, Screens } from '../commonTypes';
 import { Divider, Row, StyledLayout } from '../styling/commonStyles';
-import { ListItem, Text } from 'react-native-ui-lib';
+import { ListItem, Text, View } from 'react-native-ui-lib';
 import { FlatList } from 'react-native-gesture-handler';
 
 const Settings = (props: NavigationProps) => {
@@ -15,10 +15,10 @@ const Settings = (props: NavigationProps) => {
             buttonTitle: 'About',
             screenTitle: Screens.About
         },
-        {
-            buttonTitle: 'Feedback',
-            screenTitle: Screens.Feedback
-        },
+        // {
+        //     buttonTitle: 'Feedback',
+        //     screenTitle: Screens.Feedback
+        // },
         {
             buttonTitle: 'Privacy Policy',
             screenTitle: Screens.PrivacyPolicy
@@ -34,25 +34,19 @@ const Settings = (props: NavigationProps) => {
                 data={data}
                 keyExtractor={item => item.screenTitle}
                 style={{
-                    backgroundColor: 'blue',
+                    backgroundColor: '#333',
                     borderRadius: 6,
+                    height: data.length * 51 - 1,
+                    flexGrow: 0,
                 }}
                 renderItem={({ item }) => (
-                    <ListItem onPress={() => redirect(item.screenTitle)}>
-                        <Text>{item.buttonTitle}</Text>
+                    <ListItem onPress={() => redirect(item.screenTitle)} style={{height:50, paddingLeft: 8}}>
+                        <View centerV >
+                            <Text>{item.buttonTitle}</Text>
+                        </View>
                     </ListItem>
                 )}
                 ItemSeparatorComponent={Divider}
-            />
-
-            <Button title="About" onPress={() => redirect(Screens.About)} />
-            <Button
-                title="Feedback"
-                onPress={() => redirect(Screens.Feedback)}
-            />
-            <Button
-                title="Privacy Policy"
-                onPress={() => redirect(Screens.PrivacyPolicy)}
             />
         </StyledLayout>
     );

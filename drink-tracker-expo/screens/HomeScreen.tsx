@@ -4,7 +4,7 @@ import { NavigationProps, Screens } from '../commonTypes';
 import { NewSessionDrawer } from '../components/NewSessionDrawer';
 import { SessionCard } from '../components/SessionCard';
 import { BigButton, Divider, Row, StyledLayout } from '../styling/commonStyles';
-import { Text, View } from 'react-native-ui-lib';
+import { Chip, Text, View } from 'react-native-ui-lib';
 import { FlatList } from 'react-native-gesture-handler';
 import { getAllSessions } from '../api';
 
@@ -52,6 +52,7 @@ export const HomeScreen = (props: NavigationProps) => {
             <Text text40 style={{ marginTop: 20 }}>
                 Recent
             </Text>
+
             <FlatList
                 data={sessions}
                 renderItem={({ item }) => (

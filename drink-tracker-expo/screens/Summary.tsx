@@ -11,6 +11,7 @@ import { getSession } from '../api';
 import { Row, StyledLayout } from '../styling/commonStyles';
 import { getTimeRangeString } from '../util';
 import { Text } from 'react-native-ui-lib';
+import { EditDrinkModal } from '../components/EditDrinkModal';
 
 type SummaryProps = {
     route: {
@@ -22,6 +23,8 @@ type SummaryProps = {
 
 const Summary = (props: SummaryProps & NavigationProps) => {
     const [session, setSession] = React.useState<DrinkingSession | null>(null);
+    const [editDrinkModalOpen, setEditDrinkModalOpen] = React.useState(false);
+    const [selectedDrinkIndex, setSelectedDrinkIndex] = React.useState(-1);
 
     React.useEffect(() => {
         const fetchSession = async () => {
@@ -61,6 +64,20 @@ const Summary = (props: SummaryProps & NavigationProps) => {
         props.navigation.navigate(Screens.Home);
     };
 
+    const openEditModal = (index: number) => {
+        if (session) {
+            setSelectedDrinkIndex(index);
+            setEditDrinkModalOpen(true);
+        }
+    }
+
+    const getSelectedDrink = () => {
+        if (!session || selectedDrinkIndex == -1) {
+            return null;
+        }
+        return session.drinks[selectedDrinkIndex];
+    }
+
     return (
         <StyledLayout>
             <ScrollView>
@@ -81,12 +98,18 @@ const Summary = (props: SummaryProps & NavigationProps) => {
                             {getMessage()}
                         </Text>
                         {session.drinks.map((drink: Drink, index: number) => (
-                            <DrinkItem {...drink} key={index} />
+                            <DrinkItem {...drink} key={index} index={index} openModal={openEditModal}/>
                         ))}
                     </>
                 ) : (
                     <Text>Could not load session</Text>
                 )}
+                <EditDrinkModal
+                    open={editDrinkModalOpen}
+                    setOpen={setEditDrinkModalOpen}
+                    drink={getSelectedDrink()}
+                    sessionId={session ? session._id : ''}
+                />
             </ScrollView>
         </StyledLayout>
     );
