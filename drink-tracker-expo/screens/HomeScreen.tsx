@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { NavigationProps, Screens } from '../commonTypes';
-import { NewSessionDrawer } from '../components/NewSessionDrawer';
+import { NewSessionModal } from '../components/NewSessionModal';
 import { SessionCard } from '../components/SessionCard';
 import { BigButton, Divider, Row, StyledLayout } from '../styling/commonStyles';
 import { Chip, Text, View } from 'react-native-ui-lib';
@@ -30,7 +30,7 @@ export const HomeScreen = (props: NavigationProps) => {
 
     const onDelete = () => {
         console.log('delete');
-    }
+    };
 
     return (
         <StyledLayout>
@@ -49,26 +49,34 @@ export const HomeScreen = (props: NavigationProps) => {
                     label="Set Limits"
                 />
             </Row>
-            <Text text40 style={{ marginTop: 20 }}>
-                Recent
-            </Text>
+            {sessions && sessions.length > 0 ? (
+                <>
+                    <Text text50 style={{ marginTop: 20 }}>
+                        Recent
+                    </Text>
 
-            <FlatList
-                data={sessions}
-                renderItem={({ item }) => (
-                    <SessionCard
-                        {...item}
-                        navigation={props.navigation}
+                    <FlatList
+                        data={sessions}
+                        renderItem={({ item }) => (
+                            <SessionCard
+                                {...item}
+                                navigation={props.navigation}
+                            />
+                        )}
+                        keyExtractor={(item) => item._id}
+                        ItemSeparatorComponent={Divider}
                     />
-                )}
-                keyExtractor={item => item._id}
-                ItemSeparatorComponent={Divider}
-            />
-            <NewSessionDrawer
-                open={modalVisible}
-                navigation={props.navigation}
-                setOpen={setModalVisible}
-            />
+                    <NewSessionModal
+                        open={modalVisible}
+                        navigation={props.navigation}
+                        setOpen={setModalVisible}
+                    />
+                </>
+            ) : (
+                <Text style={{ marginTop: 20 }}>
+                    No recent drinking sessions
+                </Text>
+            )}
         </StyledLayout>
     );
 };

@@ -1,38 +1,73 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { NumberInput, Text } from 'react-native-ui-lib';
-import { Row, StyledLayout, inputStyles } from '../styling/commonStyles';
-import { NavigationProps, Screens } from '../commonTypes';
+import { Incubator, NumberInput, Text } from 'react-native-ui-lib';
+import {
+    Row,
+    StyledLayout,
+    inputStyles,
+    toastStyles,
+} from '../styling/commonStyles';
+import { DrinkingLimitsProps, NavigationProps, Screens } from '../commonTypes';
+import { getDrinkingLimits, storeDrinkingLimits } from '../api/guestAccountAPI';
 
 const DrinkingLimits = (props: NavigationProps) => {
-    const [totalDrinksLimit, setTotalDrinksLimit] = React.useState(12);
-    const [timeInterval, setTimeInterval] = React.useState(30);
+    const [totalDrinkLimit, setTotalDrinksLimit] = React.useState<number>(12);
+    const [timeInterval, setTimeInterval] = React.useState<number>(30);
+    const [toastVisible, setToastVisible] = React.useState(false);
+    const [toastText, setToastText] = React.useState('');
 
     const onPressSave = () => {
         if (Number(timeInterval) < 1) {
-            console.log('Time interval must be at least 1');
+            setToastText('Time interval must be at least 1');
+            setToastOpen(true);
+        } else if (Number(totalDrinkLimit) < 0) {
+            setToastText('Time interval must be at least 0');
+            setToastOpen(true);
+        } else {
+            console.log('valid input');
+            storeDrinkingLimits({ totalDrinkLimit, timeInterval });
         }
-        if (Number(totalDrinksLimit) < 0) {
-            console.log('Time interval must be at least 0');
-        }
-        console.log('save button');
     };
 
+    React.useEffect(() => {
+        const fetchLimits = async () => {
+            const drinkingLimits = await getDrinkingLimits();
+            if (drinkingLimits) {
+                setTimeInterval(drinkingLimits.timeInterval);
+                setTotalDrinksLimit(drinkingLimits.totalDrinkLimit);
+            } else {
+                setTimeInterval(30);
+                setTotalDrinksLimit(12);
+            }
+        };
+        fetchLimits();
+    }, [props]);
+
     const onPressBack = () => {
-        props.navigation.navigate(Screens.Settings);
+        props.navigation.navigate(Screens.Home);
     };
+
+    const onChangeTimeInterval = (event: any) => {
+        setTimeInterval(event.userInput);
+    };
+
+    const onChangeTotalDrinksLimit = (event: any) => {
+        setTotalDrinksLimit(event.userInput);
+    };
+
+    const { Toast } = Incubator;
 
     return (
         <StyledLayout>
             <Row>
                 <Button title="Back" onPress={onPressBack} />
             </Row>
-            <Text text40>Set your drinking limits</Text>
+            <Text text50>Set your drinking limits</Text>
             {/* I need to put almost every property for TextInput or it doesn't work */}
             <NumberInput
                 key={'timeInterval'}
-                // initialNumber={1}
-                label={'Time between drinks'}
+                initialNumber={timeInterval}
+                label={'Time between drinks (in minutes)'}
                 fractionDigits={2}
                 style={{}}
                 containerStyle={{}}
@@ -42,11 +77,11 @@ const DrinkingLimits = (props: NavigationProps) => {
                 validateOnChange
                 fieldStyle={inputStyles.field}
                 value={timeInterval}
-                onChangeNumber={setTimeInterval}
+                onChangeNumber={onChangeTimeInterval}
             />
             <NumberInput
                 key={'totalDrinksLimit'}
-                // initialNumber={totalDrinksLimit}
+                initialNumber={totalDrinkLimit}
                 label={'How many drinks are you limiting yourself to?'}
                 fractionDigits={2}
                 style={{}}
@@ -56,9 +91,20 @@ const DrinkingLimits = (props: NavigationProps) => {
                 validationMessageStyle={{}}
                 validateOnChange
                 fieldStyle={inputStyles.field}
-                value={totalDrinksLimit}
-                onChangeNumber={setTotalDrinksLimit}
+                value={totalDrinkLimit}
+                onChangeNumber={onChangeTotalDrinksLimit}
             />
+            <Toast
+                visible={toastVisible}
+                position={'bottom'}
+                autoDismiss={5000}
+                containerStyle={toastStyles.container}
+                onDismiss={() => {
+                    setToastVisible(false);
+                }}
+            >
+                <Text>{toastText}</Text>
+            </Toast>
             <Button title="Save" onPress={onPressSave} />
         </StyledLayout>
     );

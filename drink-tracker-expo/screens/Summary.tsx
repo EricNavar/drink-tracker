@@ -69,14 +69,16 @@ const Summary = (props: SummaryProps & NavigationProps) => {
             setSelectedDrinkIndex(index);
             setEditDrinkModalOpen(true);
         }
-    }
+    };
 
     const getSelectedDrink = () => {
         if (!session || selectedDrinkIndex == -1) {
             return null;
         }
         return session.drinks[selectedDrinkIndex];
-    }
+    };
+
+    const selectedDrink = getSelectedDrink();
 
     return (
         <StyledLayout>
@@ -86,30 +88,39 @@ const Summary = (props: SummaryProps & NavigationProps) => {
                 </Row>
                 {session ? (
                     <>
-                        <Text text40>{session.title}</Text>
+                        <Text text50 style={{ marginBottom: 12 }}>
+                            {session.title}
+                        </Text>
                         <Text>
                             {getTimeRangeString(
                                 session.timeStart,
                                 session.timeEnd
                             )}
                         </Text>
-                        <Text>
+                        <Text style={{ marginBottom: 12 }}>
                             You had {session.drinks.length} drinks,{' '}
                             {getMessage()}
                         </Text>
                         {session.drinks.map((drink: Drink, index: number) => (
-                            <DrinkItem {...drink} key={index} index={index} openModal={openEditModal}/>
+                            <DrinkItem
+                                {...drink}
+                                key={index}
+                                index={index}
+                                openModal={openEditModal}
+                            />
                         ))}
                     </>
                 ) : (
                     <Text>Could not load session</Text>
                 )}
-                <EditDrinkModal
-                    open={editDrinkModalOpen}
-                    setOpen={setEditDrinkModalOpen}
-                    drink={getSelectedDrink()}
-                    sessionId={session ? session._id : ''}
-                />
+                {selectedDrink && (
+                    <EditDrinkModal
+                        open={editDrinkModalOpen}
+                        setOpen={setEditDrinkModalOpen}
+                        drink={selectedDrink}
+                        sessionId={session ? session._id : ''}
+                    />
+                )}
             </ScrollView>
         </StyledLayout>
     );

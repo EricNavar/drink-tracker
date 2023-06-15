@@ -4,12 +4,11 @@ import { ModalProps, NavigationProps, Screens } from '../commonTypes';
 import { DateTimePicker, Dialog, Text, TextField } from 'react-native-ui-lib';
 import { inputStyles } from '../styling/commonStyles';
 
-const NewSessionDrawer = (props: ModalProps & NavigationProps) => {
+const NewSessionModal = (props: ModalProps & NavigationProps) => {
     const [name, setName] = React.useState('');
     const [startTime, setStartTime] = React.useState('');
 
     const onPressStart = () => {
-
         props.navigation.navigate(Screens.Session, {});
         props.setOpen(false);
     };
@@ -32,12 +31,12 @@ const NewSessionDrawer = (props: ModalProps & NavigationProps) => {
             }}
             overlayBackgroundColor="rgba(0,0,0,.2)"
         >
-            <Text text40>New Session</Text>
+            <Text text50>New Session</Text>
             <TextField
                 label="Name of party"
                 value={name}
                 onChangeText={setName}
-                placeholder={'Ryan\'s birthday party'}
+                placeholder={"Ryan's birthday party"}
                 fieldStyle={inputStyles.field}
             />
             <DateTimePicker
@@ -52,4 +51,4 @@ const NewSessionDrawer = (props: ModalProps & NavigationProps) => {
     );
 };
 
-export { NewSessionDrawer };
+export { NewSessionModal };

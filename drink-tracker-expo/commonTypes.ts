@@ -39,3 +39,8 @@ export type ModalProps = {
     open: boolean;
     setOpen: (open: boolean) => void;
 };
+
+export type DrinkingLimitsProps = {
+    totalDrinkLimit: number;
+    timeInterval: number; // in minutes
+};

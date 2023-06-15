@@ -3,7 +3,14 @@ import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { getRelativeTime, getTimeRangeString } from '../util';
-import { TouchableOpacity, Text, ListItem, Drawer, Colors, View } from 'react-native-ui-lib';
+import {
+    TouchableOpacity,
+    Text,
+    ListItem,
+    Drawer,
+    Colors,
+    View,
+} from 'react-native-ui-lib';
 
 const CardTitle = styled(Text)({
     fontWeight: 'bold',
@@ -32,16 +39,18 @@ export const SessionCard = (
                     onPress: () => console.log('delete pressed'),
                 },
             ]}
+            style={{ backgroundColor: 'black' }} //TODO: fix this
         >
             <ListItem
                 onPress={onPressCard}
-                style={{paddingVertical: 10}}
+                style={{ paddingVertical: 10 }}
                 centerV
             >
                 <View>
                     <CardTitle>{props.title}</CardTitle>
                     <Text>
-                        {props.drinks.length}🍺 • {getRelativeTime(props.timeStart, props.timeEnd)}
+                        {props.drinks.length}🍺 •{' '}
+                        {getRelativeTime(props.timeStart, props.timeEnd)}
                     </Text>
                 </View>
             </ListItem>

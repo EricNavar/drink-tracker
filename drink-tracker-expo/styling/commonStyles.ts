@@ -24,7 +24,7 @@ export const BigButton = styled(Button)`
 
 export const Divider = styled(View)`
     height: 1px;
-    backgroundColor: rgba(255,255,255,.5);
+    backgroundcolor: rgba(255, 255, 255, 0.5);
     wight: 100%;
 `;
 

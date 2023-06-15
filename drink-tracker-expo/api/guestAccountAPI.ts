@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { DrinkingSession } from '../commonTypes';
+import { DrinkingLimitsProps, DrinkingSession } from '../commonTypes';
 import { session } from '../data/dummysessions';
 
 export const editSession = async (session: DrinkingSession) => {
@@ -18,13 +18,13 @@ export const addNewSession = async (session: DrinkingSession) => {
         const jsonValue = await AsyncStorage.getItem('sessions');
         let sessions: DrinkingSession[];
         if (!jsonValue) {
-            sessions = [session]
+            sessions = [session];
         } else {
             sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
             sessions.push(session);
         }
         await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
-    } catch (e) {   
+    } catch (e) {
         console.log('error');
     }
 };
@@ -42,7 +42,7 @@ export const getRecentSessions = async () => {
 export const getAllSessions = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem('sessions');
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch (e) {
         console.log('error');
     }
@@ -69,4 +69,22 @@ export const getSession = async (id: string) => {
 // overwrites all the sessions to store only the provided ones
 export const storeSessionsLocally = async (sessions: DrinkingSession[]) => {
     await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
-}
+};
+
+export const storeDrinkingLimits = async (
+    drinkingLimits: DrinkingLimitsProps
+) => {
+    await AsyncStorage.setItem(
+        'drinkingLimits',
+        JSON.stringify(drinkingLimits)
+    );
+};
+
+export const getDrinkingLimits = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('drinkingLimits');
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+        console.log('error');
+    }
+};

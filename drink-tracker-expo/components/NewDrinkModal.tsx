@@ -1,23 +1,35 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { Drink, NavigationProps, Screens } from '../commonTypes';
-import { Dialog, NumberInput, Text, TextField } from 'react-native-ui-lib';
+import { Drink } from '../commonTypes';
+import {
+    DateTimePicker,
+    Dialog,
+    NumberInput,
+    Text,
+    TextField,
+} from 'react-native-ui-lib';
 import { inputStyles } from '../styling/commonStyles';
 
 type DrinkInputProps = {
     drinkNumber: number;
     open: boolean;
     setOpen: any;
-} & NavigationProps;
+    sessionId: string;
+};
+
+// @react-native-community/datetimepicker
 
 const NewDrinkModal = (props: DrinkInputProps) => {
-    const [drinkName, setDrinkName] = React.useState('');
-    const [drinkWeight, setDrinkWeight] = React.useState(1);
-    const [timeDrank, setTimeDrank] = React.useState('');
+    const [drinkName, setDrinkName] = React.useState<string>('');
+    const [drinkWeight, setDrinkWeight] = React.useState<number>(1);
+    const [timeDrank, setTimeDrank] = React.useState<number>(0);
 
     const onSubmit = () => {
-        if (drinkWeight >= 0) {
-            console.log('drink weight must be at least 0');
+        if (drinkWeight < 0) {
+            console.log(
+                'drink weight must be at least 0. Drink weight is currently',
+                drinkWeight
+            );
         }
         const newDrink: Drink = {
             _id: 'u432819',
@@ -25,11 +37,15 @@ const NewDrinkModal = (props: DrinkInputProps) => {
             drinkName: drinkName,
             weight: drinkWeight,
         };
-        props.navigation.navigate(Screens.Session, { drink: newDrink });
+        closeModal();
     };
 
     const onChangeDrinkWeight = (event: any) => {
-        setDrinkWeight(event.target.value);
+        setDrinkWeight(event.userInput);
+    };
+
+    const onChangeTime = (event: any) => {
+        console.log(event);
     };
 
     const closeModal = () => {
@@ -37,25 +53,52 @@ const NewDrinkModal = (props: DrinkInputProps) => {
     };
 
     return (
-        <Dialog open={props.open} onDismiss={closeModal}>
-            <Text>New drink</Text>
+        <Dialog
+            animationType="slide"
+            visible={props.open}
+            open={props.open}
+            onDismiss={closeModal}
+            height={'100%'}
+            containerStyle={{
+                backgroundColor: '#000',
+                padding: 20,
+                borderRadius: 8,
+                height: '100%',
+            }}
+            overlayBackgroundColor="rgba(0,0,0,.2)"
+        >
+            <Text text50 style={{ marginBottom: 10 }}>
+                New drink
+            </Text>
             <TextField
-                placeholder="name of drink"
+                label="Name of drink"
+                placeholder="Mojito"
                 value={drinkName}
                 onChangeText={setDrinkName}
                 fieldStyle={inputStyles.field}
             />
-            <TextField
-                placeholder="time drank"
+            <DateTimePicker
+                label="time drank"
+                placeholder="10:35"
+                mode={'time'}
                 value={timeDrank}
-                onChangeText={setTimeDrank}
+                onChange={onChangeTime}
                 fieldStyle={inputStyles.field}
             />
             <NumberInput
-                placeholder="how many drinks is this worth"
-                value={drinkName}
-                onChange={onChangeDrinkWeight}
+                key={'drinkWeight'}
+                initialNumber={drinkWeight}
+                label={'How many drinks is this worth?'}
+                fractionDigits={2}
+                style={{}}
+                containerStyle={{}}
+                validate={() => {}}
+                validationMessage={'validationMessage'}
+                validationMessageStyle={{}}
+                validateOnChange
                 fieldStyle={inputStyles.field}
+                value={drinkWeight}
+                onChangeNumber={onChangeDrinkWeight}
             />
             <Button title="Submit" onPress={onSubmit} />
             <Button title="Cancel" onPress={closeModal} />

@@ -1,2 +1,2 @@
 export * from './api';
-export {storeSessionsLocally} from './guestAccountAPI';
+export { storeSessionsLocally } from './guestAccountAPI';

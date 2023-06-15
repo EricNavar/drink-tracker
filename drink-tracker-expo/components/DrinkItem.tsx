@@ -1,7 +1,14 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Drink } from '../commonTypes';
-import { Badge, Chip, Colors, Text, TouchableOpacity } from 'react-native-ui-lib';
+import {
+    Badge,
+    Chip,
+    Colors,
+    Spacings,
+    Text,
+    TouchableOpacity,
+} from 'react-native-ui-lib';
 import { getTimeString } from '../util';
 import { View } from 'react-native';
 
@@ -33,25 +40,43 @@ const StyledBadge = styled(Badge)`
 `;
 
 type DrinkItemProps = {
-    openModal: (index: number) => void,
-    index: number,
+    openModal: (index: number) => void;
+    index: number;
 } & Drink;
 
 export const DrinkItem = (props: DrinkItemProps) => {
     return (
         <StyledCard
             onPress={() => props.openModal(props.index)}
-            backgroundColor={props.weight <= 1 ? Colors.grey10 : Colors.blue1}
+            backgroundColor={Colors.grey10}
         >
             <TopRow>
                 <CardTitle>{props.drinkName}&nbsp;</CardTitle>
             </TopRow>
-            <Text>{getTimeString(props.timeDrank)}</Text>
-            {props.weight != 1 && (
-                <View style={{ flexDirection: 'row' }}>
-                    <Chip label={`${props.weight} standard drinks`} disabled />
-                </View>
-            )}
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 4,
+                }}
+            >
+                <Text>{getTimeString(props.timeDrank)}</Text>
+                {props.weight != 1 && (
+                    <View style={{ flexDirection: 'row' }}>
+                        <Chip
+                            label={`${props.weight} standard drinks`}
+                            disabled
+                            labelStyle={{ color: Colors.white }}
+                            iconProps={{ tintColor: Colors.white }}
+                            containerStyle={{
+                                borderColor: Colors.grey30,
+                                backgroundColor: Colors.grey30,
+                                marginLeft: Spacings.s3,
+                            }}
+                        />
+                    </View>
+                )}
+            </View>
         </StyledCard>
     );
 };

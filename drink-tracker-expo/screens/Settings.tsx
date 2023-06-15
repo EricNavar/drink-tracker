@@ -13,7 +13,7 @@ const Settings = (props: NavigationProps) => {
     const data = [
         {
             buttonTitle: 'About',
-            screenTitle: Screens.About
+            screenTitle: Screens.About,
         },
         // {
         //     buttonTitle: 'Feedback',
@@ -21,9 +21,9 @@ const Settings = (props: NavigationProps) => {
         // },
         {
             buttonTitle: 'Privacy Policy',
-            screenTitle: Screens.PrivacyPolicy
-        }
-    ]
+            screenTitle: Screens.PrivacyPolicy,
+        },
+    ];
 
     return (
         <StyledLayout>
@@ -32,7 +32,7 @@ const Settings = (props: NavigationProps) => {
             </Row>
             <FlatList
                 data={data}
-                keyExtractor={item => item.screenTitle}
+                keyExtractor={(item) => item.screenTitle}
                 style={{
                     backgroundColor: '#333',
                     borderRadius: 6,
@@ -40,8 +40,11 @@ const Settings = (props: NavigationProps) => {
                     flexGrow: 0,
                 }}
                 renderItem={({ item }) => (
-                    <ListItem onPress={() => redirect(item.screenTitle)} style={{height:50, paddingLeft: 8}}>
-                        <View centerV >
+                    <ListItem
+                        onPress={() => redirect(item.screenTitle)}
+                        style={{ height: 50, paddingLeft: 8 }}
+                    >
+                        <View centerV>
                             <Text>{item.buttonTitle}</Text>
                         </View>
                     </ListItem>
