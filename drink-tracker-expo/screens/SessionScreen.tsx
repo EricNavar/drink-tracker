@@ -14,8 +14,9 @@ import { BigButton } from '../styling/commonStyles';
 import { StyledLayout } from '../styling/commonStyles';
 import { NewDrinkModal } from '../components/NewDrinkModal';
 import { EditDrinkModal } from '../components/EditDrinkModal';
-import { Chip, Text } from 'react-native-ui-lib';
-import { getSession } from '../api';
+import { Text } from 'react-native-ui-lib';
+import { addNewDrink, endSession as saveSession } from '../api';
+import { makeId } from '../util';
 
 const styles = StyleSheet.create({
     title: {
@@ -36,7 +37,7 @@ const Row = styled.View`
 type SessionScreenProps = {
     route: {
         params: {
-            sessionId: string;
+            session: DrinkingSession;
         };
     };
 } & NavigationProps;
@@ -51,13 +52,23 @@ export const SessionScreen = (props: SessionScreenProps) => {
     const [selectedDrinkIndex, setSelectedDrinkIndex] = React.useState(-1);
     // const [nextDrinkDeadline, setNextDrinkDeadline] = React.useState(0);
 
+    // React.useEffect(() => {
+    //     const fetchSessions = async () => {
+    //         const newSession = await getSession(props.route.params.sessionId);
+    //         if (newSession) {
+    //             setSession(newSession);
+    //         }
+    //     };
+    //     fetchSessions();
+    // }, [props]);
+
     React.useEffect(() => {
-        const fetchSessions = async () => {
-            const newSession = await getSession(props.route.params.sessionId);
-            setSession(newSession);
-        };
-        fetchSessions();
-    }, [props]);
+        if (props.route.params.session) {
+            setSession(props.route.params.session);
+        } else {
+            console.log('session was not passed to navigation props');
+        }
+    });
 
     const redirect = (page: string) => {
         props.navigation.navigate(page);
@@ -83,25 +94,67 @@ export const SessionScreen = (props: SessionScreenProps) => {
         setNewDrinkModalOpen(true);
     };
 
+    const isUniqueId = (id: string) => {
+        return (
+            session &&
+            session.drinks.filter((drink) => drink._id === id).length === 0
+        );
+    };
+
     const onPressFinish = () => {
-        props.navigation.navigate(Screens.Summary);
+        setFinishModalOpen(true);
+    };
+
+    const finishSession = () => {
+        if (session) {
+            const timeEnd = session.drinks.length > 0 ? session.drinks[session.drinks.length - 1].timeDrank : Date.now();
+            session.timeEnd = timeEnd;
+            saveSession(session._id, timeEnd);
+        }
+        props.navigation.navigate(Screens.Summary, { session: session });
+    };
+
+    const createNewDrink = async (
+        timeDrank: number,
+        drinkName: string,
+        drinkWeight: number
+    ) => {
+        if (!session) {
+            console.log('Could not load session');
+            return;
+        }
+        let newId = makeId();
+        while (!isUniqueId(newId)) {
+            newId = makeId();
+        }
+        const newDrink: Drink = {
+            _id: newId,
+            timeDrank: Number(timeDrank),
+            drinkName: drinkName,
+            weight: drinkWeight,
+        };
+        addNewDrink(session._id, newDrink);
+        setNewDrinkModalOpen(false);
     };
 
     if (!session) {
-        return <></>;
+        return <Text>could not load session</Text>;
     }
-
     return (
         <StyledLayout>
             <Row>
-                <Button onPress={() => redirect(Screens.Home)} title="Back" />
+                <Button
+                    onPress={() => props.navigation.goBack()}
+                    title="Back"
+                />
                 <Button onPress={onPressFinish} title="Finish" />
             </Row>
+            <Text style={styles.title}>{session.title}</Text>
             <Banner
                 actualDrinks={session.drinks.length}
                 expectedDrinks={expectedDrinksCount}
             />
-            <Row>
+            <Row style={{ marginBottom: 20, marginTop: 10 }}>
                 <BigButton onPress={onPressAddDrink} label="Add drink" />
                 <View style={{ width: 10 }} />
                 <BigButton
@@ -110,27 +163,31 @@ export const SessionScreen = (props: SessionScreenProps) => {
                 />
             </Row>
 
-            <Text style={styles.title}>{session.title}</Text>
-            <FlatList
-                data={session.drinks}
-                renderItem={({ item, index }) => (
-                    <DrinkItem
-                        {...item}
-                        openModal={openEditModal}
-                        index={index}
-                    />
-                )}
-                keyExtractor={(item) => item._id}
-            />
+            {session.drinks.length > 0 ? (
+                <FlatList
+                    data={session.drinks}
+                    renderItem={({ item, index }) => (
+                        <DrinkItem
+                            {...item}
+                            openModal={openEditModal}
+                            index={index}
+                        />
+                    )}
+                    keyExtractor={(item) => item._id}
+                />
+            ) : (
+                <Text>You haven't drank anything yet.</Text>
+            )}
 
             <FinishModal
                 open={finishModalOpen}
                 setOpen={setFinishModalOpen}
-                navigation={props.navigation}
+                finishSession={finishSession}
             />
             <NewDrinkModal
                 open={newDrinkModalOpen}
                 setOpen={setNewDrinkModalOpen}
+                createNewDrink={createNewDrink}
                 drinkNumber={session.drinks.length + 1}
                 sessionId={session._id}
             />

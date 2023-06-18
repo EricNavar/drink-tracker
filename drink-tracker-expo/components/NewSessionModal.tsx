@@ -1,16 +1,24 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { ModalProps, NavigationProps, Screens } from '../commonTypes';
+import {
+    DrinkingSession,
+    ModalProps,
+    NavigationProps,
+    Screens,
+} from '../commonTypes';
 import { DateTimePicker, Dialog, Text, TextField } from 'react-native-ui-lib';
 import { inputStyles } from '../styling/commonStyles';
 
-const NewSessionModal = (props: ModalProps & NavigationProps) => {
+type NewSessionModalProps = {
+    createNewSession: (title: string, startTIme: number) => void;
+} & ModalProps;
+
+const NewSessionModal = (props: NewSessionModalProps) => {
     const [name, setName] = React.useState('');
-    const [startTime, setStartTime] = React.useState('');
+    const [startTime, setStartTime] = React.useState<number>(Date.now());
 
     const onPressStart = () => {
-        props.navigation.navigate(Screens.Session, {});
-        props.setOpen(false);
+        props.createNewSession(name, startTime);
     };
 
     const closeModal = () => {
@@ -41,9 +49,9 @@ const NewSessionModal = (props: ModalProps & NavigationProps) => {
             />
             <DateTimePicker
                 label={'Select time'}
-                placeholder={'10:35'}
+                placeholder={'10:35 PM'}
                 mode={'time'}
-                value={startTime}
+                value={new Date(startTime)}
                 fieldStyle={inputStyles.field}
             />
             <Button title="Start" onPress={onPressStart} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { Drink } from '../commonTypes';
+import { ModalProps } from '../commonTypes';
 import {
     DateTimePicker,
     Dialog,
@@ -12,10 +12,13 @@ import { inputStyles } from '../styling/commonStyles';
 
 type DrinkInputProps = {
     drinkNumber: number;
-    open: boolean;
-    setOpen: any;
+    createNewDrink: (
+        timeDrank: number,
+        drinkName: string,
+        drinkWeight: number
+    ) => void;
     sessionId: string;
-};
+} & ModalProps;
 
 // @react-native-community/datetimepicker
 
@@ -23,22 +26,6 @@ const NewDrinkModal = (props: DrinkInputProps) => {
     const [drinkName, setDrinkName] = React.useState<string>('');
     const [drinkWeight, setDrinkWeight] = React.useState<number>(1);
     const [timeDrank, setTimeDrank] = React.useState<number>(0);
-
-    const onSubmit = () => {
-        if (drinkWeight < 0) {
-            console.log(
-                'drink weight must be at least 0. Drink weight is currently',
-                drinkWeight
-            );
-        }
-        const newDrink: Drink = {
-            _id: 'u432819',
-            timeDrank: Number(timeDrank),
-            drinkName: drinkName,
-            weight: drinkWeight,
-        };
-        closeModal();
-    };
 
     const onChangeDrinkWeight = (event: any) => {
         setDrinkWeight(event.userInput);
@@ -50,6 +37,17 @@ const NewDrinkModal = (props: DrinkInputProps) => {
 
     const closeModal = () => {
         props.setOpen(false);
+    };
+
+    const onSubmit = () => {
+        if (drinkWeight < 0) {
+            console.log(
+                'drink weight must be at least 0. Drink weight is currently',
+                drinkWeight
+            );
+        }
+        props.createNewDrink(timeDrank, drinkName, drinkWeight);
+        closeModal();
     };
 
     return (

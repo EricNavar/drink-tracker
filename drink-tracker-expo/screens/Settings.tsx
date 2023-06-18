@@ -28,7 +28,10 @@ const Settings = (props: NavigationProps) => {
     return (
         <StyledLayout>
             <Row>
-                <Button title="Back" onPress={() => redirect(Screens.Home)} />
+                <Button
+                    title="Back"
+                    onPress={() => props.navigation.goBack()}
+                />
             </Row>
             <FlatList
                 data={data}

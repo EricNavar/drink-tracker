@@ -1,33 +1,38 @@
 import axios from 'axios';
-import { DrinkingSession } from '../commonTypes';
-import { session } from '../data/dummysessions';
+import { Drink, DrinkingSession } from '../commonTypes';
 import {
-    editSession as editSessionGuest,
+    endSession as endSessionGuest,
     addNewSession as addNewSessionGuest,
     getRecentSessions as getRecentSessionsGuest,
     getAllSessions as getAllSessionsGuest,
     getSession as getSessionGuest,
+    finishSession as finishSessionGuest,
+    addNewDrink as addNewDrinkGuest,
 } from './guestAccountAPI';
 
 const isFullAccount = () => {
     return false;
 };
 
-export const editSession = async (session: DrinkingSession) => {
+export const endSession = async (sessionId: string, timeEnd: number) => {
     if (isFullAccount()) {
-        //TODO
-        editSessionGuest(session);
+        //TODO: expand this to apply to any attribute
+        endSessionGuest(sessionId, timeEnd);
     } else {
-        editSessionGuest(session);
+        endSessionGuest(sessionId, timeEnd);
     }
 };
 
-export const addNewSession = async (newSession: DrinkingSession) => {
+export const addNewSession = async (
+    sessionId: string,
+    title: string,
+    startTime: number
+) => {
     if (isFullAccount()) {
         //TODO
-        addNewSessionGuest(newSession);
+        return addNewSessionGuest(sessionId, title, startTime);
     } else {
-        addNewSessionGuest(newSession);
+        return addNewSessionGuest(sessionId, title, startTime);
     }
 };
 
@@ -50,6 +55,9 @@ export const getAllSessions = async () => {
 };
 
 export const getSession = async (id: string) => {
+    if (!id) {
+        console.log('id does not exist');
+    }
     if (isFullAccount()) {
         //TODO
         return getSessionGuest(id);
@@ -60,6 +68,16 @@ export const getSession = async (id: string) => {
 
 export const editDrink = async (sessionId: string, drinkId: string) => {
     console.log('hello');
+};
+
+// returns newly created session
+export const addNewDrink = async (sessionId: string, drink: Drink) => {
+    if (isFullAccount()) {
+        //TODO
+        addNewDrinkGuest(sessionId, drink);
+    } else {
+        addNewDrinkGuest(sessionId, drink);
+    }
 };
 
 export const sendFeedback = async (feedback: string) => {
@@ -79,4 +97,8 @@ export const sendFeedback = async (feedback: string) => {
         .finally(function () {
             // always executed
         });
+};
+
+export const finishSession = async (sessionId: string) => {
+    finishSessionGuest(sessionId);
 };

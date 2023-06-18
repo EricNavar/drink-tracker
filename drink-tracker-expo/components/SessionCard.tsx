@@ -18,16 +18,20 @@ const CardTitle = styled(Text)({
 });
 
 export const SessionCard = (
-    props: DrinkingSession & NavigationProps & { deleteMode?: boolean }
+    props: NavigationProps & { deleteMode?: boolean; session: DrinkingSession }
 ) => {
     const onPressDelete = () => {
         console.log('delete session');
     };
 
-    const onPressCard = (session: DrinkingSession) => {
-        props.navigation.navigate(Screens.Summary, {
-            session: session,
-        });
+    const onPressCard = () => {
+        // if the session has an end time, then go to the summary screen
+        props.navigation.navigate(
+            props.session.timeEnd ? Screens.Summary : Screens.Session,
+            {
+                session: props.session,
+            }
+        );
     };
 
     return (
@@ -47,10 +51,13 @@ export const SessionCard = (
                 centerV
             >
                 <View>
-                    <CardTitle>{props.title}</CardTitle>
+                    <CardTitle>{props.session.title}</CardTitle>
                     <Text>
-                        {props.drinks.length}🍺 •{' '}
-                        {getRelativeTime(props.timeStart, props.timeEnd)}
+                        {props.session.drinks.length}🍺 •{' '}
+                        {getRelativeTime(
+                            props.session.timeStart,
+                            props.session.timeEnd
+                        )}
                     </Text>
                 </View>
             </ListItem>

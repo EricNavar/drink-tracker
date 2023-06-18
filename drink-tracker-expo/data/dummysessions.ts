@@ -2,11 +2,9 @@ import { DrinkingSession } from '../commonTypes';
 
 export const session: DrinkingSession = {
     _id: '1234',
+    title: "Blake's birthday party",
     timeInterval: 30,
     drinkLimit: 8,
-    title: "Blake's birthday party",
-    timeStart: new Date('2023-05-25T22:35:35.000Z').getTime(),
-    timeEnd: new Date('2023-05-25T23:35:50.000Z').getTime(),
     drinks: [
         {
             _id: 'd1',
@@ -58,12 +56,12 @@ export const session: DrinkingSession = {
             weight: 1,
         },
     ],
+    timeStart: new Date('2023-05-25T22:35:35.000Z').getTime(),
+    timeEnd: new Date('2023-05-25T23:35:50.000Z').getTime(),
 };
 
 export const session2: DrinkingSession = {
     _id: '1235',
-    timeInterval: 30,
-    drinkLimit: 8,
     title: "Blake's birthday party",
     timeStart: new Date('2023-05-25T22:35:35.000Z').getTime(),
     timeEnd: new Date('2023-05-25T23:35:50.000Z').getTime(),
@@ -76,12 +74,12 @@ export const session2: DrinkingSession = {
             weight: 1,
         },
     ],
+    timeInterval: 30,
+    drinkLimit: 8,
 };
 
 export const session3: DrinkingSession = {
     _id: '1236',
-    timeInterval: 30,
-    drinkLimit: 8,
     title: "Blake's birthday party",
     timeStart: new Date('2023-05-25T22:35:35.000Z').getTime(),
     timeEnd: new Date('2023-05-25T23:35:50.000Z').getTime(),
@@ -94,6 +92,8 @@ export const session3: DrinkingSession = {
             weight: 1,
         },
     ],
+    timeInterval: 30,
+    drinkLimit: 8,
 };
 
 export const sessions: DrinkingSession[] = [session, session2, session3];

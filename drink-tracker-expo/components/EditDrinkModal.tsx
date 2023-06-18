@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { Drink } from '../commonTypes';
-import { DateTimePicker, Dialog, NumberInput, Text, TextField } from 'react-native-ui-lib';
+import {
+    DateTimePicker,
+    Dialog,
+    NumberInput,
+    Text,
+    TextField,
+} from 'react-native-ui-lib';
 import { editDrink } from '../api';
 import { inputStyles } from '../styling/commonStyles';
 import { getTimeString, getTimeStringFromDate } from '../util';
@@ -66,8 +72,6 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
         props.setOpen(false);
     };
 
-    console.log(timeDrank);
-
     return (
         <Dialog visible={props.open} overlayBackgroundColor="#000">
             {props.drink ? (
@@ -97,7 +101,7 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
                         fractionDigits={2}
                         style={{}}
                         containerStyle={{}}
-                        validate={() => { }}
+                        validate={() => {}}
                         validationMessage={'validationMessage'}
                         validationMessageStyle={{}}
                         validateOnChange

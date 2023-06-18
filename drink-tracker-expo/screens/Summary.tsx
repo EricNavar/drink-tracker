@@ -16,22 +16,30 @@ import { EditDrinkModal } from '../components/EditDrinkModal';
 type SummaryProps = {
     route: {
         params: {
-            sessionId: string;
+            session: DrinkingSession;
         };
     };
 };
 
 const Summary = (props: SummaryProps & NavigationProps) => {
-    const [session, setSession] = React.useState<DrinkingSession | null>(null);
+    const [session, setSession] = React.useState<DrinkingSession | null>();
     const [editDrinkModalOpen, setEditDrinkModalOpen] = React.useState(false);
     const [selectedDrinkIndex, setSelectedDrinkIndex] = React.useState(-1);
 
+    // React.useEffect(() => {
+    //     const fetchSession = async () => {
+    //         const newSession = await getSession(props.route.params.sessionId);
+    //         setSession(newSession);
+    //     };
+    //     fetchSession();
+    // });
+
     React.useEffect(() => {
-        const fetchSession = async () => {
-            const newSession = await getSession(props.route.params.sessionId);
-            setSession(newSession);
-        };
-        fetchSession();
+        if (props.route.params.session) {
+            setSession(props.route.params.session);
+        } else {
+            console.log('session was not passed to navigation props');
+        }
     });
 
     const getExpectedDrinksCount = () => {
@@ -39,13 +47,10 @@ const Summary = (props: SummaryProps & NavigationProps) => {
     };
 
     const getMessage = () => {
-        if (!session) {
+        if (!session || !session.drinks) {
             return '';
         }
-        const expectedDrinksCount = Math.max(
-            getExpectedDrinksCount(),
-            session.drinkLimit
-        );
+        const expectedDrinksCount = getExpectedDrinksCount();
         if (expectedDrinksCount === session.drinks.length) {
             return 'right on schedule';
         }
@@ -61,7 +66,7 @@ const Summary = (props: SummaryProps & NavigationProps) => {
     };
 
     const onPressBack = () => {
-        props.navigation.navigate(Screens.Home);
+        props.navigation.goBack();
     };
 
     const openEditModal = (index: number) => {

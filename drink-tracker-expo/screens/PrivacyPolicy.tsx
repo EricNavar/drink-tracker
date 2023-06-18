@@ -6,7 +6,7 @@ import { NavigationProps, Screens } from '../commonTypes';
 
 const PrivacyPolicy = (props: NavigationProps) => {
     const onPressBack = () => {
-        props.navigation.navigate(Screens.Settings);
+        props.navigation.goBack();
     };
 
     return (

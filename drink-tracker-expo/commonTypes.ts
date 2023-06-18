@@ -1,9 +1,9 @@
 export type DrinkingSession = {
     _id: string;
+    title: string;
     timeStart: number;
     timeEnd?: number;
     drinks: Drink[];
-    title: string;
     timeInterval: number;
     drinkLimit: number;
 };
@@ -20,6 +20,7 @@ export type NavigationProps = {
     navigation: {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         navigate: any;
+        goBack: any;
     };
 };
 

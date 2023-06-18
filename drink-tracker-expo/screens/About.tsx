@@ -20,7 +20,7 @@ const About = (props: NavigationProps) => {
     };
 
     const onPressBack = () => {
-        props.navigation.navigate(Screens.Settings);
+        props.navigation.goBack();
     };
 
     return (

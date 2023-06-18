@@ -49,7 +49,7 @@ const Banner = (props: BannerProps) => {
 
     return (
         <BannerCard>
-            <Text>{title}</Text>
+            <Text text70>{title}</Text>
             <Text>{body}</Text>
         </BannerCard>
     );

@@ -44,7 +44,7 @@ const DrinkingLimits = (props: NavigationProps) => {
     }, [props]);
 
     const onPressBack = () => {
-        props.navigation.navigate(Screens.Home);
+        props.navigation.goBack();
     };
 
     const onChangeTimeInterval = (event: any) => {
