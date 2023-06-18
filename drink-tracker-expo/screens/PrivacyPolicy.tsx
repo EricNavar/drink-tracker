@@ -15,8 +15,8 @@ const PrivacyPolicy = (props: NavigationProps) => {
                 <Button title="Back" onPress={onPressBack} />
             </Row>
             <Text>
-                We don't share your data with any other person or company. No
-                pigs can touch your data 😤
+                We don't have access to or distribute your data. No pigs can
+                touch your drinking data 😤
             </Text>
         </StyledLayout>
     );

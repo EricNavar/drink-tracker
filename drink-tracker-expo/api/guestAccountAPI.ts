@@ -14,7 +14,7 @@ export const addNewSession = async (
             title,
             timeStart,
             drinks: [],
-            drinkLimit: drinkingLimits.totalDrinkLimit,// TODO: clean up this code
+            drinkLimit: drinkingLimits.totalDrinkLimit, // TODO: clean up this code
             timeInterval: drinkingLimits.timeInterval,
         };
         let sessions: DrinkingSession[];
@@ -104,7 +104,7 @@ export const endSession = async (sessionId: string, timeEnd: number) => {
         const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
         sessions.map((session: DrinkingSession) =>
             session._id === sessionId
-                ? Object.assign(session, {timeEnd:timeEnd})
+                ? Object.assign(session, { timeEnd: timeEnd })
                 : session
         );
         console.log(sessions);
@@ -129,6 +129,4 @@ export const addNewDrink = async (sessionId: string, drink: Drink) => {
     }
 };
 
-export const finishSession = async (sessionId: string) => {
-
-};
+export const finishSession = async (sessionId: string) => {};

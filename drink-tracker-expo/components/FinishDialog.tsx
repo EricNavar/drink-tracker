@@ -4,11 +4,11 @@ import { Text } from 'react-native-ui-lib';
 import { Button, Dialog } from 'react-native-ui-lib';
 
 export const FinishModal = (
-    props: ModalProps & {finishSession: ()=>void}
+    props: ModalProps & { finishSession: () => void }
 ): React.ReactElement => {
     const pressYes = () => {
         closeModal();
-        props.finishSession()
+        props.finishSession();
     };
 
     const closeModal = () => {
@@ -34,8 +34,8 @@ export const FinishModal = (
                 Are you done with drinking for the night? This will complete the
                 drinking session.
             </Text>
-            <Button onPress={pressYes} label='Yes'/>
-            <Button onPress={closeModal} label='No'/>
+            <Button onPress={pressYes} label="Yes" />
+            <Button onPress={closeModal} label="No" />
         </Dialog>
     );
 };

@@ -34,7 +34,7 @@ Drink Tracker is an app that helps you keep track of how many drinks you've had
 
 # Privacy Policy
 
-- We don't have access to or distribute your data
+- We don't have access to or distribute your data. No pigs can touch your drinking data 😤
 
 # Contributing
 

@@ -107,7 +107,10 @@ export const SessionScreen = (props: SessionScreenProps) => {
 
     const finishSession = () => {
         if (session) {
-            const timeEnd = session.drinks.length > 0 ? session.drinks[session.drinks.length - 1].timeDrank : Date.now();
+            const timeEnd =
+                session.drinks.length > 0
+                    ? session.drinks[session.drinks.length - 1].timeDrank
+                    : Date.now();
             session.timeEnd = timeEnd;
             saveSession(session._id, timeEnd);
         }
