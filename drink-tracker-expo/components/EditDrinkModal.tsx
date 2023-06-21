@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
 import { Drink } from '../commonTypes';
 import {
     DateTimePicker,
@@ -9,7 +9,7 @@ import {
     TextField,
 } from 'react-native-ui-lib';
 import { editDrink } from '../api';
-import { inputStyles } from '../styling/commonStyles';
+import { inputStyles, modalStyles } from '../styling/commonStyles';
 import { getTimeString, getTimeStringFromDate } from '../util';
 
 type EditDrinkModalProps = {
@@ -73,7 +73,15 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
     };
 
     return (
-        <Dialog visible={props.open} overlayBackgroundColor="#000">
+        <Dialog
+            animationType="slide"
+            visible={props.open}
+            open={props.open}
+            onDismiss={closeModal}
+            height={350}
+            containerStyle={modalStyles.container}
+            overlayBackgroundColor="rgba(0,0,0,.2)"
+        >
             {props.drink ? (
                 <>
                     <Text text50 style={{ marginBottom: 10 }}>
@@ -109,8 +117,16 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
                         value={drinkWeight}
                         onChangeNumber={onChangeDrinkWeight}
                     />
-                    <Button title="Save" onPress={onPressSave} />
-                    <Button title="Cancel" onPress={closeModal} />
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            marginTop: 12,
+                        }}
+                    >
+                        <Button title="Save" onPress={onPressSave} />
+                        <Button title="Cancel" onPress={closeModal} />
+                    </View>
                 </>
             ) : (
                 <Text>Could not load drink</Text>

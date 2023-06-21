@@ -1,35 +1,26 @@
 import React from 'react';
-import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
-import { getRelativeTime, getTimeRangeString } from '../util';
-import {
-    TouchableOpacity,
-    Text,
-    ListItem,
-    Drawer,
-    Colors,
-    View,
-} from 'react-native-ui-lib';
+import { getRelativeTime } from '../util';
+import { Text, ListItem, Drawer, Colors, View } from 'react-native-ui-lib';
 
 const CardTitle = styled(Text)({
     fontWeight: 'bold',
     fontSize: 16,
 });
 
-export const SessionCard = (
-    props: NavigationProps & { deleteMode?: boolean; session: DrinkingSession }
-) => {
-    const onPressDelete = () => {
-        console.log('delete session');
-    };
+type SessionCardProps = {
+    onDelete: (_id: string)=>void;
+    session: DrinkingSession;
+} & NavigationProps;
 
+export const SessionCard = (props:SessionCardProps) => {
     const onPressCard = () => {
         // if the session has an end time, then go to the summary screen
         props.navigation.navigate(
             props.session.timeEnd ? Screens.Summary : Screens.Session,
             {
-                session: props.session,
+                sessionId: props.session._id,
             }
         );
     };
@@ -40,15 +31,15 @@ export const SessionCard = (
                 {
                     text: 'Delete',
                     background: Colors.red30,
-                    onPress: () => console.log('delete pressed'),
+                    onPress: () => props.onDelete(props.session._id),
                 },
             ]}
-            style={{ backgroundColor: 'black' }} //TODO: fix this
         >
             <ListItem
                 onPress={onPressCard}
-                style={{ paddingVertical: 10 }}
+                style={{ paddingVertical: 10, backgroundColor: 'black' }}
                 centerV
+                activeOpacity={1}
             >
                 <View>
                     <CardTitle>{props.session.title}</CardTitle>

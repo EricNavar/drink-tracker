@@ -6,8 +6,8 @@ import {
     getRecentSessions as getRecentSessionsGuest,
     getAllSessions as getAllSessionsGuest,
     getSession as getSessionGuest,
-    finishSession as finishSessionGuest,
     addNewDrink as addNewDrinkGuest,
+    deleteSession as deleteSessionGuest,
 } from './guestAccountAPI';
 
 const isFullAccount = () => {
@@ -99,6 +99,6 @@ export const sendFeedback = async (feedback: string) => {
         });
 };
 
-export const finishSession = async (sessionId: string) => {
-    finishSessionGuest(sessionId);
+export const deleteSession = async (sessionId: string) => {
+    return deleteSessionGuest(sessionId);
 };

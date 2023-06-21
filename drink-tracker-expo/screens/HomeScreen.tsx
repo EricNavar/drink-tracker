@@ -3,11 +3,19 @@ import { Button } from 'react-native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { NewSessionModal } from '../components/NewSessionModal';
 import { SessionCard } from '../components/SessionCard';
-import { BigButton, Divider, Row, StyledLayout } from '../styling/commonStyles';
+import {
+    BigButton,
+    Divider,
+    InnerLayout,
+    Row,
+    StyledLayout,
+} from '../styling/commonStyles';
 import { Text, View } from 'react-native-ui-lib';
 import { FlatList } from 'react-native-gesture-handler';
-import { addNewSession, getAllSessions } from '../api';
+import { addNewSession, deleteSession, getAllSessions } from '../api';
 import { makeId } from '../util';
+
+const drink = require('../assets/icons/ios-wine-bar-50.png');
 
 export const HomeScreen = (props: NavigationProps) => {
     const [sessions, setSessions] = React.useState<DrinkingSession[]>([]);
@@ -57,8 +65,13 @@ export const HomeScreen = (props: NavigationProps) => {
         const newSessionsState = [newSession, ...sessions];
         setSessions(newSessionsState);
         setModalVisible(false);
-        props.navigation.navigate(Screens.Session, { session: newSession });
+        props.navigation.navigate(Screens.Session, { sessionId: newSession._id });
     };
+
+    const onDelete = async (_id: string) => {
+        const newSessions = await deleteSession(_id);
+        setSessions(newSessions);
+    }
 
     return (
         <StyledLayout>
@@ -67,44 +80,50 @@ export const HomeScreen = (props: NavigationProps) => {
                 <Button
                     onPress={() => redirect(Screens.Settings)}
                     title="Settings"
-                />
+                    />
             </Row>
-            <Row>
-                <BigButton onPress={onPressNewSession} label="New Session" />
-                <View style={{ width: 10 }} />
-                <BigButton
-                    onPress={() => redirect(Screens.DrinkingLimits)}
-                    label="Set Limits"
-                />
-            </Row>
-            {sessions && sessions.length > 0 ? (
-                <>
-                    <Text text50 style={{ marginTop: 20 }}>
-                        Recent
-                    </Text>
+            <InnerLayout>
+                <Row>
+                    <BigButton
+                        onPress={onPressNewSession}
+                        label="New Session"
+                    />
+                    <View style={{ width: 10 }} />
+                    <BigButton
+                        onPress={() => redirect(Screens.DrinkingLimits)}
+                        label="Set Limits"
+                    />
+                </Row>
+                {sessions && sessions.length > 0 ? (
+                    <>
+                        <Text text50 style={{ marginTop: 20 }}>
+                            Recent
+                        </Text>
 
-                    <FlatList
-                        data={sessions}
-                        renderItem={({ item }) => (
-                            <SessionCard
-                                session={item}
-                                navigation={props.navigation}
-                            />
-                        )}
-                        keyExtractor={(item) => item._id}
-                        ItemSeparatorComponent={Divider}
-                    />
-                    <NewSessionModal
-                        open={modalVisible}
-                        setOpen={setModalVisible}
-                        createNewSession={createNewSession}
-                    />
-                </>
-            ) : (
-                <Text style={{ marginTop: 20 }}>
-                    No recent drinking sessions
-                </Text>
-            )}
+                        <FlatList
+                            data={sessions}
+                            renderItem={({ item }) => (
+                                <SessionCard
+                                    session={item}
+                                    navigation={props.navigation}
+                                    onDelete={onDelete}
+                                />
+                            )}
+                            keyExtractor={(item) => item._id}
+                            ItemSeparatorComponent={Divider}
+                        />
+                        <NewSessionModal
+                            open={modalVisible}
+                            setOpen={setModalVisible}
+                            createNewSession={createNewSession}
+                        />
+                    </>
+                ) : (
+                    <Text style={{ marginTop: 20 }}>
+                        No recent drinking sessions
+                    </Text>
+                )}
+            </InnerLayout>
         </StyledLayout>
     );
 };

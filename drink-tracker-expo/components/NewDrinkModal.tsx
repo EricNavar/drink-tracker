@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
 import { ModalProps } from '../commonTypes';
 import {
     DateTimePicker,
@@ -8,7 +8,7 @@ import {
     Text,
     TextField,
 } from 'react-native-ui-lib';
-import { inputStyles } from '../styling/commonStyles';
+import { inputStyles, modalStyles } from '../styling/commonStyles';
 
 type DrinkInputProps = {
     drinkNumber: number;
@@ -56,13 +56,8 @@ const NewDrinkModal = (props: DrinkInputProps) => {
             visible={props.open}
             open={props.open}
             onDismiss={closeModal}
-            height={'100%'}
-            containerStyle={{
-                backgroundColor: '#000',
-                padding: 20,
-                borderRadius: 8,
-                height: '100%',
-            }}
+            height={350}
+            containerStyle={modalStyles.container}
             overlayBackgroundColor="rgba(0,0,0,.2)"
         >
             <Text text50 style={{ marginBottom: 10 }}>
@@ -98,8 +93,16 @@ const NewDrinkModal = (props: DrinkInputProps) => {
                 value={drinkWeight}
                 onChangeNumber={onChangeDrinkWeight}
             />
-            <Button title="Submit" onPress={onSubmit} />
-            <Button title="Cancel" onPress={closeModal} />
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    marginTop: 12,
+                }}
+            >
+                <Button title="Submit" onPress={onSubmit} />
+                <Button title="Cancel" onPress={closeModal} />
+            </View>
         </Dialog>
     );
 };

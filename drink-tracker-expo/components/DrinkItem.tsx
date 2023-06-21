@@ -5,21 +5,13 @@ import {
     Badge,
     Chip,
     Colors,
+    Drawer,
+    ListItem,
     Spacings,
     Text,
-    TouchableOpacity,
 } from 'react-native-ui-lib';
 import { getTimeString } from '../util';
 import { View } from 'react-native';
-
-const StyledCard = styled(TouchableOpacity)({
-    marginVertical: 8,
-    flexGrow: 1,
-    flexShrink: 1,
-    padding: 8,
-    borderRadius: 6,
-    marginRight: 8,
-});
 
 const CardTitle = styled(Text)({
     fontWeight: 'bold',
@@ -42,41 +34,57 @@ const StyledBadge = styled(Badge)`
 type DrinkItemProps = {
     openModal: (index: number) => void;
     index: number;
-} & Drink;
+    onDelete:(drinkId:string)=>void;
+    drink: Drink;
+};
 
 export const DrinkItem = (props: DrinkItemProps) => {
     return (
-        <StyledCard
-            onPress={() => props.openModal(props.index)}
-            backgroundColor={Colors.grey10}
+        <Drawer
+            rightItems={[
+                {
+                    text: 'Delete',
+                    background: Colors.red30,
+                    onPress: () => props.onDelete(props.drink._id),
+                },
+            ]}
         >
-            <TopRow>
-                <CardTitle>{props.drinkName}&nbsp;</CardTitle>
-            </TopRow>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 4,
-                }}
+            <ListItem
+                onPress={() => props.openModal(props.index)}
+                style={{ paddingVertical: 10, backgroundColor: 'black' }}
+                centerV
+                activeOpacity={1}
             >
-                <Text>{getTimeString(props.timeDrank)}</Text>
-                {props.weight != 1 && (
-                    <View style={{ flexDirection: 'row' }}>
-                        <Chip
-                            label={`${props.weight} standard drinks`}
-                            disabled
-                            labelStyle={{ color: Colors.white }}
-                            iconProps={{ tintColor: Colors.white }}
-                            containerStyle={{
-                                borderColor: Colors.grey30,
-                                backgroundColor: Colors.grey30,
-                                marginLeft: Spacings.s3,
-                            }}
-                        />
+                <View>
+                    <TopRow>
+                        <CardTitle>{props.drink.drinkName}&nbsp;</CardTitle>
+                    </TopRow>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: 4,
+                        }}
+                    >
+                        <Text>{getTimeString(props.drink.timeDrank)}</Text>
+                        {props.drink.weight != 1 && (
+                            <View style={{ flexDirection: 'row' }}>
+                                <Chip
+                                    label={`${props.drink.weight} standard drinks`}
+                                    disabled
+                                    labelStyle={{ color: Colors.white }}
+                                    iconProps={{ tintColor: Colors.white }}
+                                    containerStyle={{
+                                        borderColor: Colors.grey30,
+                                        backgroundColor: Colors.grey30,
+                                        marginLeft: Spacings.s3,
+                                    }}
+                                />
+                            </View>
+                        )}
                     </View>
-                )}
-            </View>
-        </StyledCard>
+                </View>
+            </ListItem>
+        </Drawer>
     );
 };

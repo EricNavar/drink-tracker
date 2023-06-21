@@ -1,22 +1,19 @@
 import React from 'react';
-import {
-    Drink,
-    DrinkingSession,
-    NavigationProps,
-    Screens,
-} from '../commonTypes';
+import { Drink, DrinkingSession, NavigationProps } from '../commonTypes';
 import { DrinkItem } from '../components/DrinkItem';
-import { ScrollView, Button } from 'react-native';
-import { getSession } from '../api';
-import { Row, StyledLayout } from '../styling/commonStyles';
+import { ScrollView } from 'react-native';
+import { Divider, InnerLayout, Row, StyledLayout } from '../styling/commonStyles';
 import { getTimeRangeString } from '../util';
 import { Text } from 'react-native-ui-lib';
 import { EditDrinkModal } from '../components/EditDrinkModal';
+import { BackButton } from '../components/BackButton';
+import { FlatList } from 'react-native-gesture-handler';
+import { getSession } from '../api';
 
 type SummaryProps = {
     route: {
         params: {
-            session: DrinkingSession;
+            sessionId: string;
         };
     };
 };
@@ -26,20 +23,13 @@ const Summary = (props: SummaryProps & NavigationProps) => {
     const [editDrinkModalOpen, setEditDrinkModalOpen] = React.useState(false);
     const [selectedDrinkIndex, setSelectedDrinkIndex] = React.useState(-1);
 
-    // React.useEffect(() => {
-    //     const fetchSession = async () => {
-    //         const newSession = await getSession(props.route.params.sessionId);
-    //         setSession(newSession);
-    //     };
-    //     fetchSession();
-    // });
-
     React.useEffect(() => {
-        if (props.route.params.session) {
-            setSession(props.route.params.session);
-        } else {
-            console.log('session was not passed to navigation props');
-        }
+        console.log('useEffect()');
+        const fetchSession = async () => {
+            const newSession = await getSession(props.route.params.sessionId);
+            setSession(newSession);
+        };
+        fetchSession();
     });
 
     const getExpectedDrinksCount = () => {
@@ -56,13 +46,11 @@ const Summary = (props: SummaryProps & NavigationProps) => {
         }
         const difference = session.drinks.length - expectedDrinksCount;
         if (difference > 0) {
-            return `${difference} more drink${
-                difference > 1 ? 's' : ''
-            } than expected.`;
+            return `${difference} more drink${difference > 1 ? 's' : ''
+                } than expected.`;
         }
-        return `${-difference} less drink${
-            difference < -1 ? 's' : ''
-        } than expected.`;
+        return `${-difference} less drink${difference < -1 ? 's' : ''
+            } than expected.`;
     };
 
     const onPressBack = () => {
@@ -85,48 +73,58 @@ const Summary = (props: SummaryProps & NavigationProps) => {
 
     const selectedDrink = getSelectedDrink();
 
+    const onDelete = () => {};
+
     return (
         <StyledLayout>
-            <ScrollView>
-                <Row>
-                    <Button title="Back" onPress={onPressBack} />
-                </Row>
-                {session ? (
-                    <>
-                        <Text text50 style={{ marginBottom: 12 }}>
-                            {session.title}
-                        </Text>
-                        <Text>
-                            {getTimeRangeString(
-                                session.timeStart,
-                                session.timeEnd
-                            )}
-                        </Text>
-                        <Text style={{ marginBottom: 12 }}>
-                            You had {session.drinks.length} drinks,{' '}
-                            {getMessage()}
-                        </Text>
-                        {session.drinks.map((drink: Drink, index: number) => (
-                            <DrinkItem
-                                {...drink}
-                                key={index}
-                                index={index}
-                                openModal={openEditModal}
+            <Row>
+                <BackButton onPress={onPressBack} />
+            </Row>
+            <InnerLayout>
+
+                <ScrollView>
+                    {session ? (
+                        <>
+                            <Text text50 style={{ marginBottom: 12 }}>
+                                {session.title}
+                            </Text>
+                            <Text>
+                                {getTimeRangeString(
+                                    session.timeStart,
+                                    session.timeEnd
+                                )}
+                            </Text>
+                            <Text style={{ marginBottom: 12 }}>
+                                You had {session.drinks.length} drinks,{' '}
+                                {getMessage()}
+                            </Text>
+                            <FlatList
+                                data={session.drinks}
+                                renderItem={({ item, index }) => (
+                                    <DrinkItem
+                                        drink={item}
+                                        openModal={openEditModal}
+                                        onDelete={onDelete}
+                                        index={index}
+                                    />
+                                )}
+                                keyExtractor={(item) => item._id}
+                                ItemSeparatorComponent={Divider}
                             />
-                        ))}
-                    </>
-                ) : (
-                    <Text>Could not load session</Text>
-                )}
-                {selectedDrink && (
-                    <EditDrinkModal
-                        open={editDrinkModalOpen}
-                        setOpen={setEditDrinkModalOpen}
-                        drink={selectedDrink}
-                        sessionId={session ? session._id : ''}
-                    />
-                )}
-            </ScrollView>
+                        </>
+                    ) : (
+                        <Text>Could not load session</Text>
+                    )}
+                    {selectedDrink && (
+                        <EditDrinkModal
+                            open={editDrinkModalOpen}
+                            setOpen={setEditDrinkModalOpen}
+                            drink={selectedDrink}
+                            sessionId={session ? session._id : ''}
+                        />
+                    )}
+                </ScrollView>
+            </InnerLayout>
         </StyledLayout>
     );
 };

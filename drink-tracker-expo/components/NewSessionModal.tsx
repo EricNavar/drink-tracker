@@ -7,7 +7,7 @@ import {
     Screens,
 } from '../commonTypes';
 import { DateTimePicker, Dialog, Text, TextField } from 'react-native-ui-lib';
-import { inputStyles } from '../styling/commonStyles';
+import { inputStyles, modalStyles } from '../styling/commonStyles';
 
 type NewSessionModalProps = {
     createNewSession: (title: string, startTIme: number) => void;
@@ -30,16 +30,13 @@ const NewSessionModal = (props: NewSessionModalProps) => {
             animationType="slide"
             visible={props.open}
             onDismiss={closeModal}
-            height={'100%'}
-            containerStyle={{
-                backgroundColor: '#000',
-                padding: 20,
-                borderRadius: 8,
-                height: '100%',
-            }}
+            height={250}
+            containerStyle={modalStyles.container}
             overlayBackgroundColor="rgba(0,0,0,.2)"
         >
-            <Text text50>New Session</Text>
+            <Text text50 style={{ marginBottom: 8 }}>
+                New Session
+            </Text>
             <TextField
                 label="Name of party"
                 value={name}

@@ -3,6 +3,7 @@ import { Alert, Button, Linking } from 'react-native';
 import { StyledLayout } from '../styling/commonStyles';
 import { Text } from 'react-native-ui-lib';
 import { NavigationProps, Screens } from '../commonTypes';
+import { BackButton } from '../components/BackButton';
 
 const About = (props: NavigationProps) => {
     const onPressGitHub = async () => {
@@ -25,7 +26,7 @@ const About = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
-            <Button title="Back" onPress={onPressBack} />
+            <BackButton onPress={onPressBack} />
             <Text>
                 I appreciate your feedback! ☺{'\n\n'}
                 This is an open source project that is under active development.

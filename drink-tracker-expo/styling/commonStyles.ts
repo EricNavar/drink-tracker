@@ -3,9 +3,14 @@ import { Button } from 'react-native-ui-lib';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export const StyledLayout = styled(SafeAreaView)`
-    padding: 20px;
     height: 100%;
     background-color: black;
+`;
+
+export const InnerLayout = styled(View)`
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 100%;
 `;
 
 export const Row = styled.View`
@@ -20,11 +25,12 @@ export const BigButton = styled(Button)`
     flex-basis: 1;
     flex-grow: 1;
     border-radius: 6px;
+    background-color: #95abc7;
 `;
 
 export const Divider = styled(View)`
     height: 1px;
-    backgroundcolor: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     wight: 100%;
 `;
 
@@ -39,7 +45,20 @@ export const inputStyles = StyleSheet.create({
 
 export const toastStyles = StyleSheet.create({
     container: {
-        backgroundColor: 'pink',
-        borderRaiud: 4,
+        backgroundColor: '#353740',
+        borderRadius: 4,
+        bottom: 50,
+        height: 50,
+        justifyContent: 'center',
+    },
+});
+
+export const modalStyles = StyleSheet.create({
+    container: {
+        backgroundColor: '#000',
+        padding: 20,
+        borderRadius: 8,
+        borderColor: 'gray',
+        borderWidth: 1,
     },
 });

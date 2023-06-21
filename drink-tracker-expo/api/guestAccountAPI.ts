@@ -129,4 +129,51 @@ export const addNewDrink = async (sessionId: string, drink: Drink) => {
     }
 };
 
-export const finishSession = async (sessionId: string) => {};
+export const deleteSession = async (sessionId: string) => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('sessions');
+        if (!jsonValue) {
+            console.log('could not load sessions');
+            return;
+        }
+        const sessions = JSON.parse(jsonValue);
+        if (sessions && sessions.length) {
+            const newSessions = sessions.filter((session: DrinkingSession) => session._id !== sessionId);
+            await AsyncStorage.setItem('sessions', JSON.stringify(newSessions));
+            return newSessions;
+        }
+        else {
+            throw new Error('could not parse JSON')
+        }
+    } catch (e) {
+        console.log('error');
+    }
+};
+
+const deleteDrinkHelper = (session: DrinkingSession, drinkId: string) => {
+    session.drinks = session.drinks.filter(drink => drink._id !== drinkId);
+    return session;
+};
+
+export const deleteDrink = async (sessionId: string, drinkId: string) => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('sessions');
+        if (!jsonValue) {
+            console.log('could not load sessions');
+            return;
+        }
+        const sessions = JSON.parse(jsonValue);
+        if (sessions && sessions.length) {
+            const newSessions = sessions.filter((session: DrinkingSession) => {
+                return session._id === sessionId ? deleteDrinkHelper(session, drinkId) : session;
+            });
+            await AsyncStorage.setItem('sessions', JSON.stringify(newSessions));
+            return sessions.filter((session:DrinkingSession) => session._id === sessionId)[0];
+        }
+        else {
+            throw new Error('could not parse JSON')
+        }
+    } catch (e) {
+        console.log('error');
+    }
+};

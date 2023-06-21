@@ -45,3 +45,16 @@ export type DrinkingLimitsProps = {
     totalDrinkLimit: number;
     timeInterval: number; // in minutes
 };
+
+export enum Rating {
+    thumbsUp,
+    thumbsDown,
+    noRating,
+};
+
+export type FeedbackSubmission = {
+    id: string;
+    text: string;
+    rating: Rating;
+    date: number;
+};
