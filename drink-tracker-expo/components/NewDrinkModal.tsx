@@ -9,6 +9,7 @@ import {
     TextField,
 } from 'react-native-ui-lib';
 import { inputStyles, modalStyles } from '../styling/commonStyles';
+import { getTimeStringFromDate } from '../util';
 
 type DrinkInputProps = {
     drinkNumber: number;
@@ -25,14 +26,14 @@ type DrinkInputProps = {
 const NewDrinkModal = (props: DrinkInputProps) => {
     const [drinkName, setDrinkName] = React.useState<string>('');
     const [drinkWeight, setDrinkWeight] = React.useState<number>(1);
-    const [timeDrank, setTimeDrank] = React.useState<number>(0);
+    const [timeDrank, setTimeDrank] = React.useState<number>(Date.now());
 
     const onChangeDrinkWeight = (event: any) => {
         setDrinkWeight(event.userInput);
     };
 
     const onChangeTime = (event: any) => {
-        console.log(event);
+        setTimeDrank(event);
     };
 
     const closeModal = () => {
@@ -46,7 +47,8 @@ const NewDrinkModal = (props: DrinkInputProps) => {
                 drinkWeight
             );
         }
-        props.createNewDrink(timeDrank, drinkName, drinkWeight);
+        const nameUsed = drinkName.trim() === '' ? `Drink #${props.drinkNumber}` : drinkName.trim();
+        props.createNewDrink(timeDrank, nameUsed, drinkWeight);
         closeModal();
     };
 
@@ -74,9 +76,11 @@ const NewDrinkModal = (props: DrinkInputProps) => {
                 label="time drank"
                 placeholder="10:35"
                 mode={'time'}
-                value={timeDrank}
+                value={new Date(timeDrank)}
                 onChange={onChangeTime}
                 fieldStyle={inputStyles.field}
+                minuteInterval={1}
+                timeFormatter={getTimeStringFromDate}
             />
             <NumberInput
                 key={'drinkWeight'}

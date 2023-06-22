@@ -123,7 +123,7 @@ export const addNewDrink = async (sessionId: string, drink: Drink) => {
                 ? addNewDrinkGuestHelper(session, drink)
                 : session
         );
-        await AsyncStorage.setItem('sessions', sessions);
+        await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
     } catch (e) {
         console.log('error');
     }

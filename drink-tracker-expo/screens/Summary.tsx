@@ -9,6 +9,7 @@ import { EditDrinkModal } from '../components/EditDrinkModal';
 import { BackButton } from '../components/BackButton';
 import { FlatList } from 'react-native-gesture-handler';
 import { getSession } from '../api';
+import { deleteDrink } from '../api/guestAccountAPI';
 
 type SummaryProps = {
     route: {
@@ -16,9 +17,9 @@ type SummaryProps = {
             sessionId: string;
         };
     };
-};
+} & NavigationProps;
 
-const Summary = (props: SummaryProps & NavigationProps) => {
+const Summary = (props: SummaryProps) => {
     const [session, setSession] = React.useState<DrinkingSession | null>();
     const [editDrinkModalOpen, setEditDrinkModalOpen] = React.useState(false);
     const [selectedDrinkIndex, setSelectedDrinkIndex] = React.useState(-1);
@@ -27,10 +28,12 @@ const Summary = (props: SummaryProps & NavigationProps) => {
         console.log('useEffect()');
         const fetchSession = async () => {
             const newSession = await getSession(props.route.params.sessionId);
-            setSession(newSession);
+            if (newSession) {
+                setSession(newSession);
+            }
         };
         fetchSession();
-    });
+    }, [props]);
 
     const getExpectedDrinksCount = () => {
         return 8; //TODO
@@ -73,7 +76,12 @@ const Summary = (props: SummaryProps & NavigationProps) => {
 
     const selectedDrink = getSelectedDrink();
 
-    const onDelete = () => {};
+    const onDelete = async (drinkId: string) => {
+        if (session) {
+            const newSession = await deleteDrink(session?._id, drinkId);
+            setSession(newSession);
+        }
+    };
 
     return (
         <StyledLayout>
@@ -81,49 +89,46 @@ const Summary = (props: SummaryProps & NavigationProps) => {
                 <BackButton onPress={onPressBack} />
             </Row>
             <InnerLayout>
-
-                <ScrollView>
-                    {session ? (
-                        <>
-                            <Text text50 style={{ marginBottom: 12 }}>
-                                {session.title}
-                            </Text>
-                            <Text>
-                                {getTimeRangeString(
-                                    session.timeStart,
-                                    session.timeEnd
-                                )}
-                            </Text>
-                            <Text style={{ marginBottom: 12 }}>
-                                You had {session.drinks.length} drinks,{' '}
-                                {getMessage()}
-                            </Text>
-                            <FlatList
-                                data={session.drinks}
-                                renderItem={({ item, index }) => (
-                                    <DrinkItem
-                                        drink={item}
-                                        openModal={openEditModal}
-                                        onDelete={onDelete}
-                                        index={index}
-                                    />
-                                )}
-                                keyExtractor={(item) => item._id}
-                                ItemSeparatorComponent={Divider}
-                            />
-                        </>
-                    ) : (
-                        <Text>Could not load session</Text>
-                    )}
-                    {selectedDrink && (
-                        <EditDrinkModal
-                            open={editDrinkModalOpen}
-                            setOpen={setEditDrinkModalOpen}
-                            drink={selectedDrink}
-                            sessionId={session ? session._id : ''}
+                {session ? (
+                    <>
+                        <Text text50 style={{ marginBottom: 12 }}>
+                            {session.title}
+                        </Text>
+                        <Text>
+                            {getTimeRangeString(
+                                session.timeStart,
+                                session.timeEnd
+                            )}
+                        </Text>
+                        <Text style={{ marginBottom: 12 }}>
+                            You had {session.drinks.length} drinks,{' '}
+                            {getMessage()}
+                        </Text>
+                        <FlatList
+                            data={session.drinks}
+                            renderItem={({ item, index }) => (
+                                <DrinkItem
+                                    drink={item}
+                                    openModal={openEditModal}
+                                    onDelete={onDelete}
+                                    index={index}
+                                />
+                            )}
+                            keyExtractor={(item) => item._id}
+                            ItemSeparatorComponent={Divider}
                         />
-                    )}
-                </ScrollView>
+                    </>
+                ) : (
+                    <Text>Could not load session</Text>
+                )}
+                {selectedDrink && (
+                    <EditDrinkModal
+                        open={editDrinkModalOpen}
+                        setOpen={setEditDrinkModalOpen}
+                        drink={selectedDrink}
+                        sessionId={session ? session._id : ''}
+                    />
+                )}
             </InnerLayout>
         </StyledLayout>
     );

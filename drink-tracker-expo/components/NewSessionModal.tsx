@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
 import {
     DrinkingSession,
     ModalProps,
@@ -8,6 +8,7 @@ import {
 } from '../commonTypes';
 import { DateTimePicker, Dialog, Text, TextField } from 'react-native-ui-lib';
 import { inputStyles, modalStyles } from '../styling/commonStyles';
+import { getTimeStringFromDate } from '../util';
 
 type NewSessionModalProps = {
     createNewSession: (title: string, startTIme: number) => void;
@@ -23,6 +24,10 @@ const NewSessionModal = (props: NewSessionModalProps) => {
 
     const closeModal = () => {
         props.setOpen(!props.open);
+    };
+
+    const onChange = (event: any) => {
+        setStartTime(event);
     };
 
     return (
@@ -41,8 +46,9 @@ const NewSessionModal = (props: NewSessionModalProps) => {
                 label="Name of party"
                 value={name}
                 onChangeText={setName}
-                placeholder={"Ryan's birthday party"}
+                placeholder={"Blake's birthday party"}
                 fieldStyle={inputStyles.field}
+                expandable={undefined}
             />
             <DateTimePicker
                 label={'Select time'}
@@ -50,8 +56,20 @@ const NewSessionModal = (props: NewSessionModalProps) => {
                 mode={'time'}
                 value={new Date(startTime)}
                 fieldStyle={inputStyles.field}
+                minuteInterval={1}
+                timeFormatter={getTimeStringFromDate}
+                expandable={undefined}
+                onChange={onChange}
             />
-            <Button title="Start" onPress={onPressStart} />
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                }}
+            >
+                <Button title="Start" onPress={onPressStart} />
+                <Button title="Cancel" onPress={closeModal} />
+            </View>
         </Dialog>
     );
 };

@@ -80,7 +80,7 @@ export const HomeScreen = (props: NavigationProps) => {
                 <Button
                     onPress={() => redirect(Screens.Settings)}
                     title="Settings"
-                    />
+                />
             </Row>
             <InnerLayout>
                 <Row>
@@ -94,35 +94,32 @@ export const HomeScreen = (props: NavigationProps) => {
                         label="Set Limits"
                     />
                 </Row>
+                <Text text50 style={{ marginTop: 20 }}>
+                    Recent
+                </Text>
                 {sessions && sessions.length > 0 ? (
-                    <>
-                        <Text text50 style={{ marginTop: 20 }}>
-                            Recent
-                        </Text>
-
-                        <FlatList
-                            data={sessions}
-                            renderItem={({ item }) => (
-                                <SessionCard
-                                    session={item}
-                                    navigation={props.navigation}
-                                    onDelete={onDelete}
-                                />
-                            )}
-                            keyExtractor={(item) => item._id}
-                            ItemSeparatorComponent={Divider}
-                        />
-                        <NewSessionModal
-                            open={modalVisible}
-                            setOpen={setModalVisible}
-                            createNewSession={createNewSession}
-                        />
-                    </>
+                    <FlatList
+                        data={sessions}
+                        renderItem={({ item }) => (
+                            <SessionCard
+                                session={item}
+                                navigation={props.navigation}
+                                onDelete={onDelete}
+                            />
+                        )}
+                        keyExtractor={(item) => item._id}
+                        ItemSeparatorComponent={Divider}
+                    />
                 ) : (
                     <Text style={{ marginTop: 20 }}>
                         No recent drinking sessions
                     </Text>
                 )}
+                <NewSessionModal
+                    open={modalVisible}
+                    setOpen={setModalVisible}
+                    createNewSession={createNewSession}
+                />
             </InnerLayout>
         </StyledLayout>
     );

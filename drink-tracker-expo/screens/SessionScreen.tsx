@@ -10,7 +10,7 @@ import {
     Screens,
 } from '../commonTypes';
 import { FinishModal } from '../components/FinishModal';
-import { BigButton, InnerLayout } from '../styling/commonStyles';
+import { BigButton, InnerLayout, Row } from '../styling/commonStyles';
 import { StyledLayout } from '../styling/commonStyles';
 import { NewDrinkModal } from '../components/NewDrinkModal';
 import { EditDrinkModal } from '../components/EditDrinkModal';
@@ -19,8 +19,6 @@ import { addNewDrink, getSession, endSession as saveSession } from '../api';
 import { makeId } from '../util';
 import { BackButton } from '../components/BackButton';
 import { FlatList } from 'react-native-gesture-handler';
-import { sessions } from '../data/dummysessions';
-import { SessionCard } from '../components/SessionCard';
 import { deleteDrink } from '../api/guestAccountAPI';
 
 const styles = StyleSheet.create({
@@ -30,14 +28,6 @@ const styles = StyleSheet.create({
         marginTop: 16,
     },
 });
-
-const Row = styled.View`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: none;
-    justify-content: space-between;
-    width: 100%;
-`;
 
 export const Divider = styled(View)`
     height: 1px;
@@ -61,17 +51,17 @@ export const SessionScreen = (props: SessionScreenProps) => {
     const [newDrinkModalOpen, setNewDrinkModalOpen] = React.useState(false);
     const [editDrinkModalOpen, setEditDrinkModalOpen] = React.useState(false);
     const [selectedDrinkIndex, setSelectedDrinkIndex] = React.useState(-1);
-    // const [nextDrinkDeadline, setNextDrinkDeadline] = React.useState(0);
+    // TODO: show timer for when I can have another drink
 
     React.useEffect(() => {
         console.log('useEffect()');
-        const fetchSessions = async () => {
+        const fetchSession = async () => {
             const newSession = await getSession(props.route.params.sessionId);
             if (newSession) {
                 setSession(newSession);
             }
         };
-        fetchSessions();
+        fetchSession();
     }, [props]);
 
     const redirect = (page: string) => {
@@ -126,6 +116,7 @@ export const SessionScreen = (props: SessionScreenProps) => {
         drinkName: string,
         drinkWeight: number
     ) => {
+        console.log('createNewDrink()');
         if (!session) {
             console.log('Could not load session');
             return;
