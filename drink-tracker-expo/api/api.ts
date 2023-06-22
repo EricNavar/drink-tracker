@@ -74,9 +74,9 @@ export const editDrink = async (sessionId: string, drinkId: string) => {
 export const addNewDrink = async (sessionId: string, drink: Drink) => {
     if (isFullAccount()) {
         //TODO
-        addNewDrinkGuest(sessionId, drink);
+        return addNewDrinkGuest(sessionId, drink);
     } else {
-        addNewDrinkGuest(sessionId, drink);
+        return addNewDrinkGuest(sessionId, drink);
     }
 };
 

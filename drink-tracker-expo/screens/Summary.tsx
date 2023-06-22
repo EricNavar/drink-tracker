@@ -1,8 +1,12 @@
 import React from 'react';
-import { Drink, DrinkingSession, NavigationProps } from '../commonTypes';
+import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { DrinkItem } from '../components/DrinkItem';
-import { ScrollView } from 'react-native';
-import { Divider, InnerLayout, Row, StyledLayout } from '../styling/commonStyles';
+import {
+    Divider,
+    InnerLayout,
+    Row,
+    StyledLayout,
+} from '../styling/commonStyles';
 import { getTimeRangeString } from '../util';
 import { Text } from 'react-native-ui-lib';
 import { EditDrinkModal } from '../components/EditDrinkModal';
@@ -49,15 +53,17 @@ const Summary = (props: SummaryProps) => {
         }
         const difference = session.drinks.length - expectedDrinksCount;
         if (difference > 0) {
-            return `${difference} more drink${difference > 1 ? 's' : ''
-                } than expected.`;
-        }
-        return `${-difference} less drink${difference < -1 ? 's' : ''
+            return `${difference} more drink${
+                difference > 1 ? 's' : ''
             } than expected.`;
+        }
+        return `${-difference} less drink${
+            difference < -1 ? 's' : ''
+        } than expected.`;
     };
 
     const onPressBack = () => {
-        props.navigation.goBack();
+        props.navigation.navigate(Screens.Home);
     };
 
     const openEditModal = (index: number) => {

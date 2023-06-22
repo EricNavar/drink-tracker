@@ -47,7 +47,10 @@ const NewDrinkModal = (props: DrinkInputProps) => {
                 drinkWeight
             );
         }
-        const nameUsed = drinkName.trim() === '' ? `Drink #${props.drinkNumber}` : drinkName.trim();
+        const nameUsed =
+            drinkName.trim() === ''
+                ? `Drink #${props.drinkNumber}`
+                : drinkName.trim();
         props.createNewDrink(timeDrank, nameUsed, drinkWeight);
         closeModal();
     };

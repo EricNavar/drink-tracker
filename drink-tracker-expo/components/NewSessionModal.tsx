@@ -48,7 +48,6 @@ const NewSessionModal = (props: NewSessionModalProps) => {
                 onChangeText={setName}
                 placeholder={"Blake's birthday party"}
                 fieldStyle={inputStyles.field}
-                expandable={undefined}
             />
             <DateTimePicker
                 label={'Select time'}
@@ -58,7 +57,6 @@ const NewSessionModal = (props: NewSessionModalProps) => {
                 fieldStyle={inputStyles.field}
                 minuteInterval={1}
                 timeFormatter={getTimeStringFromDate}
-                expandable={undefined}
                 onChange={onChange}
             />
             <View

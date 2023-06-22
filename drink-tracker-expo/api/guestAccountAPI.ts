@@ -7,7 +7,6 @@ export const addNewSession = async (
     timeStart: number
 ) => {
     try {
-        const jsonValue = await AsyncStorage.getItem('sessions');
         const drinkingLimits: DrinkingLimitsProps = await getDrinkingLimits();
         const newSession: DrinkingSession = {
             _id: sessionId,
@@ -18,8 +17,13 @@ export const addNewSession = async (
             timeInterval: drinkingLimits.timeInterval,
         };
         let sessions: DrinkingSession[];
+
+        const jsonValue = await AsyncStorage.getItem('sessions');
         if (!jsonValue) {
             // if there's no sessions because the user just started the app for the first time
+            console.log(
+                'Could not find any preexisting sessions. Will store this new session as the only session.'
+            );
             sessions = [newSession];
         } else {
             sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
@@ -28,7 +32,7 @@ export const addNewSession = async (
         await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
         return newSession;
     } catch (e) {
-        console.log('error');
+        console.log(e);
     }
 };
 
@@ -62,8 +66,7 @@ export const getSession = async (id: string) => {
         if (results.length > 0) {
             return results[0];
         } else {
-            console.log('session not found');
-            return;
+            throw new Error('Session not found!');
         }
     } catch (e) {
         console.log('error');
@@ -84,18 +87,20 @@ export const storeDrinkingLimits = async (
     );
 };
 
+// if there are no drinking limits, set a default of 30 minute time interval and 12 drink limit
 export const getDrinkingLimits = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem('drinkingLimits');
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
+        if (jsonValue) {
+            return JSON.parse(jsonValue);
+        } else {
+            const defaultLimits = { totalDrinkLimit: 12, timeInterval: 30 };
+            storeDrinkingLimits(defaultLimits);
+            return defaultLimits;
+        }
     } catch (e) {
         console.log('error');
     }
-};
-
-const addNewDrinkGuestHelper = (session: DrinkingSession, drink: Drink) => {
-    session.drinks.push(drink);
-    return session;
 };
 
 export const endSession = async (sessionId: string, timeEnd: number) => {
@@ -107,23 +112,33 @@ export const endSession = async (sessionId: string, timeEnd: number) => {
                 ? Object.assign(session, { timeEnd: timeEnd })
                 : session
         );
-        console.log(sessions);
         // await AsyncStorage.setItem('sessions', sessions);
     } catch (e) {
         console.log('error');
     }
 };
 
+const addNewDrinkHelper = (session: DrinkingSession, drink: Drink) => {
+    session.drinks.push(drink);
+    return session;
+};
+
 export const addNewDrink = async (sessionId: string, drink: Drink) => {
     try {
         const jsonValue = await AsyncStorage.getItem('sessions');
         const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
-        sessions.map((session: DrinkingSession) =>
-            session._id === sessionId
-                ? addNewDrinkGuestHelper(session, drink)
-                : session
-        );
-        await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
+        const newSessions = sessions.map((session: DrinkingSession) => {
+            if (session._id === sessionId) {
+                const modifiedSession = addNewDrinkHelper(session, drink);
+                return modifiedSession;
+            } else {
+                return session;
+            }
+        });
+        await AsyncStorage.setItem('sessions', JSON.stringify(newSessions));
+        return newSessions.filter(
+            (session: DrinkingSession) => session._id === sessionId
+        )[0];
     } catch (e) {
         console.log('error');
     }
@@ -138,12 +153,13 @@ export const deleteSession = async (sessionId: string) => {
         }
         const sessions = JSON.parse(jsonValue);
         if (sessions && sessions.length) {
-            const newSessions = sessions.filter((session: DrinkingSession) => session._id !== sessionId);
+            const newSessions = sessions.filter(
+                (session: DrinkingSession) => session._id !== sessionId
+            );
             await AsyncStorage.setItem('sessions', JSON.stringify(newSessions));
             return newSessions;
-        }
-        else {
-            throw new Error('could not parse JSON')
+        } else {
+            throw new Error('could not parse JSON');
         }
     } catch (e) {
         console.log('error');
@@ -151,7 +167,7 @@ export const deleteSession = async (sessionId: string) => {
 };
 
 const deleteDrinkHelper = (session: DrinkingSession, drinkId: string) => {
-    session.drinks = session.drinks.filter(drink => drink._id !== drinkId);
+    session.drinks = session.drinks.filter((drink) => drink._id !== drinkId);
     return session;
 };
 
@@ -165,13 +181,16 @@ export const deleteDrink = async (sessionId: string, drinkId: string) => {
         const sessions = JSON.parse(jsonValue);
         if (sessions && sessions.length) {
             const newSessions = sessions.filter((session: DrinkingSession) => {
-                return session._id === sessionId ? deleteDrinkHelper(session, drinkId) : session;
+                return session._id === sessionId
+                    ? deleteDrinkHelper(session, drinkId)
+                    : session;
             });
             await AsyncStorage.setItem('sessions', JSON.stringify(newSessions));
-            return sessions.filter((session:DrinkingSession) => session._id === sessionId)[0];
-        }
-        else {
-            throw new Error('could not parse JSON')
+            return sessions.filter(
+                (session: DrinkingSession) => session._id === sessionId
+            )[0];
+        } else {
+            throw new Error('could not parse JSON');
         }
     } catch (e) {
         console.log('error');

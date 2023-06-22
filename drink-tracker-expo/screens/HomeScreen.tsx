@@ -15,8 +15,6 @@ import { FlatList } from 'react-native-gesture-handler';
 import { addNewSession, deleteSession, getAllSessions } from '../api';
 import { makeId } from '../util';
 
-const drink = require('../assets/icons/ios-wine-bar-50.png');
-
 export const HomeScreen = (props: NavigationProps) => {
     const [sessions, setSessions] = React.useState<DrinkingSession[]>([]);
     const [modalVisible, setModalVisible] = React.useState(false);
@@ -40,10 +38,6 @@ export const HomeScreen = (props: NavigationProps) => {
         props.navigation.navigate(page);
     };
 
-    const onDeleteSession = () => {
-        console.log('delete');
-    };
-
     const isUniqueId = (id: string) => {
         return sessions.filter((session) => session._id === id).length === 0;
     };
@@ -65,13 +59,15 @@ export const HomeScreen = (props: NavigationProps) => {
         const newSessionsState = [newSession, ...sessions];
         setSessions(newSessionsState);
         setModalVisible(false);
-        props.navigation.navigate(Screens.Session, { sessionId: newSession._id });
+        props.navigation.navigate(Screens.Session, {
+            sessionId: newSession._id,
+        });
     };
 
     const onDelete = async (_id: string) => {
         const newSessions = await deleteSession(_id);
         setSessions(newSessions);
-    }
+    };
 
     return (
         <StyledLayout>

@@ -46,31 +46,34 @@ export default function App() {
     });
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={{
-                    headerShown: false,
-                }}
-            >
-                <Stack.Screen name={Screens.Home} component={HomeScreen} />
-                <Stack.Screen name={Screens.Debug} component={Debug} />
-                <Stack.Screen name={Screens.Settings} component={Settings} />
-                <Stack.Screen
-                    name={Screens.DrinkingLimits}
-                    component={DrinkingLimits}
-                />
-                <Stack.Screen name={Screens.Feedback} component={Feedback} />
-                <Stack.Screen
-                    name={Screens.PrivacyPolicy}
-                    component={PrivacyPolicy}
-                />
-                <Stack.Screen
-                    name={Screens.Session}
-                    component={SessionScreen}
-                />
-                <Stack.Screen name={Screens.Summary} component={Summary} />
-                <Stack.Screen name={Screens.About} component={About} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <React.StrictMode>
+
+            <NavigationContainer>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false,
+                    }}
+                >
+                    <Stack.Screen name={Screens.Home} component={HomeScreen} />
+                    <Stack.Screen name={Screens.Debug} component={Debug} />
+                    <Stack.Screen name={Screens.Settings} component={Settings} />
+                    <Stack.Screen
+                        name={Screens.DrinkingLimits}
+                        component={DrinkingLimits}
+                    />
+                    <Stack.Screen name={Screens.Feedback} component={Feedback} />
+                    <Stack.Screen
+                        name={Screens.PrivacyPolicy}
+                        component={PrivacyPolicy}
+                    />
+                    <Stack.Screen
+                        name={Screens.Session}
+                        component={SessionScreen}
+                    />
+                    <Stack.Screen name={Screens.Summary} component={Summary} />
+                    <Stack.Screen name={Screens.About} component={About} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </React.StrictMode>
     );
 }

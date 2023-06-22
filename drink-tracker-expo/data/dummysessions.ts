@@ -62,7 +62,7 @@ export const session: DrinkingSession = {
 
 export const session2: DrinkingSession = {
     _id: '1235',
-    title: "Ongoing party",
+    title: 'Ongoing party',
     timeStart: new Date('2023-05-25T22:35:35.000Z').getTime(),
     drinks: [
         {

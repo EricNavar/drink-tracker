@@ -116,7 +116,6 @@ export const SessionScreen = (props: SessionScreenProps) => {
         drinkName: string,
         drinkWeight: number
     ) => {
-        console.log('createNewDrink()');
         if (!session) {
             console.log('Could not load session');
             return;
@@ -125,13 +124,15 @@ export const SessionScreen = (props: SessionScreenProps) => {
         while (!isUniqueId(newId)) {
             newId = makeId();
         }
+        console.log('unique id found');
         const newDrink: Drink = {
             _id: newId,
             timeDrank: Number(timeDrank),
             drinkName: drinkName,
             weight: drinkWeight,
         };
-        addNewDrink(session._id, newDrink);
+        const newSession = await addNewDrink(session._id, newDrink);
+        setSession(newSession);
         setNewDrinkModalOpen(false);
     };
 
@@ -144,7 +145,7 @@ export const SessionScreen = (props: SessionScreenProps) => {
 
     return (
         <StyledLayout>
-            {session ?
+            {session ? (
                 <>
                     <Row>
                         <BackButton onPress={() => props.navigation.goBack()} />
@@ -152,12 +153,15 @@ export const SessionScreen = (props: SessionScreenProps) => {
                     </Row>
                     <InnerLayout>
                         <Text style={styles.title}>{session.title}</Text>
-                        <Banner
+                        {/* <Banner
                             actualDrinks={session.drinks.length}
                             expectedDrinks={expectedDrinksCount}
-                        />
+                        /> */}
                         <Row style={{ marginBottom: 20, marginTop: 10 }}>
-                            <BigButton onPress={onPressAddDrink} label="Add drink" />
+                            <BigButton
+                                onPress={onPressAddDrink}
+                                label="Add drink"
+                            />
                             <View style={{ width: 10 }} />
                             <BigButton
                                 onPress={() => redirect(Screens.DrinkingLimits)}
@@ -165,24 +169,24 @@ export const SessionScreen = (props: SessionScreenProps) => {
                             />
                         </Row>
 
-                        {session.drinks.length > 0 ? (
-                            <FlatList
-                                data={session.drinks}
-                                renderItem={({ item, index }) => (
-                                    <DrinkItem
-                                        drink={item}
-                                        openModal={openEditModal}
-                                        index={index}
-                                        onDelete={onDelete}
-                                    />
-                                )}
-                                keyExtractor={(item) => item._id}
-                                // ItemSeparatorComponent={TestComponent}
-                                ItemSeparatorComponent={Divider}
-                            />
-                        ) : (
+                        {/* {session.drinks.length > 0 ? ( */}
+                        <FlatList
+                            data={session.drinks}
+                            renderItem={({ item, index }) => (
+                                <DrinkItem
+                                    drink={item}
+                                    openModal={openEditModal}
+                                    index={index}
+                                    onDelete={onDelete}
+                                />
+                            )}
+                            keyExtractor={(item) => item._id}
+                            // ItemSeparatorComponent={TestComponent}
+                            ItemSeparatorComponent={Divider}
+                        />
+                        {/* ) : (
                             <Text>You haven't drank anything yet.</Text>
-                        )}
+                        )} */}
 
                         <FinishModal
                             open={finishModalOpen}
@@ -205,8 +209,10 @@ export const SessionScreen = (props: SessionScreenProps) => {
                             />
                         )}
                     </InnerLayout>
-                </> : <Text>Loading...</Text>
-            }
+                </>
+            ) : (
+                <Text>Loading...</Text>
+            )}
         </StyledLayout>
     );
 };

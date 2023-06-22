@@ -50,7 +50,7 @@ export enum Rating {
     thumbsUp,
     thumbsDown,
     noRating,
-};
+}
 
 export type FeedbackSubmission = {
     id: string;

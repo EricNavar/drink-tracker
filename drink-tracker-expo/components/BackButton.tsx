@@ -5,7 +5,7 @@ export const BackButton = (props: { onPress: any }) => {
     return (
         <Button
             onPress={props.onPress}
-            style={{ marginBottom: 10 }}
+            style={{ marginBottom: 10, flexBasis: 0 }}
             labelStyle={{ fontSize: 18 }}
             label="Back"
             avoidInnerPadding

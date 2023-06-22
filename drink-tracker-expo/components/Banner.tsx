@@ -47,11 +47,12 @@ const Banner = (props: BannerProps) => {
             // drink difference is 1 or 2
             setTitle('You are ahead of schedule');
             setBody('Slow down there partner!');
+            setColor(Colors.grey10);
         }
     });
 
     return (
-        <BannerCard style={{backgroundColor:color}}>
+        <BannerCard style={{ backgroundColor: color }}>
             <Text text70>{title}</Text>
             <Text>{body}</Text>
         </BannerCard>
