@@ -8,11 +8,22 @@ import {
     inputStyles,
     toastStyles,
 } from '../styling/commonStyles';
-import { DrinkingLimitsProps, NavigationProps, Screens } from '../commonTypes';
-import { getDrinkingLimits, storeDrinkingLimits } from '../api/guestAccountAPI';
+import { NavigationProps } from '../commonTypes';
+import { storeDrinkingLimits } from '../api/guestAccountAPI';
 import { BackButton } from '../components/BackButton';
 
-const DrinkingLimits = (props: NavigationProps) => {
+type DrinkingLimitsProps = {
+    route: {
+        params: {
+            sessionId: string;
+            sessionTitle: string;
+            initialTimeInterval: number;
+            initialTotalDrinksLimit: number;
+        }
+    }
+} & NavigationProps;
+
+const DrinkingLimits = (props: DrinkingLimitsProps) => {
     const [totalDrinkLimit, setTotalDrinksLimit] = React.useState<number>(12);
     const [timeInterval, setTimeInterval] = React.useState<number>(30);
     const [toastVisible, setToastVisible] = React.useState(false);
@@ -26,7 +37,7 @@ const DrinkingLimits = (props: NavigationProps) => {
             setToastText('Time interval must be at least 0');
             setToastVisible(true);
         } else {
-            await storeDrinkingLimits({ totalDrinkLimit, timeInterval });
+            await storeDrinkingLimits(props.route.params.sessionId, timeInterval, totalDrinkLimit);
             setToastText('Saved');
             setToastVisible(true);
             Keyboard.dismiss();
@@ -67,7 +78,7 @@ const DrinkingLimits = (props: NavigationProps) => {
                 <BackButton onPress={onPressBack} />
             </Row>
             <InnerLayout>
-                <Text text50>Set your drinking limits</Text>
+                <Text text60 style={{marginBottom:8}}>Set your drinking limits for this event</Text>
                 {/* I need to put almost every property for TextInput or it doesn't work */}
                 <NumberInput
                     key={'timeInterval'}

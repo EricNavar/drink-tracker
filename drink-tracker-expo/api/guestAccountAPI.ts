@@ -52,7 +52,6 @@ export const getAllSessions = async () => {
 };
 
 export const getSession = async (id: string) => {
-    console.log('looking for session of id', id);
     try {
         const jsonValue = await AsyncStorage.getItem('sessions');
         const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
@@ -76,12 +75,22 @@ export const storeSessionsLocally = async (sessions: DrinkingSession[]) => {
 };
 
 export const storeDrinkingLimits = async (
-    drinkingLimits: DrinkingLimitsProps
+    sessionId: string, timeInterval: number, totalDrinkLimit: number
 ) => {
-    await AsyncStorage.setItem(
-        'drinkingLimits',
-        JSON.stringify(drinkingLimits)
-    );
+    try {
+        const jsonValue = await AsyncStorage.getItem('sessions');
+        const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
+        const newSessions = sessions.map((session: DrinkingSession) =>
+            session._id === sessionId
+                ? Object.assign(session, { timeInterval: timeInterval,  drinkLimit: totalDrinkLimit})
+                : session
+        );
+        console.log(newSessions);
+        await AsyncStorage.setItem('sessions', JSON.stringify(newSessions));
+        return newSessions.filter((session:DrinkingSession)=>session._id===sessionId)[0];
+    } catch (e) {
+        console.log('error');
+    }
 };
 
 export const getDrinkingLimits = async () => {
@@ -102,12 +111,12 @@ export const endSession = async (sessionId: string, timeEnd: number) => {
     try {
         const jsonValue = await AsyncStorage.getItem('sessions');
         const sessions = jsonValue != null ? JSON.parse(jsonValue) : null;
-        sessions.map((session: DrinkingSession) =>
+        const newSessions = sessions.map((session: DrinkingSession) =>
             session._id === sessionId
                 ? Object.assign(session, { timeEnd: timeEnd })
                 : session
         );
-        console.log(sessions);
+        console.log(newSessions);
         // await AsyncStorage.setItem('sessions', sessions);
     } catch (e) {
         console.log('error');
@@ -124,6 +133,7 @@ export const addNewDrink = async (sessionId: string, drink: Drink) => {
                 : session
         );
         await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
+        return sessions.filter((session: DrinkingSession) => session._id === sessionId)[0];
     } catch (e) {
         console.log('error');
     }
@@ -168,7 +178,7 @@ export const deleteDrink = async (sessionId: string, drinkId: string) => {
                 return session._id === sessionId ? deleteDrinkHelper(session, drinkId) : session;
             });
             await AsyncStorage.setItem('sessions', JSON.stringify(newSessions));
-            return sessions.filter((session:DrinkingSession) => session._id === sessionId)[0];
+            return sessions.filter((session: DrinkingSession) => session._id === sessionId)[0];
         }
         else {
             throw new Error('could not parse JSON')

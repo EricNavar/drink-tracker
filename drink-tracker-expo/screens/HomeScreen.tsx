@@ -89,10 +89,6 @@ export const HomeScreen = (props: NavigationProps) => {
                         label="New Session"
                     />
                     <View style={{ width: 10 }} />
-                    <BigButton
-                        onPress={() => redirect(Screens.DrinkingLimits)}
-                        label="Set Limits"
-                    />
                 </Row>
                 <Text text50 style={{ marginTop: 20 }}>
                     Recent

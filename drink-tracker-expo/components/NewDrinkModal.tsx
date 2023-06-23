@@ -73,7 +73,7 @@ const NewDrinkModal = (props: DrinkInputProps) => {
                 fieldStyle={inputStyles.field}
             />
             <DateTimePicker
-                label="time drank"
+                label="Time drank"
                 placeholder="10:35"
                 mode={'time'}
                 value={new Date(timeDrank)}
@@ -104,7 +104,7 @@ const NewDrinkModal = (props: DrinkInputProps) => {
                     marginTop: 12,
                 }}
             >
-                <Button title="Submit" onPress={onSubmit} />
+                <Button title="Add" onPress={onSubmit} />
                 <Button title="Cancel" onPress={closeModal} />
             </View>
         </Dialog>

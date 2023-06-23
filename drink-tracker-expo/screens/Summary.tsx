@@ -35,15 +35,20 @@ const Summary = (props: SummaryProps) => {
         fetchSession();
     }, [props]);
 
-    const getExpectedDrinksCount = () => {
-        return 8; //TODO
+    const calculateExpectedDrinksCount = () => {
+        if (!session) {
+            return -1;
+        }
+        const minutesSinceStart = (Date.now() - session.timeStart) / 1000 / 60;
+        console.log(Math.ceil(minutesSinceStart / session.timeInterval));
+        return Math.ceil(minutesSinceStart / session.timeInterval);
     };
 
     const getMessage = () => {
         if (!session || !session.drinks) {
             return '';
         }
-        const expectedDrinksCount = getExpectedDrinksCount();
+        const expectedDrinksCount = calculateExpectedDrinksCount();
         if (expectedDrinksCount === session.drinks.length) {
             return 'right on schedule';
         }

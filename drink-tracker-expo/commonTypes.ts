@@ -27,7 +27,6 @@ export type NavigationProps = {
 export enum Screens {
     Debug = 'Debug',
     Home = 'Home',
-    DrinkingLimits = 'Drinking Limits',
     Session = 'Session',
     Summary = 'Summary',
     Settings = 'Settings',

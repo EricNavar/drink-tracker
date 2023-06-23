@@ -22,9 +22,8 @@ const Banner = (props: BannerProps) => {
     React.useEffect(() => {
         if (props.actualDrinks === 0) {
             setTitle('Have a good night!');
-            setBody(
-                "It's recommended to start with shots and then move to lighter drinks like beers later"
-            );
+            setBody("");
+            setColor(Colors.grey20);
             return;
         }
         const drinkDifference = props.actualDrinks - props.expectedDrinks;
@@ -32,7 +31,7 @@ const Banner = (props: BannerProps) => {
         if (drinkDifference === 0) {
             setTitle('You are on schedule.');
             setBody('Take a break.');
-            setColor(Colors.yellow1);
+            setColor(Colors.grey20);
         } else if (drinkDifference < 0) {
             setTitle('You are behind schedule.');
             setBody('Feel free to have a drink, but no pressure');
@@ -47,13 +46,15 @@ const Banner = (props: BannerProps) => {
             // drink difference is 1 or 2
             setTitle('You are ahead of schedule');
             setBody('Slow down there partner!');
+            setColor(Colors.orange1);
         }
     });
 
     return (
         <BannerCard style={{backgroundColor:color}}>
+            <Text text50>{props.actualDrinks} drink{props.actualDrinks === 1 ? '' : 's'}</Text>
             <Text text70>{title}</Text>
-            <Text>{body}</Text>
+            {/* <Text>{body}</Text> */}
         </BannerCard>
     );
 };

@@ -55,10 +55,6 @@ export default function App() {
                 <Stack.Screen name={Screens.Home} component={HomeScreen} />
                 <Stack.Screen name={Screens.Debug} component={Debug} />
                 <Stack.Screen name={Screens.Settings} component={Settings} />
-                <Stack.Screen
-                    name={Screens.DrinkingLimits}
-                    component={DrinkingLimits}
-                />
                 <Stack.Screen name={Screens.Feedback} component={Feedback} />
                 <Stack.Screen
                     name={Screens.PrivacyPolicy}
