@@ -34,7 +34,7 @@ const StyledBadge = styled(Badge)`
 type DrinkItemProps = {
     openModal: (index: number) => void;
     index: number;
-    onDelete:(drinkId:string)=>void;
+    onDelete: (drinkId: string) => void;
     drink: Drink;
 };
 

@@ -3,7 +3,11 @@
         "jsx": "react",
         "esModuleInterop": true,
         "noImplicitAny": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": true,
+        "noImplicitReturns": true,
     },
     "extends": "expo/tsconfig.base"
 }

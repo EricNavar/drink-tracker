@@ -57,7 +57,6 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
         };
         editDrink(props.sessionId, props.drink._id);
         closeModal();
-        console.log(newDrink);
     };
 
     const onChangeDrinkWeight = (event: any) => {

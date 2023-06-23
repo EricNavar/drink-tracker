@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import styled from 'styled-components/native';
 import { DrinkItem } from '../components/DrinkItem';
-import { Banner } from '../components/Banner';
 import {
     Drink,
     DrinkingSession,
@@ -137,7 +136,6 @@ export const SessionScreen = (props: SessionScreenProps) => {
         drinkName: string,
         drinkWeight: number
     ) => {
-        console.log('createNewDrink()');
         if (!session) {
             console.log('Could not load session');
             return;
@@ -146,6 +144,7 @@ export const SessionScreen = (props: SessionScreenProps) => {
         while (!isUniqueId(newId)) {
             newId = makeId();
         }
+        console.log('unique id found');
         const newDrink: Drink = {
             _id: newId,
             timeDrank: Number(timeDrank),
@@ -174,7 +173,7 @@ export const SessionScreen = (props: SessionScreenProps) => {
 
     return (
         <StyledLayout>
-            {session ?
+            {session ? (
                 <>
                     <Row>
                         <BackButton onPress={() => props.navigation.goBack()} />
@@ -182,12 +181,15 @@ export const SessionScreen = (props: SessionScreenProps) => {
                     </Row>
                     <InnerLayout>
                         <Text style={styles.title}>{session.title}</Text>
-                        <Banner
+                        {/* <Banner
                             actualDrinks={session.drinks.length}
                             expectedDrinks={expectedDrinksCount}
-                        />
+                        /> */}
                         <Row style={{ marginBottom: 20, marginTop: 10 }}>
-                            <BigButton onPress={onPressAddDrink} label="Add drink" />
+                            <BigButton
+                                onPress={onPressAddDrink}
+                                label="Add drink"
+                            />
                             <View style={{ width: 10 }} />
                             <BigButton
                                 onPress={onPressSetLimits}
@@ -211,7 +213,7 @@ export const SessionScreen = (props: SessionScreenProps) => {
                             />
                         ) : (
                             <Text>You haven't drank anything yet.</Text>
-                        )}
+                        )} */}
 
                         <FinishModal
                             open={finishModalOpen}
@@ -242,8 +244,10 @@ export const SessionScreen = (props: SessionScreenProps) => {
                             />
                         )}
                     </InnerLayout>
-                </> : <Text>Loading...</Text>
-            }
+                </>
+            ) : (
+                <Text>Loading...</Text>
+            )}
         </StyledLayout>
     );
 };

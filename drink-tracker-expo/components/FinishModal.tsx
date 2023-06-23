@@ -5,6 +5,7 @@ import { Button, Dialog } from 'react-native-ui-lib';
 import { modalStyles } from '../styling/commonStyles';
 import { View } from 'react-native';
 
+//Todo: allow this to be a native iOS alert
 export const FinishModal = (
     props: ModalProps & { finishSession: () => void }
 ): React.ReactElement => {
@@ -21,7 +22,6 @@ export const FinishModal = (
         <Dialog
             animationType="slide"
             visible={props.open}
-            open={props.open}
             onDismiss={closeModal}
             height={140}
             overlayBackgroundColor="rgba(0,0,0,.2)"
@@ -38,8 +38,8 @@ export const FinishModal = (
                     marginTop: 12,
                 }}
             >
-                <Button onPress={pressYes} title="Yes" />
-                <Button onPress={closeModal} title="No" />
+                <Button onPress={pressYes} label="Yes" />
+                <Button onPress={closeModal} label="No" />
             </View>
         </Dialog>
     );

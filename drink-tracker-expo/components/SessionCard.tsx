@@ -10,11 +10,11 @@ const CardTitle = styled(Text)({
 });
 
 type SessionCardProps = {
-    onDelete: (_id: string)=>void;
+    onDelete: (_id: string) => void;
     session: DrinkingSession;
 } & NavigationProps;
 
-export const SessionCard = (props:SessionCardProps) => {
+export const SessionCard = (props: SessionCardProps) => {
     const onPressCard = () => {
         // if the session has an end time, then go to the summary screen
         props.navigation.navigate(
