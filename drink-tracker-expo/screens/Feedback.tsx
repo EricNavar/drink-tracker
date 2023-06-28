@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, StatusBar } from 'react-native';
 import { StyledLayout, toastStyles } from '../styling/commonStyles';
 import { Incubator, Text, TextField } from 'react-native-ui-lib';
 
@@ -27,6 +27,10 @@ const Feedback = () => {
 
     return (
         <StyledLayout>
+            <StatusBar
+                animated={true}
+                backgroundColor="#61dafb"
+            />
             <TextField
                 value={feedback}
                 onChangeText={setFeedback}

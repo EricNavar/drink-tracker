@@ -14,6 +14,7 @@ import { BackButton } from '../components/BackButton';
 import { FlatList } from 'react-native-gesture-handler';
 import { getSession } from '../api';
 import { deleteDrink } from '../api/guestAccountAPI';
+import { StatusBar } from 'react-native';
 
 type SummaryProps = {
     route: {
@@ -96,6 +97,10 @@ const Summary = (props: SummaryProps) => {
 
     return (
         <StyledLayout>
+            <StatusBar
+                animated={true}
+                backgroundColor="#61dafb"
+            />
             <Row>
                 <BackButton onPress={onPressBack} />
             </Row>

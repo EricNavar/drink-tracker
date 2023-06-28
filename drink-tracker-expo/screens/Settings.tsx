@@ -9,6 +9,7 @@ import {
 import { ListItem, Text, View, Button, Assets } from 'react-native-ui-lib';
 import { FlatList } from 'react-native-gesture-handler';
 import { BackButton } from '../components/BackButton';
+import { StatusBar } from 'react-native';
 
 const Settings = (props: NavigationProps) => {
     const redirect = (page: string) => {
@@ -36,6 +37,10 @@ const Settings = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
+            <StatusBar
+                animated={true}
+                backgroundColor="#61dafb"
+            />
             <Row>
                 <BackButton onPress={() => props.navigation.goBack()} />
             </Row>

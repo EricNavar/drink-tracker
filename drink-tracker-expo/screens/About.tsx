@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Linking } from 'react-native';
+import { Alert, Button, Linking, StatusBar } from 'react-native';
 import { InnerLayout, Row, StyledLayout } from '../styling/commonStyles';
 import { Text } from 'react-native-ui-lib';
 import { NavigationProps, Screens } from '../commonTypes';
@@ -26,6 +26,10 @@ const About = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
+            <StatusBar
+                animated={true}
+                backgroundColor="#61dafb"
+            />
             <Row>
                 <BackButton onPress={onPressBack} />
             </Row>

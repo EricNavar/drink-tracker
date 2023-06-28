@@ -213,7 +213,7 @@ export const SessionScreen = (props: SessionScreenProps) => {
                             />
                         ) : (
                             <Text>You haven't drank anything yet.</Text>
-                        )} */}
+                        )}
 
                         <FinishModal
                             open={finishModalOpen}

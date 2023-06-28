@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Keyboard } from 'react-native';
+import { Button, Keyboard, StatusBar } from 'react-native';
 import { Incubator, NumberInput, Text } from 'react-native-ui-lib';
 import {
     InnerLayout,
@@ -9,7 +9,7 @@ import {
     toastStyles,
 } from '../styling/commonStyles';
 import { NavigationProps } from '../commonTypes';
-import { storeDrinkingLimits } from '../api/guestAccountAPI';
+import { getDrinkingLimits, storeDrinkingLimits } from '../api/guestAccountAPI';
 import { BackButton } from '../components/BackButton';
 
 type DrinkingLimitsProps = {
@@ -74,6 +74,10 @@ const DrinkingLimits = (props: DrinkingLimitsProps) => {
 
     return (
         <StyledLayout>
+            <StatusBar
+                animated={true}
+                backgroundColor="#61dafb"
+            />
             <Row>
                 <BackButton onPress={onPressBack} />
             </Row>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, StatusBar } from 'react-native';
 import { StyledLayout } from '../styling/commonStyles';
 import { NavigationProps, Screens } from '../commonTypes';
 import { getAllSessions, storeSessionsLocally } from '../api';
@@ -22,6 +22,10 @@ const Debug = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
+            <StatusBar
+                animated={true}
+                backgroundColor="#61dafb"
+            />
             <Button title="store dummy sessions" onPress={storeDummySessions} />
             <Button
                 title="console log all stored sessions"

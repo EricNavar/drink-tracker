@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, StatusBar } from 'react-native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { NewSessionModal } from '../components/NewSessionModal';
 import { SessionCard } from '../components/SessionCard';
@@ -71,6 +71,10 @@ export const HomeScreen = (props: NavigationProps) => {
 
     return (
         <StyledLayout>
+            <StatusBar
+                animated={true}
+                backgroundColor="#61dafb"
+            />
             <Row>
                 <View />
                 <Button

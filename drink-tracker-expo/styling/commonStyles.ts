@@ -16,7 +16,7 @@ export const InnerLayout = styled(View)`
 export const Row = styled.View`
     display: flex;
     flex-direction: row;
-    flex-wrap: none;
+    flex-wrap: nowrap;
     justify-content: space-between;
     width: 100%;
 `;
