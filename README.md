@@ -1,3 +1,7 @@
+# Demo of the app
+
+https://youtu.be/ms6yH7Koqy8?si=yG4P9o9KljCago7g
+
 # Drink Tracker
 
 Drink Tracker is an app that helps you keep track of how many drinks you've had
