@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from 'react-native';
-import { Row, StyledLayout } from '../styling/commonStyles';
+import { Row } from '../styling/commonStyles';
 import { Text } from 'react-native-ui-lib';
-import { NavigationProps, Screens } from '../commonTypes';
+import { NavigationProps } from '../commonTypes';
 import { BackButton } from '../components/BackButton';
+import { Layout } from '../components/Layout';
 
 const PrivacyPolicy = (props: NavigationProps) => {
     const onPressBack = () => {
@@ -11,7 +11,7 @@ const PrivacyPolicy = (props: NavigationProps) => {
     };
 
     return (
-        <StyledLayout>
+        <Layout>
             <Row>
                 <BackButton onPress={onPressBack} />
             </Row>
@@ -19,7 +19,7 @@ const PrivacyPolicy = (props: NavigationProps) => {
                 We don't have access to or distribute your data. No pigs can
                 touch your drinking data 😤
             </Text>
-        </StyledLayout>
+        </Layout>
     );
 };
 

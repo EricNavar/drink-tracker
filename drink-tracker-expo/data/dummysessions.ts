@@ -4,7 +4,7 @@ export const session: DrinkingSession = {
     _id: '1234',
     title: "Blake's birthday party",
     timeInterval: 30,
-    drinkLimit: 8,
+    totalDrinkLimit: 8,
     drinks: [
         {
             _id: 'd1',
@@ -116,7 +116,7 @@ export const session2: DrinkingSession = {
         },
     ],
     timeInterval: 30,
-    drinkLimit: 8,
+    totalDrinkLimit: 8,
 };
 
 export const session3: DrinkingSession = {
@@ -134,7 +134,7 @@ export const session3: DrinkingSession = {
         },
     ],
     timeInterval: 30,
-    drinkLimit: 8,
+    totalDrinkLimit: 8,
 };
 
 export const sessions: DrinkingSession[] = [session, session2, session3];

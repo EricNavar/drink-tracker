@@ -1,11 +1,6 @@
 import styled from 'styled-components/native';
 import { Button } from 'react-native-ui-lib';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-
-export const StyledLayout = styled(SafeAreaView)`
-    height: 100%;
-    background-color: black;
-`;
+import { StyleSheet, View } from 'react-native';
 
 export const InnerLayout = styled(View)`
     margin-left: 20px;

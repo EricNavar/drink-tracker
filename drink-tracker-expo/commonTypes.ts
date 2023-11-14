@@ -5,7 +5,7 @@ export type DrinkingSession = {
     timeEnd?: number;
     drinks: Drink[];
     timeInterval: number;
-    drinkLimit: number;
+    totalDrinkLimit: number;
 };
 
 export type Drink = {

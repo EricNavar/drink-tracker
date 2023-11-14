@@ -8,15 +8,14 @@ import {
     Text,
     TextField,
 } from 'react-native-ui-lib';
-import { editDrink } from '../api';
 import { inputStyles, modalStyles } from '../styling/commonStyles';
-import { getTimeString, getTimeStringFromDate } from '../util';
 
 type EditDrinkModalProps = {
     sessionId: string;
     drink: Drink;
     open: boolean;
     setOpen: any;
+    editDrinkHelper: any;
 };
 
 const EditDrinkModal = (props: EditDrinkModalProps) => {
@@ -40,7 +39,7 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
         }
     }, [props]);
 
-    const onPressSave = () => {
+    const onPressSave = async () => {
         if (!props.drink) return;
         if (drinkWeight < 0) {
             console.log(
@@ -55,7 +54,7 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
             drinkName: drinkName,
             weight: drinkWeight,
         };
-        editDrink(props.sessionId, props.drink._id);
+        await props.editDrinkHelper(props.sessionId, props.drink._id, newDrink);
         closeModal();
     };
 
@@ -64,7 +63,7 @@ const EditDrinkModal = (props: EditDrinkModalProps) => {
     };
 
     const onChangeTime = (event: any) => {
-        console.log(event);
+        setTimeDrank(event);
     };
 
     const closeModal = () => {

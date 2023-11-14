@@ -5,7 +5,6 @@ import {
     Divider,
     InnerLayout,
     Row,
-    StyledLayout,
 } from '../styling/commonStyles';
 import { getTimeRangeString } from '../util';
 import { Text } from 'react-native-ui-lib';
@@ -14,7 +13,7 @@ import { BackButton } from '../components/BackButton';
 import { FlatList } from 'react-native-gesture-handler';
 import { getSession } from '../api';
 import { deleteDrink } from '../api/guestAccountAPI';
-import { StatusBar } from 'react-native';
+import { Layout } from '../components/Layout';
 
 type SummaryProps = {
     route: {
@@ -96,11 +95,7 @@ const Summary = (props: SummaryProps) => {
     };
 
     return (
-        <StyledLayout>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-            />
+        <Layout>
             <Row>
                 <BackButton onPress={onPressBack} />
             </Row>
@@ -146,7 +141,7 @@ const Summary = (props: SummaryProps) => {
                     />
                 )}
             </InnerLayout>
-        </StyledLayout>
+        </Layout>
     );
 };
 

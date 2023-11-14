@@ -1,11 +1,10 @@
 import React from 'react';
 import { Button, Keyboard } from 'react-native';
-import { Dialog, Incubator, NumberInput, Text } from 'react-native-ui-lib';
+import { Dialog, NumberInput, Text } from 'react-native-ui-lib';
 import {
     Row,
     inputStyles,
     modalStyles,
-    toastStyles,
 } from '../styling/commonStyles';
 import { ModalProps } from '../commonTypes';
 
@@ -66,7 +65,7 @@ const DrinkingLimitsModal = (props: DrinkingLimitsModalProps) => {
                 onChangeNumber={onChangeTimeInterval}
             />
             <NumberInput
-                key={'totalDrinksLimit'}
+                key={'totalDrinkLimit'}
                 initialNumber={totalDrinkLimit}
                 label={'How many drinks are you limiting yourself to?'}
                 fractionDigits={2}

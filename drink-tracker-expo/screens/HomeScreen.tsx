@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, StatusBar } from 'react-native';
 import { DrinkingSession, NavigationProps, Screens } from '../commonTypes';
 import { NewSessionModal } from '../components/NewSessionModal';
 import { SessionCard } from '../components/SessionCard';
@@ -8,12 +7,13 @@ import {
     Divider,
     InnerLayout,
     Row,
-    StyledLayout,
 } from '../styling/commonStyles';
 import { Text, View } from 'react-native-ui-lib';
 import { FlatList } from 'react-native-gesture-handler';
 import { addNewSession, deleteSession, getAllSessions } from '../api';
 import { makeId } from '../util';
+import { Layout } from '../components/Layout';
+import { TextButton } from '../components/TextButton';
 
 export const HomeScreen = (props: NavigationProps) => {
     const [sessions, setSessions] = React.useState<DrinkingSession[]>([]);
@@ -42,7 +42,7 @@ export const HomeScreen = (props: NavigationProps) => {
         return sessions.filter((session) => session._id === id).length === 0;
     };
 
-    const createNewSession = async (titleInput: string, timeStart: number) => {
+    const addNewSessionHelper = async (titleInput: string, timeStart: number) => {
         let newId = makeId();
         while (!isUniqueId(newId)) {
             newId = makeId();
@@ -70,16 +70,12 @@ export const HomeScreen = (props: NavigationProps) => {
     };
 
     return (
-        <StyledLayout>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-            />
+        <Layout>
             <Row>
                 <View />
-                <Button
+                <TextButton
                     onPress={() => redirect(Screens.Settings)}
-                    title="Settings"
+                    label="Settings"
                 />
             </Row>
             <InnerLayout>
@@ -114,9 +110,9 @@ export const HomeScreen = (props: NavigationProps) => {
                 <NewSessionModal
                     open={modalVisible}
                     setOpen={setModalVisible}
-                    createNewSession={createNewSession}
+                    createNewSession={addNewSessionHelper}
                 />
             </InnerLayout>
-        </StyledLayout>
+        </Layout>
     );
 };

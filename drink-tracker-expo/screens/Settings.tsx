@@ -4,7 +4,7 @@ import {
     Divider,
     InnerLayout,
     Row,
-    StyledLayout,
+    Layout,
 } from '../styling/commonStyles';
 import { ListItem, Text, View, Button, Assets } from 'react-native-ui-lib';
 import { FlatList } from 'react-native-gesture-handler';
@@ -36,11 +36,7 @@ const Settings = (props: NavigationProps) => {
     ];
 
     return (
-        <StyledLayout>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-            />
+        <Layout>
             <Row>
                 <BackButton onPress={() => props.navigation.goBack()} />
             </Row>
@@ -67,7 +63,7 @@ const Settings = (props: NavigationProps) => {
                     ItemSeparatorComponent={Divider}
                 />
             </InnerLayout>
-        </StyledLayout>
+        </Layout>
     );
 };
 

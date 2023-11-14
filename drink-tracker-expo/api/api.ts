@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Drink, DrinkingSession } from '../commonTypes';
+import { Drink } from '../commonTypes';
 import {
     endSession as endSessionGuest,
     addNewSession as addNewSessionGuest,
@@ -8,6 +8,7 @@ import {
     getSession as getSessionGuest,
     addNewDrink as addNewDrinkGuest,
     deleteSession as deleteSessionGuest,
+    editDrink as editDrinkGuest,
 } from './guestAccountAPI';
 
 const isFullAccount = () => {
@@ -66,8 +67,13 @@ export const getSession = async (id: string) => {
     }
 };
 
-export const editDrink = async (sessionId: string, drinkId: string) => {
-    console.log('hello');
+export const editDrink = async (sessionId: string, drink:Drink) => {
+    if (isFullAccount()) {
+        //TODO
+        return editDrinkGuest(sessionId, drink);
+    } else {
+        return editDrinkGuest(sessionId, drink);
+    }
 };
 
 // returns newly created session

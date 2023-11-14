@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, StatusBar } from 'react-native';
-import { StyledLayout } from '../styling/commonStyles';
+import { Button } from 'react-native';
 import { NavigationProps, Screens } from '../commonTypes';
 import { getAllSessions, storeSessionsLocally } from '../api';
 import { sessions } from '../data/dummysessions';
+import { Layout } from '../components/Layout';
 
 const Debug = (props: NavigationProps) => {
     const storeDummySessions = () => {
@@ -21,11 +21,8 @@ const Debug = (props: NavigationProps) => {
     };
 
     return (
-        <StyledLayout>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-            />
+        <Layout>
+
             <Button title="store dummy sessions" onPress={storeDummySessions} />
             <Button
                 title="console log all stored sessions"
@@ -35,7 +32,7 @@ const Debug = (props: NavigationProps) => {
                 title="Home screen"
                 onPress={() => redirect(Screens.Home)}
             />
-        </StyledLayout>
+        </Layout>
     );
 };
 

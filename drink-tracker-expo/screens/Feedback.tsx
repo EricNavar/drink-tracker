@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, StatusBar } from 'react-native';
-import { StyledLayout, toastStyles } from '../styling/commonStyles';
+import { Button } from 'react-native';
+import { toastStyles } from '../styling/commonStyles';
 import { Incubator, Text, TextField } from 'react-native-ui-lib';
+import { Layout } from '../components/Layout';
 
 const Feedback = () => {
     const [feedback, setFeedback] = React.useState('');
@@ -26,11 +27,7 @@ const Feedback = () => {
     };
 
     return (
-        <StyledLayout>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-            />
+        <Layout>
             <TextField
                 value={feedback}
                 onChangeText={setFeedback}
@@ -49,7 +46,7 @@ const Feedback = () => {
             >
                 <Text>{toastContent}</Text>
             </Toast>
-        </StyledLayout>
+        </Layout>
     );
 };
 

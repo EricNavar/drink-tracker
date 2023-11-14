@@ -1,9 +1,10 @@
 import React from 'react';
-import { Alert, Button, Linking, StatusBar } from 'react-native';
-import { InnerLayout, Row, StyledLayout } from '../styling/commonStyles';
+import { Alert, Button, Linking, View } from 'react-native';
+import { InnerLayout, Row } from '../styling/commonStyles';
 import { Text } from 'react-native-ui-lib';
-import { NavigationProps, Screens } from '../commonTypes';
+import { NavigationProps } from '../commonTypes';
 import { BackButton } from '../components/BackButton';
+import { Layout } from '../components/Layout';
 
 const About = (props: NavigationProps) => {
     const onPressGitHub = async () => {
@@ -25,12 +26,9 @@ const About = (props: NavigationProps) => {
     };
 
     return (
-        <StyledLayout>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-            />
+        <Layout>
             <Row>
+                <View/>
                 <BackButton onPress={onPressBack} />
             </Row>
             <InnerLayout>
@@ -43,7 +41,7 @@ const About = (props: NavigationProps) => {
                 </Text>
                 <Button title="GitHub" onPress={onPressGitHub} />{/*Change this to a link button*/}
             </InnerLayout>
-        </StyledLayout>
+        </Layout>
     );
 };
 

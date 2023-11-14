@@ -1,4 +1,4 @@
-export { DrinkingLimits } from './DrinkingLimits';
+export { DrinkingLimitsScreen } from './DrinkingLimitsScreen';
 export { Feedback } from './Feedback';
 export { HomeScreen } from './HomeScreen';
 export { PrivacyPolicy } from './PrivacyPolicy';

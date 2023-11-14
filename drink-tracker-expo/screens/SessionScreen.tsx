@@ -10,16 +10,16 @@ import {
 } from '../commonTypes';
 import { FinishModal } from '../components/FinishModal';
 import { BigButton, InnerLayout, Row } from '../styling/commonStyles';
-import { StyledLayout } from '../styling/commonStyles';
 import { NewDrinkModal } from '../components/NewDrinkModal';
 import { EditDrinkModal } from '../components/EditDrinkModal';
 import { Text } from 'react-native-ui-lib';
-import { addNewDrink, getSession, endSession as saveSession } from '../api';
+import { addNewDrink, editDrink, getSession, endSession as saveSession } from '../api';
 import { makeId } from '../util';
 import { BackButton } from '../components/BackButton';
 import { FlatList } from 'react-native-gesture-handler';
 import { deleteDrink, storeDrinkingLimits } from '../api/guestAccountAPI';
 import { DrinkingLimitsModal } from '../components/DrinkingLimitsModal';
+import { Layout } from '../components/Layout';
 
 const styles = StyleSheet.create({
     title: {
@@ -44,9 +44,13 @@ type SessionScreenProps = {
 } & NavigationProps;
 
 export const SessionScreen = (props: SessionScreenProps) => {
-    const [session, setSession] = React.useState<DrinkingSession | null>(null);
-    const [expectedDrinksCount, setExpectedDrinksCount] = React.useState(0);
+    const [drinks, setDrinks] = React.useState<Drink[]>([]);
+    const [timeInterval, setTimeInterval] = React.useState(1);
+    const [totalDrinkLimit, setTotalDrinkLimit] = React.useState(1000);
+    // const [expectedDrinksCount, setExpectedDrinksCount] = React.useState(0);
+    const [loading, setLoading] = React.useState(true);
 
+    // state for modals
     const [finishModalOpen, setFinishModalOpen] = React.useState(false);
     const [newDrinkModalOpen, setNewDrinkModalOpen] = React.useState(false);
     const [editDrinkModalOpen, setEditDrinkModalOpen] = React.useState(false);
@@ -54,135 +58,135 @@ export const SessionScreen = (props: SessionScreenProps) => {
     const [selectedDrinkIndex, setSelectedDrinkIndex] = React.useState(-1);
     // TODO: show timer for when I can have another drink
 
-    const calculateExpectedDrinksCount = () => {
-        if (!session) {
-            return -1;
-        }
-        const minutesSinceStart = (Date.now() - session.timeStart) / 1000 / 60;
-        return Math.ceil(minutesSinceStart / session.timeInterval);
-    };
+    // React.useEffect(() => {
+    //     setExpectedDrinksCount(calculateExpectedDrinksCount());
+    // }, [drinks, totalDrinkLimit, timeInterval]);
 
-    React.useEffect(()=>{
-        setExpectedDrinksCount(calculateExpectedDrinksCount());
-    },[session]);
+    let title = '';
+    let timeStart = 0;
+    let timeEnd: number | undefined = 0;
+    let _id = '';
 
     React.useEffect(() => {
         console.log('useEffect()');
         const fetchSession = async () => {
-            const newSession = await getSession(props.route.params.sessionId);
+            const newSession = await getSession(props.route.params.sessionId) as DrinkingSession;
             if (newSession) {
-                setSession(newSession);
+                title = newSession.title;
+                timeStart = newSession.timeStart;
+                timeEnd = newSession.timeEnd;
+                _id = newSession._id;
+                setTotalDrinkLimit(newSession.totalDrinkLimit);
+                setDrinks(newSession.drinks);
+                setTimeInterval(newSession.timeInterval);
+                setLoading(false);
             }
         };
         fetchSession();
     }, [props]);
 
+    // const calculateExpectedDrinksCount = () => {
+    //     const minutesSinceStart = (Date.now() - timeStart) / 1000 / 60;
+    //     return Math.ceil(minutesSinceStart / timeInterval);
+    // };
+
     const onPressSetLimits = () => {
-        if (!session) return;
         // props.navigation.navigate(Screens.DrinkingLimits, {
-        //     sessionId: session._id,
-        //     sessionTitle: session.title,
-        //     initialTimeInterval: session.timeInterval,
-        //     initialTotalDrinksLimit: session.drinkLimit,
+        //     sessionId: _id,
+        //     sessionTitle: title,
+        //     initialTimeInterval: timeInterval,
+        //     initialTotalDrinksLimit: drinkLimit,
         // });
         setLimitsModalOpen(true);
-    };
-
-    const openEditModal = (index: number) => {
-        if (session) {
-            setSelectedDrinkIndex(index);
-            setEditDrinkModalOpen(true);
-        }
-    };
-
-    const getSelectedDrink = () => {
-        if (!session || selectedDrinkIndex == -1) {
-            return null;
-        }
-        return session.drinks[selectedDrinkIndex];
-    };
-
-    const selectedDrink = getSelectedDrink();
-
-    const isUniqueId = (id: string) => {
-        return (
-            session &&
-            session.drinks.filter((drink) => drink._id === id).length === 0
-        );
     };
 
     const onPressFinish = () => {
         setFinishModalOpen(true);
     };
 
-    const finishSession = () => {
-        if (session) {
-            const timeEnd =
-                session.drinks.length > 0
-                    ? session.drinks[session.drinks.length - 1].timeDrank
-                    : Date.now();
-            session.timeEnd = timeEnd;
-            saveSession(session._id, timeEnd);
-        }
-        props.navigation.navigate(Screens.Summary, { sessionId: session?._id });
-    };
-
     const onPressAddDrink = () => {
         setNewDrinkModalOpen(true);
     };
 
-    const createNewDrink = async (
+    const openEditModal = (index: number) => {
+        setSelectedDrinkIndex(index);
+        setEditDrinkModalOpen(true);
+    };
+
+    const getSelectedDrink = () => {
+        if (selectedDrinkIndex == -1) {
+            return null;
+        }
+        return drinks[selectedDrinkIndex];
+    };
+
+    const selectedDrink = getSelectedDrink();
+
+    const isUniqueId = (id: string) => {
+        return (
+            drinks.filter((drink) => drink._id === id).length === 0
+        );
+    };
+
+    const finishSession = () => {
+        const newTimeEnd =
+            drinks.length > 0
+                ? drinks[drinks.length - 1].timeDrank
+                : Date.now();
+        timeEnd = timeEnd;
+        saveSession(_id, newTimeEnd);
+        props.navigation.navigate(Screens.Summary, { sessionId: _id });
+    };
+
+    const addNewDrinkHelper = async (
         timeDrank: number,
         drinkName: string,
         drinkWeight: number
     ) => {
-        if (!session) {
-            console.log('Could not load session');
-            return;
-        }
         let newId = makeId();
         while (!isUniqueId(newId)) {
             newId = makeId();
         }
-        console.log('unique id found');
         const newDrink: Drink = {
             _id: newId,
             timeDrank: Number(timeDrank),
             drinkName: drinkName,
             weight: drinkWeight,
         };
-        const newSession = await addNewDrink(session._id, newDrink);
-        setSession(newSession);
+        const newDrinks = await addNewDrink(_id, newDrink);
+        setDrinks(newDrinks);
         setNewDrinkModalOpen(false);
     };
 
-    const onDelete = async (drinkId: string) => {
-        if (session) {
-            const newSession = await deleteDrink(session?._id, drinkId);
-            setSession(newSession);
-        }
+    const editDrinkHelper = async (editedDrink: Drink) => {
+        await editDrink(_id, editedDrink);
+        const newDrinks = drinks.map((drink: Drink) => drink._id === editedDrink._id ? editedDrink : drink);
+        setDrinks(newDrinks);
     };
 
-    const setDrinkingLimits = async (timeInterval:number, totalDrinkLimit:number) => {
-        if (!session) return;
-        const newSession = await storeDrinkingLimits(session._id, timeInterval, totalDrinkLimit);
-        console.log('newSession');
-        console.log(newSession);
-        setSession(newSession);
+    const onDelete = async (drinkId: string) => {
+        const newDrinks = await deleteDrink(_id, drinkId);
+        setDrinks(newDrinks);
+    };
+
+    const setDrinkingLimits = async (timeInterval: number, totalDrinkLimit: number) => {
+        const { newTotalDrinkLimit, newTimeInterval } = await storeDrinkingLimits(_id, timeInterval, totalDrinkLimit);
+        setTimeInterval(newTimeInterval);
+        setTotalDrinkLimit(newTotalDrinkLimit);
     };
 
     return (
-        <StyledLayout>
-            {session ? (
+        <Layout>
+            {!loading ? (
                 <>
                     <Row>
                         <BackButton onPress={() => props.navigation.goBack()} />
                         <Button onPress={onPressFinish} title="Finish" />
                     </Row>
                     <InnerLayout>
-                        <Text style={styles.title}>{session.title}</Text>
+                        <Text style={styles.title}>{title}</Text>
                         {/* <Banner
-                            actualDrinks={session.drinks.length}
+                            actualDrinks={drinks.length}
                             expectedDrinks={expectedDrinksCount}
                         /> */}
                         <Row style={{ marginBottom: 20, marginTop: 10 }}>
@@ -197,9 +201,9 @@ export const SessionScreen = (props: SessionScreenProps) => {
                             />
                         </Row>
 
-                        {session.drinks && session.drinks.length > 0 ? (
+                        {drinks.length > 0 ? (
                             <FlatList
-                                data={session.drinks}
+                                data={drinks}
                                 renderItem={({ item, index }) => (
                                     <DrinkItem
                                         drink={item}
@@ -223,24 +227,25 @@ export const SessionScreen = (props: SessionScreenProps) => {
                         <NewDrinkModal
                             open={newDrinkModalOpen}
                             setOpen={setNewDrinkModalOpen}
-                            createNewDrink={createNewDrink}
-                            drinkNumber={session.drinks.length + 1}
-                            sessionId={session._id}
+                            createNewDrink={addNewDrinkHelper}
+                            drinkNumber={drinks.length + 1}
+                            sessionId={_id}
                         />
                         <DrinkingLimitsModal
                             open={limitsModalOpen}
                             setOpen={setLimitsModalOpen}
-                            sessionId={session._id}
+                            sessionId={_id}
                             setDrinkingLimits={setDrinkingLimits}
-                            initialTimeInterval={session.timeInterval}
-                            initialTotalDrinksLimit={session.drinkLimit}
+                            initialTimeInterval={timeInterval}
+                            initialTotalDrinksLimit={totalDrinkLimit}
                         />
                         {selectedDrink && (
                             <EditDrinkModal
                                 open={editDrinkModalOpen}
                                 setOpen={setEditDrinkModalOpen}
                                 drink={selectedDrink}
-                                sessionId={session._id}
+                                sessionId={_id}
+                                editDrinkHelper={editDrinkHelper}
                             />
                         )}
                     </InnerLayout>
@@ -248,6 +253,6 @@ export const SessionScreen = (props: SessionScreenProps) => {
             ) : (
                 <Text>Loading...</Text>
             )}
-        </StyledLayout>
+        </Layout>
     );
 };

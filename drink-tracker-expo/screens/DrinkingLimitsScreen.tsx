@@ -1,16 +1,16 @@
 import React from 'react';
-import { Button, Keyboard, StatusBar } from 'react-native';
+import { Button, Keyboard, View } from 'react-native';
 import { Incubator, NumberInput, Text } from 'react-native-ui-lib';
 import {
     InnerLayout,
     Row,
-    StyledLayout,
     inputStyles,
     toastStyles,
 } from '../styling/commonStyles';
 import { NavigationProps } from '../commonTypes';
 import { getDrinkingLimits, storeDrinkingLimits } from '../api/guestAccountAPI';
 import { BackButton } from '../components/BackButton';
+import { Layout } from '../components/Layout';
 
 type DrinkingLimitsProps = {
     route: {
@@ -23,7 +23,7 @@ type DrinkingLimitsProps = {
     }
 } & NavigationProps;
 
-const DrinkingLimits = (props: DrinkingLimitsProps) => {
+const DrinkingLimitsScreen = (props: DrinkingLimitsProps) => {
     const [totalDrinkLimit, setTotalDrinksLimit] = React.useState<number>(12);
     const [timeInterval, setTimeInterval] = React.useState<number>(30);
     const [toastVisible, setToastVisible] = React.useState(false);
@@ -73,12 +73,9 @@ const DrinkingLimits = (props: DrinkingLimitsProps) => {
     const { Toast } = Incubator;
 
     return (
-        <StyledLayout>
-            <StatusBar
-                animated={true}
-                backgroundColor="#61dafb"
-            />
+        <Layout>
             <Row>
+                <View/>
                 <BackButton onPress={onPressBack} />
             </Row>
             <InnerLayout>
@@ -100,7 +97,7 @@ const DrinkingLimits = (props: DrinkingLimitsProps) => {
                     onChangeNumber={onChangeTimeInterval}
                 />
                 <NumberInput
-                    key={'totalDrinksLimit'}
+                    key={'totalDrinkLimit'}
                     initialNumber={totalDrinkLimit}
                     label={'How many drinks are you limiting yourself to?'}
                     fractionDigits={2}
@@ -128,8 +125,8 @@ const DrinkingLimits = (props: DrinkingLimitsProps) => {
                 </Toast>
                 <Button title="Save" onPress={onPressSave} />
             </InnerLayout>
-        </StyledLayout>
+        </Layout>
     );
 };
 
-export { DrinkingLimits };
+export { DrinkingLimitsScreen };
